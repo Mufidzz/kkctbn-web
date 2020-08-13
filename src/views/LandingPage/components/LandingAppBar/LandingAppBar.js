@@ -10,7 +10,7 @@ import useScrollTrigger from "@material-ui/core/useScrollTrigger";
 
 const useStyles = makeStyles((theme) => ({
     root : {
-        padding : theme.spacing(3)
+        padding : theme.spacing(2)
     },
 }));
 

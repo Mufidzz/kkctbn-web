@@ -34,7 +34,6 @@ const LandingPage = () => {
         <Page title={"KKCTBN 2020"}>
             <LandingAppBar/>
             <Landing/>
-            {/*<Landing/>*/}
         </Page>
     )
 }
