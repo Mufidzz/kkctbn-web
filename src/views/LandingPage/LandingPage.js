@@ -32,7 +32,7 @@ const LandingPage = () => {
     const classes = useStyles();
     return (
         <Page title={"KKCTBN 2020"}>
-            {/*<LandingAppBar/>*/}
+            <LandingAppBar/>
             <Landing/>
         </Page>
     )

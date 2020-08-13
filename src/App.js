@@ -8,6 +8,7 @@ import "date-fns"
 import DateFnsUtils from "@date-io/date-fns";
 import routes from "./routes";
 import './assets/scss/index.scss';
+import CssBaseline from "@material-ui/core/CssBaseline";
 
 const history = createBrowserHistory();
 
@@ -16,6 +17,7 @@ const App = () => {
         <Suspense fallback={<LinearProgress/>}>
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <Router history={history}>
+                    <CssBaseline/>
                     {renderRoutes(routes)}
                 </Router>
             </MuiPickersUtilsProvider>
