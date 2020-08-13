@@ -1,1 +1,1 @@
-export {default as ButtonRed} from './ButtonRed'
+export {default as Page} from './Page'
