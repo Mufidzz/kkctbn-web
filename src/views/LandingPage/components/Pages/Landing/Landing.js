@@ -17,7 +17,8 @@ const useStyles = makeStyles((theme) => ({
         display: "flex",
         alignItems: "center",
         color: "#fff",
-        fontsize: "4rem",
+        fontsize: 12,
+        fontFamily: "montserrat"
     }
 }))
 

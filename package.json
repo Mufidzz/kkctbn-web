@@ -15,6 +15,7 @@
     "chart.js": "^2.9.3",
     "clsx": "^1.1.1",
     "date-fns": "^2.14.0",
+    "fontsource-montserrat": "^3.0.5",
     "node-sass": "^4.14.1",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
