@@ -14,6 +14,7 @@ import Container from '@material-ui/core/Container';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
+import logokcctbn from './Vector.png';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -39,13 +40,11 @@ const useStyles = makeStyles((theme) => ({
     minWidth: 275,
   },
   cards2: {
-  	borderRadius: '5%',
-		marginTop: '10%',  
-		marginBottom: '5%',  
-  	marginLeft: '33%',
+		margin: 'auto',  
   	display: 'inline-block',
-    width: 100,
-    backgroundColor:'red'
+  	alignItems:"center",
+  	justifyContent: 'center',
+    width: '100%',
   },
   title: {
     fontSize: 14,
@@ -58,10 +57,12 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor:'white',
   },
   avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+    margin: 'auto',
+    justifyContent: 'center',
+    alignItems:"center",
   },
   form: {
+		borderRadius: '5%',
     width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(1),
   },
@@ -77,7 +78,7 @@ const LoginPage = () => {
     <Box className={classes.root}>
     <Card className={classes.cards}>
 			<Card className={classes.cards2}>
-			mau diisi logo
+<img src={logokcctbn} className={classes.avatar}/>
     	</Card>
         <Container component="main" maxWidth="xs">
       <CssBaseline />
