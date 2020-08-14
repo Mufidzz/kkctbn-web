@@ -23,7 +23,7 @@ const LandingPage = () => {
             <LandingAppBar/>
             <Landing/>
             <Telkomsel/>
-            {/*<About/>*/}
+            <About/>
             {/*<News/>*/}
             {/*<Box p={2}/>*/}
             {/*<Competition/>*/}

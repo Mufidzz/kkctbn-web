@@ -23,15 +23,19 @@ const useStyles = makeStyles((theme) => ({
     },
     roundedButton: {
         background: "rgba(215, 44, 44, 0.76)",
+        borderRadius: 9999999999,
         color: "#FFFFFF",
-        marginTop: 20
+        marginTop: theme.spacing(2),
+        "&:hover" : {
+            background: "rgba(215, 44, 44, 1)",
+        }
     },
     escapeTop : {
-        marginTop : 150 + theme.spacing(3)
+        marginTop : 60 + theme.spacing(3)
     },
     counter : {
-        fontSize : "10em",
-        color:"rgba(255,255,255,0.5) !important"
+        fontSize : "8rem",
+        color:"rgba(255,255,255,0.4) !important"
     }
 }))
 
@@ -43,33 +47,34 @@ const Landing = props => {
         <Fragment>
             <Grid container className={clsx(classes.root)} justify={"center"}>
                 <Grid item container md={11} justify={"center"} className={classes.escapeTop}>
-                    <Grid item container direction={"column"} md={12} alignItems={"flex-start"}>
+                    <Typography variant="h1" className={classes.counter} style={{position: "absolute", bottom: 10, right: 15}}>
+                        <b>30D 20H <br/> 60M 59S</b>
+                    </Typography>
+                    <Grid item container direction={"row"} md={12} alignItems={"flex-start"}>
                         <Grid item md={12}>
-                            <Typography variant="h2">
+                            <Typography variant="h1">
                                 <b>Selamat Datang</b>
                             </Typography>
                             <Typography variant="h2" style={{fontWeight: "400"}}>
                                 KKCTBN 2020
                             </Typography>
                         </Grid>
-                        <Grid item md={6}>
-                            <Typography variant="caption">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque erat sapien,
-                                hendrerit
-                                vitae urna et, iaculis tincidunt justo. Praesent blandit lacus eu nulla pretium, et
-                                tempus
-                                tellus interdum
-                            </Typography>
+                        <Grid item md={12}>
+                            <Grid item md={6}>
+                                <Typography variant="caption">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque erat sapien,
+                                    hendrerit
+                                    vitae urna et, iaculis tincidunt justo. Praesent blandit lacus eu nulla pretium, et
+                                    tempus
+                                    tellus interdum
+                                </Typography>
+                            </Grid>
                         </Grid>
-                        <Grid item md={6}>
-                            <Button size='large' variant="contained" className={classes.roundedButton}
-                            >
-                                Daftar
+                        <Grid item md={3}>
+                            <Button fullWidth variant="contained" className={classes.roundedButton}>
+                                <Typography variant={"button"}> Daftar </Typography>
                             </Button>
                         </Grid>
-                        <Typography variant="h1" className={classes.counter}>
-                            <b>30D 20H 60M</b>
-                        </Typography>
                     </Grid>
                 </Grid>
             </Grid>
