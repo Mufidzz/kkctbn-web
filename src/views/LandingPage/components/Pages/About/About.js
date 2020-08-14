@@ -29,7 +29,8 @@ const useStyles = makeStyles((theme) => ({
         color : "#CF2424"
     },
     overlayText : {
-        color : "rgba(255, 0, 0,.1)"
+        color : "rgba(255, 0, 0,.1)",
+        userSelect : "none"
     }
 }));
 
@@ -38,9 +39,9 @@ const About = props => {
 
     return (
         <Fragment>
-            <Grid container className={classes.root} justify={"center"}>
+            <Grid container className={classes.root} justify={"center"} spacing={1}>
                 <Grid item container md={10}>
-                    <Grid item container className={classes.circleContainer} justify={"center"} md={4}>
+                    <Grid item container className={classes.circleContainer} justify={"center"} alignItems={"center"} alignContent={"center"} md={4}>
                         <div className={clsx(classes.circle, classes.circleBase)}>
                             <Grid container alignItems={"center"} justify={"center"} style={{height : "100%"}}>
                                 <img src={colorLogo} height={160} alt="KKCTBN Logo"/>
@@ -58,28 +59,6 @@ const About = props => {
             </Grid>
         </Fragment>
 
-        // <Grid container justify={"space-around"}>
-        //     <Grid item container justify={"space-around"} alignContent={"center"} alignItems={"center"} md={10} xs={10}>
-        //         <Grid item xs={12} sm={6} md={6}>
-        //             <img src={gambarkctbn}/>
-        //         </Grid>
-        //         <Grid item xs={12} sm={6} md={6}>
-        //             <Typography variant="h5" component="h2">
-        //                 Apa Itu
-        //             </Typography>
-        //             <Typography variant="h3" component="h2" style={{color: "#CF2424"}}>
-        //                 KKCTBN
-        //             </Typography>
-        //             <Typography variant="subtitle2" color="textSecondary" component="p">
-        //                 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-        //                 the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
-        //                 of type and scrambled it to make a type specimen book. It has survived not only five centuries,
-        //                 but also the leap into electronic
-        //             </Typography>
-        //
-        //         </Grid>
-        //     </Grid>
-        // </Grid>
     )
 
 }
