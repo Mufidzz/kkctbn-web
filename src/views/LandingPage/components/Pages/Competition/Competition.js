@@ -14,7 +14,6 @@ import competition from './competition.png';
 const useStyles = makeStyles((theme) => ({
     card: {
         maxWidth: "100%",
-        padding: theme.spacing(2),
         textAlign: 'center',
     },
     media: {
