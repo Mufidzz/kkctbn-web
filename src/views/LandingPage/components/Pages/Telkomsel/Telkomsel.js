@@ -2,7 +2,7 @@ import React from 'react'
 import {makeStyles} from "@material-ui/core/styles";
 import telkomsel from './telkomsel.png';
 import Typography from "@material-ui/core/Typography";
-import logo from "../../LandingAppBar/logo_kctbn.png";
+import logo from "../../../../../assets/images/logo-wh.png";
 import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles((theme) => ({
