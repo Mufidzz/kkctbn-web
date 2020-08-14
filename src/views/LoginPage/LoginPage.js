@@ -14,6 +14,7 @@ import Container from '@material-ui/core/Container';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
+import Particles from 'react-particles-js';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -77,7 +78,7 @@ const LoginPage = () => {
     <Box className={classes.root}>
     <Card className={classes.cards}>
 			<Card className={classes.cards2}>
-			COK
+			ini mau diisi logo
     	</Card>
         <Container component="main" maxWidth="xs">
       <CssBaseline />
