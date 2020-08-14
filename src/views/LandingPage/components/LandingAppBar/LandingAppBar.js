@@ -43,7 +43,7 @@ const LandingAppBar = props => {
                                 <Typography style={{color: ElevationTrigger ? "#000000" : "#FFFFFF"}} variant="h6" color="primary">
                                     Competition
                                 </Typography>
-                                <Typography style={{color: ElevationTrigger ? "#000000" : "#FFFFFF"}} variant="h2" color="primary">
+                                <Typography style={{color: ElevationTrigger ? "#000000" : "#FF000"}} variant="h2" color="primary">
                                     <img src={logo}/>
                                 </Typography>
                                 <Typography style={{color: ElevationTrigger ? "#000000" : "#FFFFFF"}} variant="h6" color="primary">

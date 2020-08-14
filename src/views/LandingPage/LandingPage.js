@@ -23,9 +23,7 @@ const LandingPage = () => {
             <LandingAppBar/>
             <Landing/>
             <Telkomsel/>
-                <Box p={2} />
                 <About/>
-                <Box p={2} />
                 <News/>
                 <Box p={2} />
                 <Competition/>

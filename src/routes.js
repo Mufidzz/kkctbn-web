@@ -15,6 +15,11 @@ const routes = [
         path: "/register",
         exact: true,
         component : lazy(() => import("./views/RegisPage"))
+    },
+    {
+        path: "/competition",
+        exact: true,
+        component : lazy(() => import("./views/RegisPage"))
     }
 ]
 

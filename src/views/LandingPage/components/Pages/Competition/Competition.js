@@ -23,22 +23,29 @@ const useStyles = makeStyles((theme) => ({
     konten: {
         height: 80,
         backgroundColor: "#FF6C6C",
+    },
+    header: {
+        marginTop: 50,
+        marginBottom: 50
     }
 }))
+
 
 const Competition = props => {
     //Variable
     const classes = useStyles();
 
+
+
     return (
         <Fragment>
             <Box display="flex" justifyContent="center">
-                <Typography variant="h3" style={{color: "#CF2424"}}>
-                    Competition
+                <Typography className={classes.header} variant="h3" fontWeight align='center' style={{color: "#CF2424"}}>
+                        Competition
                 </Typography>
             </Box>
             <Grid container maxWidth="sm" container justify={"space-around"}>
-                <Grid item xs={6} sm={3} md={3}>
+                <Grid item xs={12}  md={3}>
                     <Card className={classes.card}>
                         <CardActionArea>
                             <CardContent>
@@ -55,7 +62,7 @@ const Competition = props => {
                         </CardActionArea>
                     </Card>
                 </Grid>
-                <Grid item xs={6} sm={3} md={3}>
+                <Grid item xs={12}  md={3}>
                     <Card className={classes.card}>
                         <CardActionArea>
                             <CardContent>
@@ -72,7 +79,7 @@ const Competition = props => {
                         </CardActionArea>
                     </Card>
                 </Grid>
-                <Grid item xs={6} sm={3} md={3}>
+                <Grid item xs={12}  md={3}>
                     <Card className={classes.card}>
                         <CardActionArea>
                             <CardContent>

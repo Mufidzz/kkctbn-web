@@ -6,6 +6,9 @@ import logo from "../../LandingAppBar/logo_kctbn.png";
 import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles((theme) => ({
+    sponsor: {
+        backgroundColor: '#DADADA'
+    }
 }))
 
 const Telkomsel = props => {
@@ -13,10 +16,9 @@ const Telkomsel = props => {
     const classes = useStyles();
 
     return (
-        <Grid container justify={"space-around"}>
-            <Grid item container justify={"space-around"} alignContent={"center"} alignItems={"center"} md={10} xs={10}>
+        <Grid className={classes.sponsor} container justify={"space-around"}>
+            <Grid  item container justify={"space-around"} md={9} xs={12}>
                 <Typography>
-
                     <img src={telkomsel}/>
                 </Typography>
                 <Typography>
@@ -24,7 +26,6 @@ const Telkomsel = props => {
                     <img src={telkomsel}/>
                 </Typography>
                 <Typography>
-
                     <img src={telkomsel}/>
                 </Typography>
             </Grid>

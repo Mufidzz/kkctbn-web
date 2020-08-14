@@ -10,16 +10,30 @@ import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import berita from './berita.png';
+import Paper from "@material-ui/core/Paper";
 
 const useStyles = makeStyles((theme) => ({
     card: {
         maxWidth: "100%",
         padding: theme.spacing(2),
-        textAlign: 'center',
+        // textAlign: 'center',
     },
     media: {
         height: 240
     },
+    header: {
+        marginTop: 50,
+        marginBottom: 50,
+    },
+    label: {
+        padding: 7,
+        fontSize: 10,
+        backgroundColor: '#45aef5',
+        color: '#fff'
+    },
+    img: {
+        width: '100%'
+    }
 }))
 
 const News = props => {
@@ -29,98 +43,126 @@ const News = props => {
     return (
         <Fragment>
             <Box display="flex" justifyContent="center">
-                <Typography variant="h3" style={{color: "#CF2424"}}>
-                    BERITA KKCTBN
+                <Typography className={classes.header} variant="h2" style={{color: "#CF2424"}}>
+                    Berita KKCTBN
                 </Typography>
             </Box>
             <Grid container maxWidth="sm" container justify={"space-around"}>
                 <Grid item xs={6} sm={3} md={3}>
                     <Card className={classes.card}>
-                        <CardActionArea>
-                            <CardContent>
-                                <img src={berita}/>
-                            </CardContent>
-                            <CardContent>
-                                <Grid container justify={"space-around"}>
-                                    <Button variant="contained" color="primary" >
+                        <CardContent>
+                            <img src={berita} className={classes.img}/>
+                        </CardContent>
+                        <CardContent>
+                            <Grid container justify={"flex-start"} spacing={2}>
+                                <Grid item>
+                                    <Paper square={false} className={classes.label}>
                                         Category 1
-                                    </Button>
-                                    <Button variant="contained" color="secondary">
-                                        Category 2
-                                    </Button>
+                                    </Paper>
                                 </Grid>
+                                <Grid item>
+                                    <Paper square={false} className={classes.label}>
+                                        Category 1
+                                    </Paper>
+                                </Grid>
+                                <Grid item>
+                                    <Paper square={false} className={classes.label}>
+                                        Category 1
+                                    </Paper>
+                                </Grid>
+                            </Grid>
+                            <CardActionArea>
                                 <Typography gutterBottom variant="h5" component="h2">
                                     Lorem Ipsum is simply dummy
                                 </Typography>
-                                <Typography variant="subtitle2" color="textSecondary" component="p">
-                                    Oleh Admin, 13 Agustus 2020
-                                </Typography>
-                                <Typography variant="body2" color="textSecondary" component="p">
-                                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                                    when an unknown...
-                                </Typography>
-                            </CardContent>
-                        </CardActionArea>
+                            </CardActionArea>
+                            <Typography variant="subtitle2" color="textSecondary" component="p">
+                                Oleh Admin, 13 Agustus 2020
+                            </Typography>
+                            <Typography variant="body2" color="textSecondary" component="p">
+                                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+                                when an unknown...
+                            </Typography>
+                        </CardContent>
                     </Card>
                 </Grid>
                 <Grid item xs={6} sm={3} md={3}>
                     <Card className={classes.card}>
-                        <CardActionArea>
-                            <CardContent>
-                                <img src={berita}/>
-                            </CardContent>
-                            <CardContent>
-                                <Grid container justify={"space-around"}>
-                                    <Button variant="contained" color="primary" >
+                        <CardContent>
+                            <img src={berita} className={classes.img}/>
+                        </CardContent>
+                        <CardContent>
+                            <Grid container justify={"flex-start"} spacing={2}>
+                                <Grid item>
+                                    <Paper square={false} className={classes.label}>
                                         Category 1
-                                    </Button>
-                                    <Button variant="contained" color="secondary">
-                                        Category 2
-                                    </Button>
+                                    </Paper>
                                 </Grid>
+                                <Grid item>
+                                    <Paper square={false} className={classes.label}>
+                                        Category 1
+                                    </Paper>
+                                </Grid>
+                                <Grid item>
+                                    <Paper square={false} className={classes.label}>
+                                        Category 1
+                                    </Paper>
+                                </Grid>
+                            </Grid>
+                            <CardActionArea>
                                 <Typography gutterBottom variant="h5" component="h2">
                                     Lorem Ipsum is simply dummy
                                 </Typography>
-                                <Typography variant="subtitle2" color="textSecondary" component="p">
-                                    Oleh Admin, 13 Agustus 2020
-                                </Typography>
-                                <Typography variant="body2" color="textSecondary" component="p">
-                                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                                    when an unknown...
-                                </Typography>
-                            </CardContent>
-                        </CardActionArea>
+                            </CardActionArea>
+                            <Typography variant="subtitle2" color="textSecondary" component="p">
+                                Oleh Admin, 13 Agustus 2020
+                            </Typography>
+                            <Typography variant="body2" color="textSecondary" component="p">
+                                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+                                when an unknown...
+                            </Typography>
+                        </CardContent>
                     </Card>
                 </Grid>
                 <Grid item xs={6} sm={3} md={3}>
                     <Card className={classes.card}>
-                        <CardActionArea>
-                            <CardContent>
-                                <img src={berita}/>
-                            </CardContent>
-                            <CardContent>
-                                <Grid container justify={"space-around"}>
-                                    <Button variant="contained" color="primary" >
+                        <CardContent>
+                            <img src={berita} className={classes.img}/>
+                        </CardContent>
+                        <CardContent>
+                            <Grid container justify={"flex-start"} spacing={2}>
+                                <Grid item>
+                                    <Paper square={false} className={classes.label}>
                                         Category 1
-                                    </Button>
-                                    <Button variant="contained" color="secondary">
-                                        Category 2
-                                    </Button>
+                                    </Paper>
                                 </Grid>
+                                <Grid item>
+                                    <Paper square={false} className={classes.label}>
+                                        Category 1
+                                    </Paper>
+                                </Grid>
+                                <Grid item>
+                                    <Paper square={false} className={classes.label}>
+                                        Category 1
+                                    </Paper>
+                                </Grid>
+                            </Grid>
+                            <CardActionArea>
                                 <Typography gutterBottom variant="h5" component="h2">
                                     Lorem Ipsum is simply dummy
                                 </Typography>
-                                <Typography variant="subtitle2" color="textSecondary" component="p">
-                                    Oleh Admin, 13 Agustus 2020
-                                </Typography>
-                                <Typography variant="body2" color="textSecondary" component="p">
-                                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                                    when an unknown...
-                                </Typography>
-                            </CardContent>
-                        </CardActionArea>
+                            </CardActionArea>
+                            <Typography variant="subtitle2" color="textSecondary" component="p">
+                                Oleh Admin, 13 Agustus 2020
+                            </Typography>
+                            <Typography variant="body2" color="textSecondary" component="p">
+                                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+                                when an unknown...
+                            </Typography>
+                        </CardContent>
                     </Card>
                 </Grid>
+
             </Grid>
         </Fragment>
     )
