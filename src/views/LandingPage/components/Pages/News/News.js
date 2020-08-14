@@ -9,9 +9,17 @@ import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
 import makeStyles from "@material-ui/core/styles/makeStyles";
+import berita from './berita.png';
 
 const useStyles = makeStyles((theme) => ({
-
+    card: {
+        maxWidth: "100%",
+        padding: theme.spacing(2),
+        textAlign: 'center',
+    },
+    media: {
+        height: 240
+    },
 }))
 
 const News = props => {
@@ -20,27 +28,27 @@ const News = props => {
 
     return (
         <Fragment>
-            <Box display="flex" justifyContent="center" className={classes.blogTitle}>
-                <Typography variant="h3">
+            <Box display="flex" justifyContent="center">
+                <Typography variant="h3" style={{color: "#CF2424"}}>
                     BERITA KKCTBN
                 </Typography>
             </Box>
-            <Grid container spacing={3}>
-                <Grid item xs={12} sm={6} md={4}>
+            <Grid container maxWidth="sm" container justify={"space-around"}>
+                <Grid item xs={6} sm={3} md={3}>
                     <Card className={classes.card}>
                         <CardActionArea>
-                            <CardMedia
-                                className={classes.media}
-                                image="https://tiems92.files.wordpress.com/2010/10/gkb-1.jpg"
-                                title="kategori 1"
-                            />
                             <CardContent>
-                                <Button variant="contained" color="primary">
-                                    Category 1
-                                </Button>
-                                <Button variant="contained" color="secondary">
-                                    Category 2
-                                </Button>
+                                <img src={berita}/>
+                            </CardContent>
+                            <CardContent>
+                                <Grid container justify={"space-around"}>
+                                    <Button variant="contained" color="primary" >
+                                        Category 1
+                                    </Button>
+                                    <Button variant="contained" color="secondary">
+                                        Category 2
+                                    </Button>
+                                </Grid>
                                 <Typography gutterBottom variant="h5" component="h2">
                                     Lorem Ipsum is simply dummy
                                 </Typography>
@@ -55,21 +63,21 @@ const News = props => {
                         </CardActionArea>
                     </Card>
                 </Grid>
-                <Grid item xs={12} sm={6} md={4}>
+                <Grid item xs={6} sm={3} md={3}>
                     <Card className={classes.card}>
                         <CardActionArea>
-                            <CardMedia
-                                className={classes.media}
-                                image="https://tiems92.files.wordpress.com/2010/10/gkb-1.jpg"
-                                title="kategori 2"
-                            />
                             <CardContent>
-                                <Button variant="contained" color="primary">
-                                    Category 1
-                                </Button>
-                                <Button variant="contained" color="secondary">
-                                    Category 2
-                                </Button>
+                                <img src={berita}/>
+                            </CardContent>
+                            <CardContent>
+                                <Grid container justify={"space-around"}>
+                                    <Button variant="contained" color="primary" >
+                                        Category 1
+                                    </Button>
+                                    <Button variant="contained" color="secondary">
+                                        Category 2
+                                    </Button>
+                                </Grid>
                                 <Typography gutterBottom variant="h5" component="h2">
                                     Lorem Ipsum is simply dummy
                                 </Typography>
@@ -84,21 +92,21 @@ const News = props => {
                         </CardActionArea>
                     </Card>
                 </Grid>
-                <Grid item xs={12} sm={6} md={4}>
+                <Grid item xs={6} sm={3} md={3}>
                     <Card className={classes.card}>
                         <CardActionArea>
-                            <CardMedia
-                                className={classes.media}
-                                image="https://tiems92.files.wordpress.com/2010/10/gkb-1.jpg"
-                                title="kategori 3"
-                            />
                             <CardContent>
-                                <Button variant="contained" color="primary">
-                                    Category 1
-                                </Button>
-                                <Button variant="contained" color="secondary">
-                                    Category 2
-                                </Button>
+                                <img src={berita}/>
+                            </CardContent>
+                            <CardContent>
+                                <Grid container justify={"space-around"}>
+                                    <Button variant="contained" color="primary" >
+                                        Category 1
+                                    </Button>
+                                    <Button variant="contained" color="secondary">
+                                        Category 2
+                                    </Button>
+                                </Grid>
                                 <Typography gutterBottom variant="h5" component="h2">
                                     Lorem Ipsum is simply dummy
                                 </Typography>

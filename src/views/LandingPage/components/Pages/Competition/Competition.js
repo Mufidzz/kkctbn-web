@@ -9,9 +9,21 @@ import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
 import {makeStyles} from "@material-ui/core/styles";
+import competition from './competition.png';
 
 const useStyles = makeStyles((theme) => ({
-
+    card: {
+        maxWidth: "100%",
+        padding: theme.spacing(2),
+        textAlign: 'center',
+    },
+    media: {
+        height: 240
+    },
+    konten: {
+        height: 80,
+        backgroundColor: "#FF6C6C",
+    }
 }))
 
 const Competition = props => {
@@ -20,94 +32,58 @@ const Competition = props => {
 
     return (
         <Fragment>
-            <Box display="flex" justifyContent="center" className={classes.blogTitle}>
-                <Typography variant="h3">
+            <Box display="flex" justifyContent="center">
+                <Typography variant="h3" style={{color: "#CF2424"}}>
                     Competition
                 </Typography>
             </Box>
-            <Grid container spacing={3}>
-                <Grid item xs={12} sm={6} md={4}>
+            <Grid container maxWidth="sm" container justify={"space-around"}>
+                <Grid item xs={6} sm={3} md={3}>
                     <Card className={classes.card}>
                         <CardActionArea>
-                            <CardMedia
-                                className={classes.media}
-                                image="https://tiems92.files.wordpress.com/2010/10/gkb-1.jpg"
-                                title="kategori 1"
-                            />
                             <CardContent>
-                                <Button variant="contained" color="primary">
-                                    Category 1
-                                </Button>
-                                <Button variant="contained" color="secondary">
-                                    Category 2
-                                </Button>
-                                <Typography gutterBottom variant="h5" component="h2">
-                                    Lorem Ipsum is simply dummy
+                                <img src={competition}/>
+                            </CardContent>
+                            <CardContent className={classes.konten}>
+                                <Typography variant="h5" component="h2" style={{color: "#fff"}}>
+                                    Lomba Inovasi
                                 </Typography>
-                                <Typography variant="subtitle2" color="textSecondary" component="p">
-                                    Oleh Admin, 13 Agustus 2020
-                                </Typography>
-                                <Typography variant="body2" color="textSecondary" component="p">
-                                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                                    when an unknown...
+                                <Typography variant="subtitle2" component="p" style={{color: "#fff"}}>
+                                    Desain Kapal Kesehatan
                                 </Typography>
                             </CardContent>
                         </CardActionArea>
                     </Card>
                 </Grid>
-                <Grid item xs={12} sm={6} md={4}>
+                <Grid item xs={6} sm={3} md={3}>
                     <Card className={classes.card}>
                         <CardActionArea>
-                            <CardMedia
-                                className={classes.media}
-                                image="https://tiems92.files.wordpress.com/2010/10/gkb-1.jpg"
-                                title="kategori 2"
-                            />
                             <CardContent>
-                                <Button variant="contained" color="primary">
-                                    Category 1
-                                </Button>
-                                <Button variant="contained" color="secondary">
-                                    Category 2
-                                </Button>
-                                <Typography gutterBottom variant="h5" component="h2">
-                                    Lorem Ipsum is simply dummy
+                                <img src={competition}/>
+                            </CardContent>
+                            <CardContent className={classes.konten}>
+                                <Typography variant="h5" component="h2" style={{color: "#fff"}}>
+                                    Lomba Inovasi
                                 </Typography>
-                                <Typography variant="subtitle2" color="textSecondary" component="p">
-                                    Oleh Admin, 13 Agustus 2020
-                                </Typography>
-                                <Typography variant="body2" color="textSecondary" component="p">
-                                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                                    when an unknown...
+                                <Typography variant="subtitle2" component="p" style={{color: "#fff"}}>
+                                    Desain Kapal Kesehatan
                                 </Typography>
                             </CardContent>
                         </CardActionArea>
                     </Card>
                 </Grid>
-                <Grid item xs={12} sm={6} md={4}>
+                <Grid item xs={6} sm={3} md={3}>
                     <Card className={classes.card}>
                         <CardActionArea>
-                            <CardMedia
-                                className={classes.media}
-                                image="https://tiems92.files.wordpress.com/2010/10/gkb-1.jpg"
-                                title="kategori 3"
-                            />
                             <CardContent>
-                                <Button variant="contained" color="primary">
-                                    Category 1
-                                </Button>
-                                <Button variant="contained" color="secondary">
-                                    Category 2
-                                </Button>
-                                <Typography gutterBottom variant="h5" component="h2">
-                                    Lorem Ipsum is simply dummy
+                                <img src={competition}/>
+                            </CardContent>
+                            <CardContent className={classes.konten}>
+                                <Typography variant="h5" component="h2" style={{color: "#fff"}}>
+                                    Lomba Inovasi
                                 </Typography>
-                                <Typography variant="subtitle2" color="textSecondary" component="p">
-                                    Oleh Admin, 13 Agustus 2020
-                                </Typography>
-                                <Typography variant="body2" color="textSecondary" component="p">
-                                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                                    when an unknown...
+                                <Typography variant="subtitle2" component="p" style={{color: "#fff"}}>
+                                    Desain Kapal Kesehatan
                                 </Typography>
                             </CardContent>
                         </CardActionArea>
