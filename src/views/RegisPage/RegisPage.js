@@ -18,7 +18,7 @@ import CardContent from '@material-ui/core/CardContent';
 
 const useStyles = makeStyles((theme) => ({
   root : {
-        background: "linear-gradient(rgba(195, 35, 35, 1), rgba(62, 84, 197, 1))",
+        background: "linear-gradient(rgba(62, 84, 197, 1), rgba(195, 35, 35, 1))",
         height: "100%",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
@@ -77,7 +77,7 @@ const LoginPage = () => {
     <Box className={classes.root}>
     <Card className={classes.cards}>
 			<Card className={classes.cards2}>
-			COK
+			mau diisi logo
     	</Card>
         <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -103,12 +103,18 @@ const LoginPage = () => {
             label="Password"
             type="password"
             id="password"
-            autoComplete="current-password"
           />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            name="password"
+            label="Re-enter password"
+            type="password"
+            id="password"
           />
+          
           <Button
             type="submit"
             fullWidth
@@ -116,17 +122,12 @@ const LoginPage = () => {
             color="primary"
             className={classes.submit}
           >
-            Sign In
+            Register
           </Button>
           <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                Forgot password?
-              </Link>
-            </Grid>
             <Grid item>
-              <Link href="/register" variant="body2">
-                {"Don't have an account? Sign Up"}
+              <Link href="/login" variant="body2">
+                {"Sudah Punya Akun ?"}
               </Link>
             </Grid>
           </Grid>

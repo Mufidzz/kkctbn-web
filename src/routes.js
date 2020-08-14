@@ -10,6 +10,11 @@ const routes = [
         path: "/login",
         exact: true,
         component : lazy(() => import("./views/LoginPage"))
+    },
+    {
+        path: "/register",
+        exact: true,
+        component : lazy(() => import("./views/RegisPage"))
     }
 ]
 
