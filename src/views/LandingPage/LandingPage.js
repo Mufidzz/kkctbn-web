@@ -25,15 +25,10 @@ const LandingPage = () => {
             <Telkomsel/>
             <About/>
             {/*<News/>*/}
-            {/*<Box p={2}/>*/}
-            {/*<Competition/>*/}
-            {/*<Box p={2}/>*/}
-            {/*<Timeline/>*/}
-            {/*<Box p={2}/>*/}
+            <Competition/>
+            <Timeline/>
             {/*<FAQ/>*/}
-            {/*<Box p={2}/>*/}
             {/*<Contact/>*/}
-            {/*<Box p={2}/>*/}
             {/*<Footer/>*/}
         </Page>
     )

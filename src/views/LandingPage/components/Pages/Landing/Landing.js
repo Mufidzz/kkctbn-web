@@ -4,10 +4,11 @@ import Typography from "@material-ui/core/Typography";
 import {makeStyles} from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import clsx from "clsx";
+import mainImage from "assets/images/main-image.jpg"
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.67) 40%,rgba(48, 5, 10, 1) 200%), url('https://1.bp.blogspot.com/-s6OshZ4EmXw/W28p-gklbhI/AAAAAAAAA10/NaOOO1ARD7sgffxepPaKeXqRG-z-RF8zACLcBGAs/s1600/img_gkb.jpg')`,
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.67) 40%,rgba(48, 5, 10, 1) 200%), url(${mainImage})`,
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
