@@ -7,6 +7,7 @@ import ElevationScroll from "../../../../components/ElevationScroll";
 import {Link} from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 import useScrollTrigger from "@material-ui/core/useScrollTrigger";
+import logo from 'views/LandingPage/components/LandingAppBar/logo_kctbn.png';
 
 const useStyles = makeStyles((theme) => ({
     root : {
@@ -31,7 +32,7 @@ const LandingAppBar = props => {
             <ElevationScroll trigger={ElevationTrigger}>
                 <AppBar className={classes.root} color={ElevationTrigger ? "#FFFFFF" : "transparent"}>
                     <Toolbar>
-                        <Grid container md={12} xs={12} justify={"center"}>
+                        <Grid container justify={"space-around"}>
                             <Grid item container justify={"space-around"} alignContent={"center"} alignItems={"center"} md={10} xs={10}>
                                 <Typography style={{color: ElevationTrigger ? "#000000" : "#FFFFFF"}} variant="h6" color="primary">
                                     Home
@@ -43,7 +44,7 @@ const LandingAppBar = props => {
                                     Competition
                                 </Typography>
                                 <Typography style={{color: ElevationTrigger ? "#000000" : "#FFFFFF"}} variant="h2" color="primary">
-                                    Logo
+                                    <img src={logo}/>
                                 </Typography>
                                 <Typography style={{color: ElevationTrigger ? "#000000" : "#FFFFFF"}} variant="h6" color="primary">
                                     FAQ
