@@ -28,7 +28,7 @@ const LandingPage = () => {
             <Competition/>
             <Timeline/>
             <FAQ/>
-            {/*<Contact/>*/}
+            <Contact/>
             {/*<Footer/>*/}
         </Page>
     )
