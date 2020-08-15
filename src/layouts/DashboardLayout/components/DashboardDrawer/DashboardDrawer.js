@@ -1,6 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import {makeStyles, useTheme} from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -16,9 +16,12 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import PeopleIcon from '@material-ui/icons/People';
+import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
 import ElevationScroll from "../../../../components/ElevationScroll";
 import PropTypes from "prop-types";
+import Link from "@material-ui/core/Link";
 
 const drawerWidth = 240;
 
@@ -105,15 +108,15 @@ const DashboardDrawer = props => {
     }
 
     return (
-        <div className={classes.root} >
-            <CssBaseline />
+        <div className={classes.root}>
+            <CssBaseline/>
             <AppBar
                 position="fixed"
                 className={clsx(classes.appBar, {
                     [classes.appBarShift]: open,
                 })}
                 color={"transparent"}
-                style={{boxShadow : "none"}}
+                style={{boxShadow: "none"}}
             >
                 <Toolbar>
                     <IconButton
@@ -125,17 +128,16 @@ const DashboardDrawer = props => {
                             [classes.hide]: open,
                         })}
                         style={{
-                            color : "#FFFFFF"
+                            color: "#FFFFFF"
                         }}
                     >
-                        <MenuIcon />
+                        <MenuIcon/>
                     </IconButton>
                     <Typography variant="h5" noWrap>
                         <b>KKCTBN 2020</b>
                     </Typography>
                 </Toolbar>
             </AppBar>
-
 
 
             <Drawer
@@ -152,32 +154,38 @@ const DashboardDrawer = props => {
                 }}
             >
                 <div className={classes.toolbar} style={{backgroundColor: "#D72C2C"}}>
-                    <IconButton onClick={handleDrawerClose} style={{color:"#FFFFFF"}}>
-                        {open ? theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon /> : null}
+                    <IconButton onClick={handleDrawerClose} style={{color: "#FFFFFF"}}>
+                        {open ? theme.direction === 'rtl' ? <ChevronRightIcon/> : <ChevronLeftIcon/> : null}
                     </IconButton>
                 </div>
-                <Divider />
+                <Divider/>
                 <List>
-                    {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                        <ListItem button key={text}>
-                            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                            <ListItemText primary={text} />
+                    <Link href={'/dashboard/user'}>
+                        <ListItem button key={'User'}>
+                            <ListItemIcon><AccountCircleIcon/></ListItemIcon>
+                            <ListItemText primary={'User'}/>
                         </ListItem>
-                    ))}
+                    </Link>
+                    <Link href={'/dashboard/team'}>
+                        <ListItem button key={'Team'}>
+                            <ListItemIcon><PeopleIcon/></ListItemIcon>
+                            <ListItemText primary={'Team'}/>
+                        </ListItem>
+                    </Link>
                 </List>
-                <Divider />
+                <Divider/>
                 <List>
-                    {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                        <ListItem button key={text}>
-                            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                            <ListItemText primary={text} />
+                    <Link href={'/dashboard/information'}>
+                        <ListItem button key={'Information'}>
+                            <ListItemIcon><NotificationsNoneIcon/></ListItemIcon>
+                            <ListItemText primary={'Information'}/>
                         </ListItem>
-                    ))}
+                    </Link>
                 </List>
             </Drawer>
 
             <main className={classes.content}>
-                <div className={classes.toolbar} />
+                <div className={classes.toolbar}/>
                 {children}
             </main>
         </div>

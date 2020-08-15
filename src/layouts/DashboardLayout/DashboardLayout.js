@@ -12,10 +12,15 @@ import Container from "@material-ui/core/Container";
 
 
 const useStyles = makeStyles((theme) => ({
+    body: {
+
+
+    },
     content :{
         paddingLeft : theme.spacing(3),
         paddingRight : theme.spacing(3),
-    },
+
+},
     footer : {
         marginTop : theme.spacing(3),
         padding : theme.spacing(1),
