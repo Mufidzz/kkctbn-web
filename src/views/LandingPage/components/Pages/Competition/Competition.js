@@ -1,28 +1,16 @@
 import React, {Fragment} from 'react'
-import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
-import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import CardMedia from "@material-ui/core/CardMedia";
-import CardContent from "@material-ui/core/CardContent";
-import Button from "@material-ui/core/Button";
-import Container from "@material-ui/core/Container";
 import {makeStyles} from "@material-ui/core/styles";
-import competition from './competition.png';
+import competitionCardImage from "assets/images/ship-red.png"
+import {CompetitionCard} from "./components";
 
 const useStyles = makeStyles((theme) => ({
-    card: {
-        maxWidth: "100%",
-        padding: theme.spacing(2),
-        textAlign: 'center',
+    root : {
+        padding: theme.spacing(6)
     },
-    media: {
-        height: 240
-    },
-    konten: {
-        height: 80,
-        backgroundColor: "#FF6C6C",
+    title : {
+        paddingBottom : theme.spacing(4)
     }
 }))
 
@@ -32,62 +20,44 @@ const Competition = props => {
 
     return (
         <Fragment>
-            <Box display="flex" justifyContent="center">
-                <Typography variant="h3" style={{color: "#CF2424"}}>
-                    Competition
-                </Typography>
-            </Box>
-            <Grid container maxWidth="sm" container justify={"space-around"}>
-                <Grid item xs={6} sm={3} md={3}>
-                    <Card className={classes.card}>
-                        <CardActionArea>
-                            <CardContent>
-                                <img src={competition}/>
-                            </CardContent>
-                            <CardContent className={classes.konten}>
-                                <Typography variant="h5" component="h2" style={{color: "#fff"}}>
-                                    Lomba Inovasi
-                                </Typography>
-                                <Typography variant="subtitle2" component="p" style={{color: "#fff"}}>
-                                    Desain Kapal Kesehatan
-                                </Typography>
-                            </CardContent>
-                        </CardActionArea>
-                    </Card>
+            <Grid container justify={"center"} className={classes.root}>
+                <Grid item container={12} justify={"center"} className={classes.title}>
+                    <Typography variant="h3" fontWeight align='center'
+                                style={{color: "#CF2424"}}>
+                        <b>Competition</b>
+                    </Typography>
                 </Grid>
-                <Grid item xs={6} sm={3} md={3}>
-                    <Card className={classes.card}>
-                        <CardActionArea>
-                            <CardContent>
-                                <img src={competition}/>
-                            </CardContent>
-                            <CardContent className={classes.konten}>
-                                <Typography variant="h5" component="h2" style={{color: "#fff"}}>
-                                    Lomba Inovasi
-                                </Typography>
-                                <Typography variant="subtitle2" component="p" style={{color: "#fff"}}>
-                                    Desain Kapal Kesehatan
-                                </Typography>
-                            </CardContent>
-                        </CardActionArea>
-                    </Card>
-                </Grid>
-                <Grid item xs={6} sm={3} md={3}>
-                    <Card className={classes.card}>
-                        <CardActionArea>
-                            <CardContent>
-                                <img src={competition}/>
-                            </CardContent>
-                            <CardContent className={classes.konten}>
-                                <Typography variant="h5" component="h2" style={{color: "#fff"}}>
-                                    Lomba Inovasi
-                                </Typography>
-                                <Typography variant="subtitle2" component="p" style={{color: "#fff"}}>
-                                    Desain Kapal Kesehatan
-                                </Typography>
-                            </CardContent>
-                        </CardActionArea>
-                    </Card>
+                <Grid item container md={10} justify={"center"} spacing={3}>
+                    <Grid item md={4}>
+                        <CompetitionCard image={competitionCardImage}>
+                            <Typography variant="h5" component="h2" style={{color: "#fff"}}>
+                                Lomba Inovasi
+                            </Typography>
+                            <Typography variant="subtitle2" component="p" style={{color: "#fff"}}>
+                                Desain Kapal Kesehatan
+                            </Typography>
+                        </CompetitionCard>
+                    </Grid>
+                    <Grid item md={4}>
+                        <CompetitionCard image={competitionCardImage}>
+                            <Typography variant="h5" component="h2" style={{color: "#fff"}}>
+                                Lomba Inovasi
+                            </Typography>
+                            <Typography variant="subtitle2" component="p" style={{color: "#fff"}}>
+                                Desain Kapal Kesehatan
+                            </Typography>
+                        </CompetitionCard>
+                    </Grid>
+                    <Grid item md={4}>
+                        <CompetitionCard image={competitionCardImage}>
+                            <Typography variant="h5" component="h2" style={{color: "#fff"}}>
+                                Lomba Inovasi
+                            </Typography>
+                            <Typography variant="subtitle2" component="p" style={{color: "#fff"}}>
+                                Desain Kapal Kesehatan
+                            </Typography>
+                        </CompetitionCard>
+                    </Grid>
                 </Grid>
             </Grid>
         </Fragment>

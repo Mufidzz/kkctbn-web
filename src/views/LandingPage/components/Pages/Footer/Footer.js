@@ -1,29 +1,22 @@
 import React, {Fragment} from 'react'
 import {makeStyles} from "@material-ui/core/styles";
-import logo_umm from './logo_umm.png';
-import ristek from './ristek_footer.png';
+import logo_umm from '../../../../../assets/images/umm-logo-color.png';
+import logo_ristekbrin from '../../../../../assets/images/ristekbrin-logo-color.png';
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 
 const useStyles = makeStyles((theme) => ({
-    root : {
-        backgroundColor: "#FF2559",
-        height: "30vh",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-        position: "relative",
-        display: "flex",
+    root: {
+        backgroundColor: "#FFFFFF",
+        boxShadow: "5px 5px 10px 0 rgba(0,0,0,.5)",
+        padding: theme.spacing(3),
+        width: "100%"
     },
-    root2 : {
-        backgroundColor: "#FF2559",
-        height: "10vh",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-        position: "relative",
-        display: "flex",
+    root2: {
+        backgroundColor: "#CF2424",
+        padding: theme.spacing(1),
+        width: "100%"
     },
 }))
 
@@ -32,27 +25,23 @@ const Footer = props => {
 
     return (
         <Fragment>
-            <Box className={classes.root}>
-                <Grid container justify={"space-around"}>
-                    <Grid item container justify={"space-around"} alignContent={"center"} alignItems={"center"} md={10} xs={10}>
-                        <Typography>
-                            <img src={ristek}/>
-                        </Typography>
-                        <Typography>
-                            <img src={logo_umm}/>
-                        </Typography>
+            <Grid className={classes.root} container justify={"center"} alignContent={"center"} alignItems={"center"}>
+                <Grid item container md={10} spacing={3} justify={"center"} alignContent={"center"} alignItems={"center"}>
+                    <Grid item>
+                        <img src={logo_ristekbrin} alt={"Ristekbrin Logo"}/>
+                    </Grid>
+                    <Grid item>
+                        <img src={logo_umm} alt={"UMM Logo"}/>
                     </Grid>
                 </Grid>
-            </Box>
-            <Box className={classes.root2}>
-                <Grid container justify={"space-around"}>
-                    <Grid item container justify={"space-around"} alignContent={"center"} alignItems={"center"} md={10} xs={10}>
-                        <Typography variant="subtitle2" component="p" style={{color: "#FFFFFF"}}>
-                            Copyright © 2020 All rights reserved
-                        </Typography>
-                    </Grid>
-                </Grid>
-            </Box>
+            </Grid>
+
+            <Grid className={classes.root2} container justify={"center"} alignContent={"center"} alignItems={"center"}>
+                <Typography variant="subtitle2" component="p" style={{color: "#FFFFFF"}}>
+                    Copyright © 2020 All rights reserved
+                </Typography>
+            </Grid>
+
         </Fragment>
     )
 }
