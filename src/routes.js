@@ -1,4 +1,5 @@
 import {lazy} from "react"
+import DashboardLayout from "./layouts/DashboardLayout";
 
 const routes = [
     {
@@ -20,6 +21,17 @@ const routes = [
         path: "/competition",
         exact: true,
         component : lazy(() => import("./views/RegisPage"))
+    },
+    {
+        path: "/dashboard",
+        component: DashboardLayout,
+        routes: [
+            {
+                path: "/dashboard/user",
+                exact: true,
+                component : lazy(() => import("./views/UserDashboardPage"))
+            }
+        ]
     }
 ]
 

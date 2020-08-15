@@ -77,7 +77,7 @@ const LoginPage = () => {
         <Box className={classes.root}>
             <Card className={classes.cards}>
                 <Card className={classes.cards2}>
-                    COK
+                    CEK
                 </Card>
                 <Container component="main" maxWidth="xs">
                     <CssBaseline/>
