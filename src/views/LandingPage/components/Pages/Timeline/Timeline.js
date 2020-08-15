@@ -25,15 +25,16 @@ const Timeline = props => {
     return (
         <Fragment>
             <Grid container className={classes.root} justify={"center"} style={{color: "#FFFFFF"}}>
-                <Grid item container md={6} justify={"center"} alignContent={"flex-start"}>
+                <Grid item container md={10} justify={"center"} alignContent={"flex-start"}>
                     <Typography variant="h3" align={"center"}>
                         <b>Timeline of Competition</b>
                     </Typography>
+                </Grid>
+                <Grid item container md={8} justify={"center"} alignContent={"flex-start"}>
                     <Typography variant={"body1"} align={"center"} style={{fontWeight: 100}}>
                         Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer
                     </Typography>
                 </Grid>
-
                 <Grid item container md={8} justify={"space-evenly"} className={classes.card}>
                     <Grid item md={5}>
                         <TimelineCard/>
