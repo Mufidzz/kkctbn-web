@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react'
+import React, {Fragment, useEffect, useMemo, useState} from 'react'
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import {makeStyles} from "@material-ui/core/styles";
@@ -41,15 +41,50 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const Landing = props => {
+
+    //Function
+    const calculateTimeLeft = () => {
+        let difference = +new Date(2020, 7, 19, 23,59,58) - +new Date();
+        let timeLeft = {};
+
+        if (difference > 0) {
+            timeLeft = {
+                days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+                hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+                minutes: Math.floor((difference / 1000 / 60) % 60),
+                seconds: Math.floor((difference / 1000) % 60)
+            };
+        }
+
+        return timeLeft;
+    }
+    //State
+    const [timeLeft, setTimeLeft] = useState(calculateTimeLeft())
+
     //Variable
     const classes = useStyles();
+
+
+    //USE
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setTimeLeft(calculateTimeLeft())
+        }, 1000);
+        return () => clearTimeout(timer);
+    }, [timeLeft])
+
+
 
     return (
         <Fragment>
             <Grid container className={clsx(classes.root)} justify={"center"}>
                 <Grid item container md={11} justify={"center"} className={classes.escapeTop}>
-                    <Typography variant="h1" className={classes.counter} style={{position: "absolute", bottom: 10, right: 15}}>
-                        <b>30D 20H <br/> 60M 59S</b>
+                    <Typography variant="h1" className={classes.counter} align={"right"} style={{position: "absolute", bottom: 10, right: 15}}>
+                        <b>
+                            {timeLeft.days|0}D {timeLeft.hours|0}H
+                            <br/>
+                            {timeLeft.minutes|0}M {timeLeft.seconds|0}S
+                        </b>
                     </Typography>
                     <Grid item container direction={"row"} md={12} alignItems={"flex-start"}>
                         <Grid item md={12}>

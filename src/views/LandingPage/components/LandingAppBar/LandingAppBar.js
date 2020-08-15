@@ -111,6 +111,21 @@ const LandingAppBar = props => {
                                 <Scroll
                                     activeClass={classes.activeItem}
                                     className={classes.inactiveItem}
+                                    to="timeline"
+                                    spy={true}
+                                    smooth={true}
+                                    offset={-95}
+                                    duration={500}
+                                >
+                                    <Typography style={{cursor: "pointer", color: ElevationTrigger ? "#000000" : "#FFFFFF"}} variant="h6"
+                                                color="primary">
+                                        Timeline
+                                    </Typography>
+                                </Scroll>
+
+                                <Scroll
+                                    activeClass={classes.activeItem}
+                                    className={classes.inactiveItem}
                                     to="faq"
                                     spy={true}
                                     smooth={true}
@@ -123,20 +138,7 @@ const LandingAppBar = props => {
                                 </Typography>
                                 </Scroll>
 
-                                <Scroll
-                                    activeClass={classes.activeItem}
-                                    className={classes.inactiveItem}
-                                    to="contact"
-                                    spy={true}
-                                    smooth={true}
-                                    offset={-95}
-                                    duration={500}
-                                >
-                                <Typography style={{cursor: "pointer", color: ElevationTrigger ? "#000000" : "#FFFFFF"}} variant="h6"
-                                            color="primary">
-                                    Contact
-                                </Typography>
-                                </Scroll>
+
 
                                 <Typography component={Link} to={"/login"} style={{cursor: "pointer", color: ElevationTrigger ? "#000000" : "#FFFFFF"}} variant="h6"
                                             color="primary">

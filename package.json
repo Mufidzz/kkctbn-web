@@ -1,5 +1,5 @@
 {
-  "name": "app",
+  "name": "ofcode.dev.web.kkctbn2020",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -23,10 +23,12 @@
     "react-dom": "^16.13.1",
     "react-helmet": "^6.0.0",
     "react-native": "^0.63.2",
+    "react-parallax": "^3.0.3",
     "react-router-config": "^5.1.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^3.4.3",
-    "react-scroll": "^1.8.1"
+    "react-scroll": "^1.8.1",
+    "react-spring": "^8.0.27"
   },
   "scripts": {
     "start": "react-scripts start",

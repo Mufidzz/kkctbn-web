@@ -7,7 +7,7 @@ const NODE_ENV = process.env.NODE_ENV;
 const GA_MEASUREMENT_ID = process.env.REACT_APP_GA_MEASUREMENT_ID;
 
 const Page = props => {
-    const { title, children, isProtected, ...rest } = props;
+    const { title, children, isProtected, keywords, description, ...rest } = props;
     const router = useRouter();
 
     useEffect(() => {
@@ -28,6 +28,13 @@ const Page = props => {
         <div {...rest}>
             <Helmet>
                 <title>{title}</title>
+                <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+                <meta name="geo.position" content="-7.411547905008128; 111.50719000000002"/>
+                <meta name="geo.placename" content="UMM - Universitas Muhammadiyah Malang"/>
+                <meta name="geo.region" content="(+62) 341"/>
+                <meta name="author" content="Mufid Zukhruf, Dwiky, Daffa, Felix"/>
+                <meta name="keywords" content={keywords}/>
+                <meta name="description" content={description}/>
             </Helmet>
             {children}
         </div>
@@ -37,7 +44,9 @@ const Page = props => {
 Page.propTypes = {
     children: PropTypes.node,
     title: PropTypes.string,
-    isProtected: PropTypes.bool
+    isProtected: PropTypes.bool,
+    keyword : PropTypes.string,
+    description : PropTypes.string
 }
 
 export default Page;
