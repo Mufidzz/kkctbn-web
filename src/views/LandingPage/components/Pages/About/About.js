@@ -11,6 +11,7 @@ const useStyles = makeStyles((theme) => ({
     root: {
         paddingTop: theme.spacing(6),
         paddingBottom: theme.spacing(6),
+        width: "100% !important"
     },
     circleBase : {
         borderRadius: "50%"

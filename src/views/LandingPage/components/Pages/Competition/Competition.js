@@ -6,8 +6,11 @@ import competitionCardImage from "assets/images/ship-red.png"
 import {CompetitionCard} from "./components";
 
 const useStyles = makeStyles((theme) => ({
+    root : {
+        padding: theme.spacing(6)
+    },
     title : {
-        padding : theme.spacing(4)
+        paddingBottom : theme.spacing(4)
     }
 }))
 
@@ -17,7 +20,7 @@ const Competition = props => {
 
     return (
         <Fragment>
-            <Grid container justify={"center"}>
+            <Grid container justify={"center"} className={classes.root}>
                 <Grid item container={12} justify={"center"} className={classes.title}>
                     <Typography variant="h3" fontWeight align='center'
                                 style={{color: "#CF2424"}}>
