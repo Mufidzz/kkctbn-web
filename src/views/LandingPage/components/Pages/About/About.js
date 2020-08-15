@@ -1,6 +1,5 @@
 import React, {Fragment} from 'react'
 import Grid from "@material-ui/core/Grid";
-import gambarkctbn from 'views/LandingPage/components/Pages/About/gambar_kctbn.png';
 import {makeStyles} from "@material-ui/core/styles";
 import clsx from "clsx";
 import colorLogo from 'assets/images/logo-color.png';

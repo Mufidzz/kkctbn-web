@@ -27,7 +27,7 @@ const LandingPage = () => {
             {/*<News/>*/}
             <Competition/>
             <Timeline/>
-            {/*<FAQ/>*/}
+            <FAQ/>
             {/*<Contact/>*/}
             {/*<Footer/>*/}
         </Page>
