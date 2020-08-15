@@ -40,6 +40,16 @@ const routes = [
                 path: "/dashboard/team/create",
                 exact: true,
                 component : lazy(() => import("./views/CreateTeamDashboardPage"))
+            },
+            {
+                path: "/dashboard/team/edit",
+                exact: true,
+                component : lazy(() => import("./views/EditTeamDashboardPage"))
+            },
+            {
+                path: "/dashboard/team/submission",
+                exact: true,
+                component : lazy(() => import("./views/CreateTeamDashboardPage"))
             }
         ]
     }

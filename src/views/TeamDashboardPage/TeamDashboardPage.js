@@ -46,18 +46,29 @@ function createData(name, calories, fat, carbs, protein) {
 
 
 const rows = [
-    createData('Garangan AI',
-        'Desain Kapal Rumah Sakit',
-        <Button variant={"outlined"} style={{color: 'green'}}>Already uploaded</Button>,
-        <Button variant={'contained'} color={'secondary'}>Submission</Button>,
-        <Button variant={'contained'} color={'primary'}>Edit Team</Button>),
-    createData('Ayam Kalkulus',
-        'Desain Kapal Rumah Sakit',
-        <Button variant={"outlined"} style={{color: 'red'}}>Not uploaded yet</Button>,
-        <Button variant={'contained'} color={'secondary'}>Submission</Button>,
-        <Button variant={'contained'} color={'primary'}>Edit Team</Button>),
+        createData('Garangan AI',
+            'Desain Kapal Rumah Sakit',
+            <Button variant={"outlined"} style={{color: 'green'}}>Already uploaded</Button>,
+            <Link style={{textDecoration: 'none'}} href={'/dashboard/team/submission'}>
+                <Button variant={'contained'} color={'secondary'}>Submission</Button>
+            </Link>,
+            <Link style={{textDecoration: 'none'}} href={'/dashboard/team/edit'}>
+                <Button variant={'contained'} color={'primary'}>Edit Team</Button>
+            </Link>
+        ),
+        createData('Ayam Kalkulus',
+            'Desain Kapal Rumah Sakit',
+            <Button variant={"outlined"} style={{color: 'red'}}>Not uploaded yet</Button>,
+            <Link style={{textDecoration: 'none'}} href={'/dashboard/team/submission'}>
+                <Button variant={'contained'} color={'secondary'}>Submission</Button>
+            </Link>,
+            <Link style={{textDecoration: 'none'}} href={'/dashboard/team/edit'}>
+                <Button variant={'contained'} color={'primary'}>Edit Team</Button>
+            </Link>
+        ),
 
-];
+    ]
+;
 
 const useStyles = makeStyles((theme) => ({
     root: {
