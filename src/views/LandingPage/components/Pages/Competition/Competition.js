@@ -24,7 +24,7 @@ const Competition = props => {
                 <Grid item container={12} justify={"center"} className={classes.title}>
                     <Typography variant="h3" fontWeight align='center'
                                 style={{color: "#CF2424"}}>
-                        Competition
+                        <b>Competition</b>
                     </Typography>
                 </Grid>
                 <Grid item container md={10} justify={"center"} spacing={3}>
@@ -58,8 +58,6 @@ const Competition = props => {
                             </Typography>
                         </CompetitionCard>
                     </Grid>
-
-
                 </Grid>
             </Grid>
         </Fragment>

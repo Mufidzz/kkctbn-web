@@ -24,12 +24,12 @@ const LandingPage = () => {
             <Landing/>
             <Telkomsel/>
             <About/>
-            {/*<News/>*/}
+            <News/>
             <Competition/>
             <Timeline/>
             <FAQ/>
             <Contact/>
-            {/*<Footer/>*/}
+            <Footer/>
         </Page>
     )
 }
