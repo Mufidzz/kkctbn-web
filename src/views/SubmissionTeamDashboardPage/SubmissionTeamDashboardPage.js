@@ -5,12 +5,9 @@ import Card from "@material-ui/core/Card";
 import {makeStyles} from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import AddIcon from '@material-ui/icons/Add';
+import SendIcon from '@material-ui/icons/Send';
 import CardHeader from "@material-ui/core/CardHeader";
 import withStyles from "@material-ui/core/styles/withStyles";
-import Checkbox from "@material-ui/core/Checkbox";
-import FormGroup from "@material-ui/core/FormGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
 import GroupAddIcon from '@material-ui/icons/GroupAdd';
 
 
@@ -87,7 +84,7 @@ const ValidationTextField = withStyles({
 })(TextField);
 
 
-const CreateTeamDashboardPage = props => {
+const SubmissionTeamDashboardPage = props => {
 
     const classes = useStyles();
     const [value, setValue] = React.useState('Controlled');
@@ -102,129 +99,28 @@ const CreateTeamDashboardPage = props => {
         <Grid container>
             <Card style={{width: '100%'}}>
                 <CardHeader
-                    title={'Create a team'}
+                    title={'Submission'}
                     style={{backgroundColor: '#f50057', color: '#FFF'}}
                 />
                 <CardContent style={{marginTop: 25}}>
                     <Grid container spacing={2}>
                         <Grid item md={12}>
-                            <Typography variant={"body2"} className={classes.label}>Team Name</Typography>
+                            <Typography variant={"body2"} className={classes.label}>Title of Innovation</Typography>
                             <ValidationTextField
                                 className={classes.margin}
-                                label="Team name"
+                                label="Title of Innovation"
                                 required
                                 variant="outlined"
-                                placeholder={"Entry your team name."} fullWidth
-                                helperText="ex : Panda Terbang"
+                                placeholder={"Entry your title of innovation."} fullWidth
                                 id="validation-outlined-input"
                             />
                         </Grid>
-
                         <Grid item md={12}>
-                            <Typography variant={"body2"} className={classes.label}>Selected competition</Typography>
-                            <FormGroup>
-                                <FormControlLabel
-                                    control={<Checkbox name="competition[]"/>}
-                                    label="Desain Inovasi Kapal Rumah Sakit"
-                                />
-                                <FormControlLabel
-                                    control={<Checkbox name="competition[]"/>}
-                                    label="Desain Inovasi Kapal Rumah Sakit"
-                                />
-                                <FormControlLabel
-                                    control={<Checkbox name="competition[]"/>}
-                                    label="Desain Inovasi Kapal Rumah Sakit"
-                                />
-                            </FormGroup>
+                            <Typography variant={'body2'} style={{marginTop: 10}}>Upload Proposal* (pdf/jpg/png/obj)</Typography>
                         </Grid>
-
-
-                        <Grid item md={12}>
-                            <hr style={{
-                                backgroundColor: '#000000',
-                            }}/>
-                        </Grid>
-
-                        <Grid item md={12}>
-                            <Button variant={"outlined"}>Member 1</Button>
-                        </Grid>
-
-                        <Grid item md={6} style={{marginTop: 20}}>
-                            <Typography variant={"body2"} className={classes.label}>Full Name According to ID
-                                Card</Typography>
-                            <ValidationTextField
-                                className={classes.margin}
-                                label="Full Name According to ID Card"
-                                required
-                                variant="outlined"
-                                placeholder={"Entry your full name."} fullWidth
-                                helperText="ex : Joni Irawan"
-                                id="validation-outlined-input"
-                            />
-
-                        </Grid>
-
-                        <Grid item md={6} style={{marginTop: 20}}>
-                            <Typography variant={"body2"} className={classes.label}>Email Address</Typography>
-                            <ValidationTextField
-                                className={classes.margin}
-                                label="Email Address"
-                                required
-                                variant="outlined"
-                                placeholder={"Entry your email address."} fullWidth
-                                helperText="ex : kkctbn@gmail.com"
-                                id="validation-outlined-input"
-                            />
-                        </Grid>
-
-                        <Grid item md={12} style={{marginTop: 20}}>
-                            <Typography variant={"body2"} className={classes.label}>Student ID Number</Typography>
-                            <ValidationTextField
-                                className={classes.margin}
-                                label="Student ID Number"
-                                required
-                                variant="outlined"
-                                placeholder={"Entry your student id number"} fullWidth
-                                helperText="((The student ID number of each campus has its own characteristics))"
-                                id="validation-outlined-input"
-                            />
-                        </Grid>
-
-                        <Grid item md={12} style={{marginTop: 20}}>
-                            <Typography variant={"body2"} className={classes.label}>Phone Number</Typography>
-                            <ValidationTextField
-                                className={classes.margin}
-                                label="Phone Number"
-                                required
-                                variant="outlined"
-                                placeholder={"Entry your phone number"} fullWidth
-                                helperText="ex : 08123456..."
-                                id="validation-outlined-input"
-                            />
-                        </Grid>
-
-                        <Grid item md={12} style={{marginTop: 20}}>
-                            <TextField
-                                id="outlined-textarea"
-                                label="Multiline Placeholder"
-                                placeholder="Entry complete addresss"
-                                multiline
-                                fullWidth
-                                helperText="ex : Jalan Raya Tlogomas No. 246 Tlogomas, Babatan, Tegalgondo, Kec. Lowokwaru, Kota Malang, Jawa Timur 65144"
-                                variant="outlined"
-                            />
-                        </Grid>
-
-                        <Grid item md={12} style={{marginTop: 10}}>
-                            <Typography variant={'body2'} style={{marginBottom: 10}}>
-                                Student ID Card* (pdf file)
-                            </Typography>
-
-                        </Grid>
-
                         <Grid item md={2}>
                             <input
-                                accept="application/pdf"
+                                accept="image/jpeg, image/png, application/pdf, .obj"
                                 className={classes.input}
                                 style={{display: 'none'}}
                                 id="raised-button-file"
@@ -234,116 +130,20 @@ const CreateTeamDashboardPage = props => {
                             <label htmlFor="raised-button-file">
                                 <Button fullWidth variant="contained" component="span"
                                         className={classes.containedOrange}>
-                                    Upload
+                                    Reupload
                                 </Button>
                             </label>
-                        </Grid>
-
-                        <Grid item md={12} style={{marginTop: 10}}>
-                            <Typography variant={'body2'} style={{marginBottom: 10}}>
-                                Identity Card* (pdf file)
-                            </Typography>
-
                         </Grid>
 
                         <Grid item md={2}>
-                            <input
-                                accept="application/pdf"
-                                className={classes.input}
-                                style={{display: 'none'}}
-                                id="raised-button-file"
-                                multiple
-                                type="file"
-                            />
-                            <label htmlFor="raised-button-file">
-                                <Button fullWidth variant="contained" component="span"
-                                        className={classes.containedOrange}>
-                                    Upload
-                                </Button>
-                            </label>
-                        </Grid>
-                        <Grid item md={12}/>
-                        <Grid item md={12}>
-                            <Button className={classes.containedLightBlue} startIcon={<AddIcon/>} variant={'contained'}
-                                    size={'large'} style={{height: '100%'}} fullWidth>Add Members</Button>
-                        </Grid>
-
-                        <Grid item md={12}>
-                            <hr style={{
-                                backgroundColor: '#000000',
-                                marginTop: 25
-                            }}/>
-                        </Grid>
-
-                        <Grid item md={12} style={{marginTop: 20}}>
-                            <Typography variant={"body2"} className={classes.label}>Supervisory Lecturer
-                                Name</Typography>
-                            <ValidationTextField
-                                className={classes.margin}
-                                label="Supervisory Lecturer Name"
-                                required
-                                variant="outlined"
-                                placeholder={"Entry your supervisory lecturer name."} fullWidth
-                                helperText="ex : Joni Irawan, S.Kom"
-                                id="validation-outlined-input"
-                            />
-                        </Grid>
-
-                        <Grid item md={12} style={{marginTop: 10}}>
-                            <Typography variant={'body2'} style={{marginBottom: 10}}>
-                                Student Mandate Card* (pdf file)
-                            </Typography>
-
-                        </Grid>
-
-                        <Grid item md={2}>
-                            <input
-                                accept="application/pdf"
-                                className={classes.input}
-                                style={{display: 'none'}}
-                                id="raised-button-file"
-                                multiple
-                                type="file"
-                            />
-                            <label htmlFor="raised-button-file">
-                                <Button fullWidth variant="contained" component="span">
-                                    Upload
-                                </Button>
-                            </label>
-                        </Grid>
-
-                        <Grid item md={12} style={{marginTop: 10}}>
-                            <Typography variant={'body2'} style={{marginBottom: 10}}>
-                                Lecturer Mandate Letter* (pdf file)
-                            </Typography>
-
-                        </Grid>
-
-                        <Grid item md={2}>
-                            <input
-                                accept="application/pdf"
-                                className={classes.input}
-                                style={{display: 'none'}}
-                                id="raised-button-file"
-                                multiple
-                                type="file"
-                            />
-                            <label htmlFor="raised-button-file">
-                                <Button fullWidth variant="contained" component="span">
-                                    Upload
-                                </Button>
-                            </label>
-                        </Grid>
-
-                        <Grid item md={12}>
-                            <hr style={{
-                                marginTop: 25
-                            }}/>
+                            <Button variant={"contained"} className={classes.containedTeal} fullWidth>
+                                Download
+                            </Button>
                         </Grid>
 
                         <Grid item md={12} style={{textAlign: "right", marginTop: 10}}>
-                            <Button variant={"contained"} color={'secondary'} startIcon={<GroupAddIcon/>}>
-                                Create a team now
+                            <Button variant={"contained"} color={'secondary'} endIcon={<SendIcon/>}>
+                                Submit Proposal
                             </Button>
                         </Grid>
 
@@ -356,4 +156,4 @@ const CreateTeamDashboardPage = props => {
     )
 }
 
-export default CreateTeamDashboardPage;
+export default SubmissionTeamDashboardPage;

@@ -160,13 +160,13 @@ const DashboardDrawer = props => {
                 </div>
                 <Divider/>
                 <List>
-                    <Link href={'/dashboard/user'}>
+                    <Link style={{textDecoration: 'none', color: '#454545'}} href={'/dashboard/user'}>
                         <ListItem button key={'User'}>
                             <ListItemIcon><AccountCircleIcon/></ListItemIcon>
                             <ListItemText primary={'User'}/>
                         </ListItem>
                     </Link>
-                    <Link href={'/dashboard/team'}>
+                    <Link style={{textDecoration: 'none', color: '#454545'}} href={'/dashboard/team'}>
                         <ListItem button key={'Team'}>
                             <ListItemIcon><PeopleIcon/></ListItemIcon>
                             <ListItemText primary={'Team'}/>
@@ -175,7 +175,7 @@ const DashboardDrawer = props => {
                 </List>
                 <Divider/>
                 <List>
-                    <Link href={'/dashboard/information'}>
+                    <Link style={{textDecoration: 'none', color: '#454545'}} href={'/dashboard/information'}>
                         <ListItem button key={'Information'}>
                             <ListItemIcon><NotificationsNoneIcon/></ListItemIcon>
                             <ListItemText primary={'Information'}/>

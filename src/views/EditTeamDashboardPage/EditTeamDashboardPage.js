@@ -102,7 +102,7 @@ const EditTeamDashboardPage = props => {
         <Grid container>
             <Card style={{width: '100%'}}>
                 <CardHeader
-                    title={'Create a team'}
+                    title={'Edit team'}
                     style={{backgroundColor: '#f50057', color: '#FFF'}}
                 />
                 <CardContent style={{marginTop: 25}}>
@@ -412,7 +412,7 @@ const EditTeamDashboardPage = props => {
 
                         <Grid item md={12} style={{textAlign: "right", marginTop: 10}}>
                             <Button variant={"contained"} color={'secondary'} startIcon={<GroupAddIcon/>}>
-                                Create a team now
+                                Edit now
                             </Button>
                         </Grid>
 

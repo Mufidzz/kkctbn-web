@@ -1,1 +1,1 @@
-export {default} from './CreateTeamDashboardPage'
+export {default} from './SubmissionTeamDashboardPage'

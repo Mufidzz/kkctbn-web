@@ -49,7 +49,12 @@ const routes = [
             {
                 path: "/dashboard/team/submission",
                 exact: true,
-                component : lazy(() => import("./views/CreateTeamDashboardPage"))
+                component: lazy(() => import("./views/SubmissionTeamDashboardPage"))
+            },
+            {
+                path: "/dashboard/information",
+                exact: true,
+                component : lazy(() => import("./views/InformationDashboardPage"))
             }
         ]
     }
