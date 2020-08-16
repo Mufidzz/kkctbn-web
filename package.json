@@ -32,6 +32,8 @@
     "react-spring": "^8.0.27"
   },
   "scripts": {
+    "generate-build-version": "node generate-build-version",
+    "prebuild": "npm run generate-build-version",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
