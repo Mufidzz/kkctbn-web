@@ -34,9 +34,7 @@ const useStyles = makeStyles((theme) => ({
   },
   cards : {
   	borderRadius: '5%',  
-		marginRight: 0,
 		color: 'white',
-  	marginRight: '33%',
   	display: 'inline-block',
     width: '40%',
     position: 'absolute',
@@ -72,15 +70,9 @@ const useStyles = makeStyles((theme) => ({
   gridLeft: {
     marginLeft: '10%',
   },
-  greetings: {
-  	color: 'white',
-  	margin: '5%',
-  	justifyContent: 'center',
-  	    fontSize: '40pt',
-  },
   gridGreeting: {
   	width: 'auto',
-  	margin: '20%',
+
   	padding: '10%',
   	alignItems: 'center',
   	justifyContent: 'center',
@@ -89,6 +81,10 @@ const useStyles = makeStyles((theme) => ({
     color: 'rgba(255,142,154,0.2)',
     position: 'relative',
     fontSize: '40pt',
+  },
+  gridParent: {
+  	width: '100%',
+  	height: '100%',
   },
   h1_greet: {
     textColor: 'white',
@@ -129,7 +125,8 @@ const Register = props => {
         		spacing={3}
 						direction="row"
 						justify="space-between"
-						alignItems="stretch">
+						alignItems="stretch"
+						className={classes.gridParent}>
         
 		      <Grid container item xs className={classes.gridLeft}>
 		        <Card className={classes.cards}>
@@ -172,7 +169,7 @@ const Register = props => {
     </Card>
         	</Grid>
         
-        <Grid container item xs className={classes.gridRight} alignItems="stretch">
+        <Grid container item xs className={classes.gridRight}>
           <h1 className={classes.h1} >Create</h1>
 		        <h1 className={classes.h1} >Account</h1>
 		        <h2 className={classes.h2} >Create Account</h2>

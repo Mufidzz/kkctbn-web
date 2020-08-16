@@ -30,17 +30,15 @@ const useStyles = makeStyles((theme) => ({
   },
   form: {
 		borderRadius: '5%',
-    width: '80%', // Fix IE 11 issue.
+    width: '800%', // Fix IE 11 issue.
     marginTop: theme.spacing(1),
   },
   cards : {
   	borderRadius: '5%',  
-		marginRight: 0,
 		color: 'white',
-  	marginLeft: '33%',
   	display: 'inline-block',
     width: '40%',
-    position: 'absolute',
+    position: 'fixed',
     height: '90%',
     right: 0,
     bottom: 0,
@@ -59,7 +57,10 @@ const useStyles = makeStyles((theme) => ({
   borderRadius: 25,
   justifyContent: 'center',
   alignItems: 'center',
-  marginLeft: '36%',
+  },
+  gridParent: {
+  	width: '100%',
+  	height: '100%',
   },
   
   btnRegistrasi: {
@@ -71,7 +72,8 @@ const useStyles = makeStyles((theme) => ({
   },
   
   gridLeft: {
-    marginLeft: '10%',
+  	width: '100vh',
+    margin: '5%',
   },
   greetings: {
   	color: 'white',
@@ -126,7 +128,8 @@ const Login = props => {
         		spacing={3}
 						direction="row"
 						justify="space-between"
-						alignItems="stretch">
+						alignItems="stretch"
+						className={classes.gridParent}>
         
 		      <Grid container item xs className={classes.gridLeft}>
 		        <h1 className={classes.h1} >SIGN IN,</h1>
