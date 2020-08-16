@@ -21,7 +21,7 @@ import PeopleIcon from '@material-ui/icons/People';
 import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
 import ElevationScroll from "../../../../components/ElevationScroll";
 import PropTypes from "prop-types";
-import Link from "@material-ui/core/Link";
+import {Link} from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -160,13 +160,13 @@ const DashboardDrawer = props => {
                 </div>
                 <Divider/>
                 <List>
-                    <Link style={{textDecoration: 'none', color: '#454545'}} href={'/dashboard/user'}>
+                    <Link style={{textDecoration: 'none', color: '#454545'}} to={'/dashboard/user'}>
                         <ListItem button key={'User'}>
                             <ListItemIcon><AccountCircleIcon/></ListItemIcon>
                             <ListItemText primary={'User'}/>
                         </ListItem>
                     </Link>
-                    <Link style={{textDecoration: 'none', color: '#454545'}} href={'/dashboard/team'}>
+                    <Link style={{textDecoration: 'none', color: '#454545'}} to={'/dashboard/team'}>
                         <ListItem button key={'Team'}>
                             <ListItemIcon><PeopleIcon/></ListItemIcon>
                             <ListItemText primary={'Team'}/>
@@ -175,7 +175,7 @@ const DashboardDrawer = props => {
                 </List>
                 <Divider/>
                 <List>
-                    <Link style={{textDecoration: 'none', color: '#454545'}} href={'/dashboard/information'}>
+                    <Link style={{textDecoration: 'none', color: '#454545'}} to={'/dashboard/information'}>
                         <ListItem button key={'Information'}>
                             <ListItemIcon><NotificationsNoneIcon/></ListItemIcon>
                             <ListItemText primary={'Information'}/>

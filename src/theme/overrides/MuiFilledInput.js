@@ -6,6 +6,10 @@ export default {
         paddingLeft :"20px !important",
         paddingRight :"20px !important",
     },
+    inputMultiline : {
+        paddingLeft :"8px !important",
+        paddingRight :"20px !important",
+    },
     underline: {
         "&:before" : {
             border: "none !important"

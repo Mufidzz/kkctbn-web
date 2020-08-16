@@ -52,10 +52,6 @@ const rows = [
 ;
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        display: 'flex',
-        flexWrap: 'wrap',
-    },
     table: {
         minWidth: 700,
     },

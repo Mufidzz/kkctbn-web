@@ -19,32 +19,32 @@ const routes = [
             {
                 path: "/dashboard/user",
                 exact: true,
-                component : lazy(() => import("./views/UserDashboardPage"))
+                component : lazy(() => import("./views/DashboardUser"))
             },
             {
                 path: "/dashboard/team",
                 exact: true,
-                component : lazy(() => import("./views/TeamDashboardPage"))
+                component : lazy(() => import("./views/DashboardTeam"))
             },
             {
                 path: "/dashboard/team/create",
                 exact: true,
-                component : lazy(() => import("./views/CreateTeamDashboardPage"))
+                component : lazy(() => import("./views/DashboardCreateTeam"))
             },
             {
                 path: "/dashboard/team/edit",
                 exact: true,
-                component : lazy(() => import("./views/EditTeamDashboardPage"))
+                component : lazy(() => import("./views/DashboardEditTeam"))
             },
             {
                 path: "/dashboard/team/submission",
                 exact: true,
-                component: lazy(() => import("./views/SubmissionTeamDashboardPage"))
+                component: lazy(() => import("./views/DashboardSubmission"))
             },
             {
                 path: "/dashboard/information",
                 exact: true,
-                component : lazy(() => import("./views/InformationDashboardPage"))
+                component : lazy(() => import("./views/DashboardInformation"))
             }
         ]
     }

@@ -1,16 +1,11 @@
 import React from 'react'
-import {CardContent, FormControl, Typography} from "@material-ui/core";
+import {CardContent, Typography} from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
 import {makeStyles} from "@material-ui/core/styles";
-import withStyles from "@material-ui/core/styles/withStyles";
 import TextField from "@material-ui/core/TextField";
-import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
-import green from "@material-ui/core/colors/green";
 import Button from "@material-ui/core/Button";
 import SaveIcon from '@material-ui/icons/Save';
-import ThemeProvider from "@material-ui/styles/ThemeProvider";
-import purple from "@material-ui/core/colors/purple";
 import CardHeader from "@material-ui/core/CardHeader";
 
 const useStyles = makeStyles((theme) => ({
@@ -24,140 +19,107 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: '2vh',
     },
     containedTeal: {
-        color: '#FFF',
+        color: '#FFFFFF',
         backgroundColor: '#009688',
         "&:hover": {
             backgroundColor: '#00796b',
-            // Reset on touch devices, it doesn't add specificity
             "@media (hover: none)": {
                 backgroundColor: '#009688'
             }
         }
     },
     containedOrange: {
-        color: '#FFF',
+        color: '#FFFFFF',
         backgroundColor: '#ff5722',
         "&:hover": {
             backgroundColor: '#e64a19',
-            // Reset on touch devices, it doesn't add specificity
             "@media (hover: none)": {
                 backgroundColor: '#ff5722'
             }
         }
     },
-    label : {
-        marginBottom: 10
+
+    cardHeader : {
+        backgroundColor: theme.palette.primary.main,
+        color: '#fff'
+    },
+    saveButton : {
+        color : "#FFFFFF",
+        backgroundColor: theme.palette.primary.main,
+        height: 50,
+        "&:hover" : {
+            backgroundColor: "#a61d1d",
+        }
     }
+
 }));
 
-const ValidationTextField = withStyles({
-    root: {
-        '& input:valid + fieldset': {
-            borderColor: 'green',
-            borderWidth: 2,
-        },
-        '& input:invalid + fieldset': {
-            borderColor: 'red',
-            borderWidth: 2,
-        },
-        '& input:valid:focus + fieldset': {
-            borderLeftWidth: 6,
-            padding: '4px !important', // override inline-style
-        },
-    },
-})(TextField);
 
-const theme = createMuiTheme({
-    status: {
-        danger: '#e53e3e',
-    },
-    palette: {
-        neutral: {
-            main: '#5c6ac4',
-        },
-    },
-});
-
-const UserDashboardPage = props => {
+const DashboardUser = props => {
     const classes = useStyles();
-    const [value, setValue] = React.useState('Controlled');
-
-    const handleChange = (event) => {
-        setValue(event.target.value);
-    };
 
     return (
         <Grid container>
             <Card style={{width: "100%"}}>
                 <CardHeader
-                    title={'Chairman\'s Personal Data'}
-                    style={{backgroundColor: '#f50057', color: '#fff'}}
+                    title={'Personal Data'}
+                    className={classes.cardHeader}
                 />
                 <CardContent>
                     <Grid container spacing={2}>
                         <Grid item md={6} style={{marginTop: 20}}>
-                            <Typography variant={"body2"} className={classes.label}>Full Name According to ID Card</Typography>
-                            <ValidationTextField
+                            <TextField
                                 className={classes.margin}
                                 label="Full name according to ID card"
                                 required
-                                variant="outlined"
-                                placeholder={"Entry your full name."} fullWidth
+                                variant="filled"
+                                placeholder={"Entry your full name."}
+                                fullWidth
                                 helperText="ex : Joni Irawan"
-                                id="validation-outlined-input"
                             />
-
                         </Grid>
 
                         <Grid item md={6} style={{marginTop: 20}}>
-                            <Typography variant={"body2"} className={classes.label}>Email Address</Typography>
-                            <ValidationTextField
+                            <TextField
                                 className={classes.margin}
                                 label="Email Address"
                                 required
-                                variant="outlined"
+                                variant="filled"
                                 placeholder={"Entry your email address."} fullWidth
                                 helperText="ex : kkctbn@gmail.com"
-                                id="validation-outlined-input"
                             />
                         </Grid>
 
                         <Grid item md={12} style={{marginTop: 20}}>
-                            <Typography variant={"body2"} className={classes.label}>Student ID Number</Typography>
-                            <ValidationTextField
+                            <TextField
                                 className={classes.margin}
                                 label="Student ID Number"
                                 required
-                                variant="outlined"
+                                variant="filled"
                                 placeholder={"Entry your student id number"} fullWidth
-                                helperText="((The student ID number of each campus has its own characteristics))"
-                                id="validation-outlined-input"
+                                helperText="The student ID number of each campus has its own characteristics"
                             />
                         </Grid>
 
                         <Grid item md={12} style={{marginTop: 20}}>
-                            <Typography variant={"body2"} className={classes.label}>Phone Number</Typography>
-                            <ValidationTextField
+                            <TextField
                                 className={classes.margin}
                                 label="Phone Number"
                                 required
-                                variant="outlined"
+                                variant="filled"
                                 placeholder={"Entry your phone number"} fullWidth
                                 helperText="ex : 08123456..."
-                                id="validation-outlined-input"
                             />
                         </Grid>
 
                         <Grid item md={12} style={{marginTop: 20}}>
-                            <Typography variant={"body2"} className={classes.label}>Complete Address</Typography>
                             <TextField
-                                id="outlined-textarea"
-                                label="Multiline Placeholder"
+                                label="Complete Address"
                                 placeholder="Entry complete addresss"
                                 multiline
                                 fullWidth
                                 helperText="ex : Jalan Raya Tlogomas No. 246 Tlogomas, Babatan, Tegalgondo, Kec. Lowokwaru, Kota Malang, Jawa Timur 65144"
-                                variant="outlined"
+                                variant="filled"
                             />
                         </Grid>
 
@@ -226,16 +188,17 @@ const UserDashboardPage = props => {
                             <hr style={{marginTop: 25, maxWidth: '100%'}}/>
                         </Grid>
 
-                        <Grid item md={12} style={{textAlign: "right", marginTop: 25}}>
-                            <Button
-                                variant="contained"
-                                color="secondary"
-                                size="large"
-                                className={classes.button}
-                                startIcon={<SaveIcon/>}
-                            >
-                                Save
-                            </Button>
+                        <Grid item container md={12} style={{textAlign: "right", marginTop: 25}} justify={"flex-end"}>
+                            <Grid item md={6} >
+                                <Button
+                                    fullWidth
+                                    variant="contained"
+                                    className={classes.saveButton}
+                                    startIcon={<SaveIcon/>}
+                                >
+                                    Save
+                                </Button>
+                            </Grid>
                         </Grid>
                     </Grid>
 
@@ -245,4 +208,4 @@ const UserDashboardPage = props => {
     )
 }
 
-export default UserDashboardPage;
+export default DashboardUser;
