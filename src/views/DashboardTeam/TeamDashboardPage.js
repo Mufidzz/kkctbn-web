@@ -139,7 +139,7 @@ const TeamDashboardPage = props => {
                     </Grid>
                     <Grid item md={2} style={{marginTop: 20}}>
                         <Link href={'/dashboard/team/create'} style={{textDecoration: 'none'}}>
-                            <Button variant={'contained'}>Create a new team</Button>
+                            <Button variant={'contained'} color={'primary'}>Create a new team</Button>
                         </Link>
                     </Grid>
                 </CardContent>

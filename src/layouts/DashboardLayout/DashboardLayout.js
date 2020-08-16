@@ -37,10 +37,7 @@ const DashboardLayout = props => {
         breadcrumbs: 0,
     })
 
-    console.log(props)
-
     const [breadcrumbsLocation, setBreadcrumbsLocation] = useState(props.location.pathname.split("/").slice(1))
-
 
     useEffect(() => {
         setBreadcrumbsLocation(props.location.pathname.split("/").slice(1))
@@ -48,7 +45,7 @@ const DashboardLayout = props => {
 
 
     const getFooterHeight = element => {
-        if (element && height.footer <= 0) { // need to check that we haven't already set the height or we'll create an infinite render loop
+        if (element && height.footer <= 0) {
             setHeight({
                 ...height,
                 footer: element.clientHeight
@@ -57,7 +54,7 @@ const DashboardLayout = props => {
     }
 
     const getBreadcrumbsHeight = element => {
-        if (element && height.breadcrumbs <= 0) { // need to check that we haven't already set the height or we'll create an infinite render loop
+        if (element && height.breadcrumbs <= 0) {
             setHeight({
                 ...height,
                 breadcrumbs: element.clientHeight

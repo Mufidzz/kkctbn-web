@@ -1,1 +1,1 @@
-export {default} from './InformationDashboardPage'
+export {default} from './DashboardInformation'
