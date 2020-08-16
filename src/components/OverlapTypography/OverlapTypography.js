@@ -52,7 +52,7 @@ const OverlapTypography = props => {
                     <Grid ref={getMainHeight} item md={12} style={{marginTop: 20}}>
                          {children}
                     </Grid>
-                    <Grid md={12} ref={getOverlayHeight} item style={{position: "absolute", zIndex: 0, color: "rgba(0,0,0,.2)"}}>
+                    <Grid md={12} ref={getOverlayHeight} item style={{position: "absolute", zIndex: -9999, color: "rgba(0,0,0,.2)"}}>
                         {overlay}
                     </Grid>
                 </Grid>

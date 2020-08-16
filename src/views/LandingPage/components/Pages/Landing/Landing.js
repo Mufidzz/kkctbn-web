@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
         fontSize : "8rem",
         color:"rgba(255,255,255,0.4) !important",
         [theme.breakpoints.down('sm')] : {
-            fontSize : "6rem",
+            fontSize : "5rem",
         }
     }
 }))
@@ -100,7 +100,7 @@ const Landing = props => {
 
                     {
                         isMobile ?
-                        <img height={"150px"} src={mainLogoWhite} alt={"Logo KKCTBN"} />
+                        <img height={"100px"} src={mainLogoWhite} alt={"Logo KKCTBN"} />
                         : null
                     }
                     <Grid item container direction={"row"} md={12} sm={12} xs={12} alignItems={"flex-start"}>
@@ -123,9 +123,7 @@ const Landing = props => {
                                 <Typography variant="caption" align={isMobile ? "center" : "left"}>
                                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque erat sapien,
                                     hendrerit
-                                    vitae urna et, iaculis tincidunt justo. Praesent blandit lacus eu nulla pretium, et
-                                    tempus
-                                    tellus interdum
+                                    vitae urna et, iaculis tincidunt justo.
                                 </Typography>
                             </Grid>
                         </Grid>
