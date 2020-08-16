@@ -5,6 +5,8 @@ import {makeStyles} from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import clsx from "clsx";
 import mainImage from "assets/images/main-image.jpg"
+import mainLogoWhite from "assets/images/logo-wh.png"
+import {useMediaQuery} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -13,6 +15,7 @@ const useStyles = makeStyles((theme) => ({
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
 
+        width: "100%",
         height: "100vh",
         position: "relative",
         display: "flex",
@@ -29,6 +32,9 @@ const useStyles = makeStyles((theme) => ({
         marginTop: theme.spacing(2),
         "&:hover" : {
             background: "rgba(215, 44, 44, 1)",
+        },
+        [theme.breakpoints.down('sm')] : {
+            height: 40
         }
     },
     escapeTop : {
@@ -36,7 +42,10 @@ const useStyles = makeStyles((theme) => ({
     },
     counter : {
         fontSize : "8rem",
-        color:"rgba(255,255,255,0.4) !important"
+        color:"rgba(255,255,255,0.4) !important",
+        [theme.breakpoints.down('sm')] : {
+            fontSize : "6rem",
+        }
     }
 }))
 
@@ -63,6 +72,7 @@ const Landing = props => {
 
     //Variable
     const classes = useStyles();
+    const isMobile = useMediaQuery(theme => theme.breakpoints.down('sm'))
 
 
     //USE
@@ -78,26 +88,39 @@ const Landing = props => {
     return (
         <Fragment>
             <Grid container className={clsx(classes.root)} justify={"center"}>
-                <Grid item container md={11} justify={"center"} className={classes.escapeTop}>
-                    <Typography variant="h1" className={classes.counter} align={"right"} style={{position: "absolute", bottom: 10, right: 15}}>
+                <Grid item container md={11} sm={11} xs={11} justify={"center"} className={isMobile ? null : classes.escapeTop}>
+
+                    <Typography variant={"h1"} className={classes.counter} align={"right"} style={{position: "absolute", bottom: 10, right: 15}}>
                         <b>
-                            {timeLeft.days|0}D {timeLeft.hours|0}H
+                            {timeLeft.days|0}D {isMobile? <br/> : ""} {timeLeft.hours|0}H
                             <br/>
-                            {timeLeft.minutes|0}M {timeLeft.seconds|0}S
+                            {timeLeft.minutes|0}M {isMobile? <br/> : ""} {timeLeft.seconds|0}S
                         </b>
                     </Typography>
-                    <Grid item container direction={"row"} md={12} alignItems={"flex-start"}>
-                        <Grid item md={12}>
-                            <Typography variant="h1">
-                                <b>Selamat Datang</b>
-                            </Typography>
-                            <Typography variant="h2" style={{fontWeight: "400"}}>
-                                KKCTBN 2020
-                            </Typography>
+
+                    {
+                        isMobile ?
+                        <img height={"150px"} src={mainLogoWhite} alt={"Logo KKCTBN"} />
+                        : null
+                    }
+                    <Grid item container direction={"row"} md={12} sm={12} xs={12} alignItems={"flex-start"}>
+
+                        <Grid item container md={12} sm={10} justify={"flex-start"} style={isMobile ? {marginBottom : 20} : null}>
+                            <Grid item md={12}>
+                                <Typography variant={isMobile ? "h3" : "h1"}>
+                                    <b>Selamat Datang</b>
+                                </Typography>
+                            </Grid>
+                            <Grid item md={12}>
+                                <Typography variant={isMobile ? "h4" : "h2"} style={{fontWeight: "400"}}>
+                                    KKCTBN 2020
+                                </Typography>
+                            </Grid>
                         </Grid>
-                        <Grid item md={12}>
-                            <Grid item md={6}>
-                                <Typography variant="caption">
+
+                        <Grid item md={12} style={isMobile ? {marginBottom : 20} : null}>
+                            <Grid item md={6} sm={12}>
+                                <Typography variant="caption" align={isMobile ? "center" : "left"}>
                                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque erat sapien,
                                     hendrerit
                                     vitae urna et, iaculis tincidunt justo. Praesent blandit lacus eu nulla pretium, et
@@ -106,7 +129,7 @@ const Landing = props => {
                                 </Typography>
                             </Grid>
                         </Grid>
-                        <Grid item md={3}>
+                        <Grid item md={3} sm={12} xs={12}>
                             <Button fullWidth variant="contained" className={classes.roundedButton}>
                                 <Typography variant={"button"}> Daftar </Typography>
                             </Button>
