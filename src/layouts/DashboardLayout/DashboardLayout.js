@@ -7,6 +7,7 @@ import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import {Link} from "react-router-dom";
 import {renderRoutes} from "react-router-config";
 import PropTypes from "prop-types";
+import useScrollTrigger from "@material-ui/core/useScrollTrigger";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -63,6 +64,7 @@ const DashboardLayout = props => {
             })
         }
     }
+
 
     return (
         <DashboardDrawer>
