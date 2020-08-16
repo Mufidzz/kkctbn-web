@@ -28,9 +28,9 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 14,
   },
   form: {
+
 		borderRadius: '5%',
     width: '80%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
   },
   cards : {
   	borderRadius: '5%',  
@@ -56,7 +56,10 @@ const useStyles = makeStyles((theme) => ({
   borderRadius: 25,
   justifyContent: 'center',
   alignItems: 'center',
-  marginLeft: '36%',
+  },
+  gridParent: {
+  	width: '100%',
+  	height: '100%',
   },
   
   btnRegistrasi: {
@@ -70,22 +73,12 @@ const useStyles = makeStyles((theme) => ({
   gridLeft: {
     marginLeft: '10%',
   },
-  gridGreeting: {
-  	width: 'auto',
-
-  	padding: '10%',
-  	alignItems: 'center',
-  	justifyContent: 'center',
-  },
   h1: {
     color: 'rgba(255,142,154,0.2)',
-    position: 'relative',
-    fontSize: '40pt',
+    marginTop: '10%',
+    fontSize: '50pt',
   },
-  gridParent: {
-  	width: '100%',
-  	height: '100%',
-  },
+  
   h1_greet: {
     textColor: 'white',
     fontSize: '20pt',
@@ -107,7 +100,7 @@ const useStyles = makeStyles((theme) => ({
     position: 'absolute',
     bottom: 450,
     right: 150,
-    fontSize: '40pt',
+    fontSize: '50pt',
   },
 }));
 
@@ -157,7 +150,7 @@ const Register = props => {
 							
 						<Grid item xs={12}>
 							<Link to="/login" variant="body2">
-				          <Button variant="outlined" className={classes.btnRegistrasi}>Register</Button>		   		
+				          <Button variant="outlined" className={classes.btnRegistrasi}>Login</Button>		   		
 				       </Link>   
 				   	</Grid>
 
@@ -170,11 +163,10 @@ const Register = props => {
         	</Grid>
         
         <Grid container item xs className={classes.gridRight}>
-          <h1 className={classes.h1} >Create</h1>
-		        <h1 className={classes.h1} >Account</h1>
-		        <h2 className={classes.h2} >Create Account</h2>
+          
         		<form className={classes.form} noValidate>
-        
+        			<h1 className={classes.h1} >Create <br />Account</h1>
+		        <h2 className={classes.h2} >Create Account</h2>
 				      <TextField
 				        variant="outlined"
 				        margin="normal"

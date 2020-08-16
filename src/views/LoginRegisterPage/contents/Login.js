@@ -29,9 +29,9 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 14,
   },
   form: {
+  	marginTop: '10%',
 		borderRadius: '5%',
-    width: '800%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
+    width: '80%', // Fix IE 11 issue.
   },
   cards : {
   	borderRadius: '5%',  
@@ -58,6 +58,7 @@ const useStyles = makeStyles((theme) => ({
   justifyContent: 'center',
   alignItems: 'center',
   },
+  
   gridParent: {
   	width: '100%',
   	height: '100%',
@@ -72,9 +73,9 @@ const useStyles = makeStyles((theme) => ({
   },
   
   gridLeft: {
-  	width: '100vh',
-    margin: '5%',
+    marginLeft: '10%',
   },
+  
   greetings: {
   	color: 'white',
   	margin: '5%',
@@ -90,8 +91,8 @@ const useStyles = makeStyles((theme) => ({
   },
   h1: {
     color: 'rgba(255,142,154,0.2)',
-    position: 'relative',
-    fontSize: '40pt',
+    marginTop: '10%',
+    fontSize: '50pt',
   },
   h1_greet: {
     textColor: 'white',
@@ -113,9 +114,9 @@ const useStyles = makeStyles((theme) => ({
   h2: {
     color: 'rgba(255,142,154,1)',
     position: 'absolute',
-    bottom: 450,
+    bottom: 400,
     left: 150,
-    fontSize: '40pt',
+    fontSize: '50pt',
   },
 }));
 
@@ -132,11 +133,10 @@ const Login = props => {
 						className={classes.gridParent}>
         
 		      <Grid container item xs className={classes.gridLeft}>
-		        <h1 className={classes.h1} >SIGN IN,</h1>
-		        <h1 className={classes.h1} >Gladiator</h1>
-		        <h2 className={classes.h2} >SIGN IN</h2>
+		        
         		<form className={classes.form} noValidate>
-        
+        			<h1 className={classes.h1} >SIGN IN, <br />Gladitor</h1>
+		        <h2 className={classes.h2} >SIGN IN</h2>
 				      <TextField
 				        variant="outlined"
 				        margin="normal"
