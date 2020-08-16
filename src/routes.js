@@ -8,9 +8,9 @@ const routes = [
         component : lazy(() => import("./views/LandingPage"))
     },
     {
-        path: "/login",
+        path: "/auth",
         exact: true,
-        component : lazy(() => import("./views/LoginRegisterPage"))
+        component : lazy(() => import("./views/AuthorizationPage"))
     },
     {
         path: "/dashboard",
