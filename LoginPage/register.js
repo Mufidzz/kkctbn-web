@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -14,8 +14,6 @@ import Container from '@material-ui/core/Container';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import logokcctbn from './Vector.png';
-
 
 const useStyles = makeStyles((theme) => ({
   root : {
@@ -70,15 +68,16 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(3, 0, 2),
   },
 }));
-
-const LoginPage = () => {
+ 
+ 
+const Register = () => {
 	const classes = useStyles();
 	const bull = <span className={classes.bullet}>•</span>;
     return (
     <Box className={classes.root}>
     <Card className={classes.cards}>
 			<Card className={classes.cards2}>
-<img src={logokcctbn} className={classes.avatar}/>
+cek
     	</Card>
         <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -141,7 +140,4 @@ const LoginPage = () => {
             </Box>
     )
 }
-
-export default LoginPage
-
-
+export default Register;

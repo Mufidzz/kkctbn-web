@@ -9,18 +9,9 @@ const routes = [
     {
         path: "/login",
         exact: true,
-        component : lazy(() => import("./views/LoginPage"))
+        component : lazy(() => import("./views/LoginRegisterPage"))
     },
-    {
-        path: "/register",
-        exact: true,
-        component : lazy(() => import("./views/RegisPage"))
-    },
-    {
-        path: "/competition",
-        exact: true,
-        component : lazy(() => import("./views/RegisPage"))
-    }
+    
 ]
 
 export default routes;
