@@ -24,7 +24,7 @@ import Link from "@material-ui/core/Link";
 
 const StyledTableCell = withStyles((theme) => ({
     head: {
-        backgroundColor: '#f50057',
+        backgroundColor: theme.palette.primary.main,
         color: theme.palette.common.white,
     },
     body: {
@@ -40,8 +40,8 @@ const StyledTableRow = withStyles((theme) => ({
     },
 }))(TableRow);
 
-function createData(name, calories, fat, carbs, protein) {
-    return {name, calories, fat, carbs, protein};
+const createData = (teamName, competitionType, status, submission, action) => {
+    return {teamName, competitionType, status, submission, action};
 }
 
 
@@ -101,11 +101,6 @@ const useStyles = makeStyles((theme) => ({
 
 const TeamDashboardPage = props => {
     const classes = useStyles();
-    const [value, setValue] = React.useState('Controlled');
-
-    const handleChange = (event) => {
-        setValue(event.target.value);
-    };
 
     return (
         <Grid container>
@@ -130,12 +125,12 @@ const TeamDashboardPage = props => {
                                     {rows.map((row) => (
                                         <StyledTableRow key={row.name}>
                                             <StyledTableCell component="th" scope="row">
-                                                {row.name}
+                                                {row.teamName}
                                             </StyledTableCell>
-                                            <StyledTableCell align="right">{row.calories}</StyledTableCell>
-                                            <StyledTableCell align="right">{row.fat}</StyledTableCell>
-                                            <StyledTableCell align="right">{row.carbs}</StyledTableCell>
-                                            <StyledTableCell align="right">{row.protein}</StyledTableCell>
+                                            <StyledTableCell align="right">{row.competitionType}</StyledTableCell>
+                                            <StyledTableCell align="right">{row.status}</StyledTableCell>
+                                            <StyledTableCell align="right">{row.submission}</StyledTableCell>
+                                            <StyledTableCell align="right">{row.action}</StyledTableCell>
                                         </StyledTableRow>
                                     ))}
                                 </TableBody>
