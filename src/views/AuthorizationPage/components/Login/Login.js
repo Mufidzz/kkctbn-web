@@ -10,6 +10,7 @@ import {Typography} from "@material-ui/core";
 import clsx from "clsx";
 import {animated} from "react-spring";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
+import {Link} from "react-router-dom";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -97,6 +98,9 @@ const Login = props => {
                             </Grid>
                             <Grid item md={8} sm={10} xs={10}>
                                 <Button
+                                    component={Link}
+                                    to={"/dashboard/user"}
+
                                     fullWidth
                                     variant="contained"
                                     className={clsx(classes.button, classes.submit)}>
@@ -105,8 +109,6 @@ const Login = props => {
                             </Grid>
                         </Grid>
                     </Grid>
-
-
 
 
                     <Grid item container md={6} sm={12} xs={12} justify={"flex-end"} alignContent={"flex-end"} alignItems={"flex-end"}>
@@ -123,7 +125,6 @@ const Login = props => {
                                         <img style={{cursor: "pointer"}} src={mainLogo} height={200} alt={"Logo KKCTBN"}/>
                                     </Grid>
                                 }
-
 
                                 <Grid item>
                                     <Typography variant={"h4"} align={"center"}><b>Welcome Back,

@@ -135,7 +135,7 @@ const TeamDashboardPage = props => {
                             </TableContainer>
                         </Grid>
                         <Grid item md={2} sm={12} xs={12} style={{marginTop: 20}}>
-                            <Link href={'/dashboard/team/create'} style={{textDecoration: 'none'}}>
+                            <Link href={'/dashboard/team/edit'} style={{textDecoration: 'none'}}>
                                 <Button variant={'contained'} color={'primary'}>Create a new team</Button>
                             </Link>
                         </Grid>

@@ -136,7 +136,7 @@ const LandingAppBar = props => {
 
 
 
-                                <Typography component={Link} to={"/login"} style={{cursor: "pointer", color: ElevationTrigger ? "#000000" : "#FFFFFF"}} variant="h6"
+                                <Typography component={Link} to={"/auth"} style={{cursor: "pointer", color: ElevationTrigger ? "#000000" : "#FFFFFF"}} variant="h6"
                                             color="primary">
                                     Login
                                 </Typography>

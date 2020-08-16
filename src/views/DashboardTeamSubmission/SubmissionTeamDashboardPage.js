@@ -72,7 +72,7 @@ const SubmissionTeamDashboardPage = props => {
                 />
                 <CardContent style={{marginTop: 25}}>
                     <Grid container spacing={2}>
-                        <Grid item md={12}>
+                        <Grid item md={12} sm={12} xs={12}>
                             <TextField
                                 className={classes.margin}
                                 label="Title of Innovation"
@@ -81,13 +81,13 @@ const SubmissionTeamDashboardPage = props => {
                                 placeholder={"Entry your title of innovation."} fullWidth
                             />
                         </Grid>
-                        <Grid item md={12}>
+                        <Grid item md={12} sm={12} xs={12}>
                             <hr width={"100%"}/>
                         </Grid>
-                        <Grid item md={12}>
+                        <Grid item md={12} sm={12} xs={12}>
                             <Typography variant={'body2'}><b>Submission</b></Typography>
                         </Grid>
-                        <Grid item md={8}>
+                        <Grid item md={8} sm={12} xs={12}>
                             <TextField
                                 className={classes.margin}
                                 label="Youtube URL"
@@ -97,11 +97,11 @@ const SubmissionTeamDashboardPage = props => {
                             />
                         </Grid>
 
-                        <Grid item md={12}>
+                        <Grid item md={12} sm={12} xs={12}>
                             <Typography variant={'body2'} style={{marginTop: 10}}>Upload Proposal* (pdf/jpg/png/obj)</Typography>
                         </Grid>
 
-                        <Grid item md={2}>
+                        <Grid item md={2} sm={6} xs={6}>
                             <input
                                 accept="image/jpeg, image/png, application/pdf, .obj"
                                 className={classes.input}
@@ -118,14 +118,14 @@ const SubmissionTeamDashboardPage = props => {
                             </label>
                         </Grid>
 
-                        <Grid item md={2}>
+                        <Grid item md={2} sm={6} xs={6}>
                             <Button variant={"contained"} className={classes.containedTeal} fullWidth>
                                 Download
                             </Button>
                         </Grid>
 
-                        <Grid item md={12} style={{textAlign: "right", marginTop: 10}}>
-                            <Button variant={"contained"} size={"large"} color={'primary'} endIcon={<SendIcon/>}>
+                        <Grid item md={6} sm={12} xs={12} style={{textAlign: "right", marginTop: 10}}>
+                            <Button fullWidth variant={"contained"} size={"large"} color={'primary'} endIcon={<SendIcon/>}>
                                 Submit Proposal
                             </Button>
                         </Grid>

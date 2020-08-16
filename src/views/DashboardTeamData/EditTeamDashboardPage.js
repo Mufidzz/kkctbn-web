@@ -120,6 +120,15 @@ const EditTeamDashboardPage = props => {
         }
     }
 
+    const removeMember = (idx) => {
+        if(memberData.length > 1) {
+            setMemberData([
+                // md
+                memberData.splice(idx, 1)
+            ])
+        }
+    }
+
 
     return (
         <Grid container>
@@ -134,7 +143,7 @@ const EditTeamDashboardPage = props => {
 
                     <CardContent style={{marginTop: 25}}>
                         <Grid container spacing={2}>
-                            <Grid item md={12}>
+                            <Grid item md={12} sm={12} xs={12}>
                                 <TextField
                                     className={classes.margin}
                                     label="Team name"
@@ -181,7 +190,7 @@ const EditTeamDashboardPage = props => {
                                 {memberData.map((v,i) => {
                                     return (
                                         <Grid item md={3}>
-                                            <Button variant={selectedMemberIndex === i ? 'contained' : 'outlined'}
+                                            <Button onClick={() => setSelectedMemberIndex(i)} variant={selectedMemberIndex === i ? 'contained' : 'outlined'}
                                                     className={selectedMemberIndex === i ? classes.activeMember : classes.inactiveMember}
                                                     size={'large'} fullWidth>Member {i + 1}</Button>
                                         </Grid>
@@ -192,7 +201,7 @@ const EditTeamDashboardPage = props => {
                                 <Grid item container md={3} spacing={1}>
                                     <Grid item md={6} justify={"space-between"}>
                                         <Button disabled={memberData.length <= 1} fullWidth className={classes.containedRed} variant={'contained'}
-                                                size={'large'} style={{height: '100%'}}><RemoveIcon/></Button>
+                                                size={'large'} style={{height: '100%'}} onClick={() => removeMember(3)}><RemoveIcon/></Button>
                                     </Grid>
                                     <Grid item md={6}>
                                         <Button disabled={memberData.length >= 3} fullWidth className={classes.containedLightBlue} variant={'contained'}
@@ -201,7 +210,7 @@ const EditTeamDashboardPage = props => {
                                 </Grid>
                             </Grid>
 
-                            <Grid item md={6} style={{marginTop: 20}}>
+                            <Grid item md={6}  sm={12} xs={12} style={{marginTop: 20}}>
 
                                 <TextField
                                     className={classes.margin}
@@ -213,7 +222,7 @@ const EditTeamDashboardPage = props => {
                                 />
                             </Grid>
 
-                            <Grid item md={6} style={{marginTop: 20}}>
+                            <Grid item md={6}  sm={12} xs={12} style={{marginTop: 20}}>
                                 <TextField
                                     className={classes.margin}
                                     label="Email Address"
@@ -224,7 +233,7 @@ const EditTeamDashboardPage = props => {
                                 />
                             </Grid>
 
-                            <Grid item md={12} style={{marginTop: 20}}>
+                            <Grid item md={12}  sm={12} xs={12} style={{marginTop: 20}}>
                                 <TextField
                                     className={classes.margin}
                                     label="Student ID Number"
@@ -236,7 +245,7 @@ const EditTeamDashboardPage = props => {
                                 />
                             </Grid>
 
-                            <Grid item md={12} style={{marginTop: 20}}>
+                            <Grid item md={12}  sm={12} xs={12} style={{marginTop: 20}}>
                                 <TextField
                                     className={classes.margin}
                                     label="Phone Number"
@@ -247,7 +256,7 @@ const EditTeamDashboardPage = props => {
                                 />
                             </Grid>
 
-                            <Grid item md={12} style={{marginTop: 20}}>
+                            <Grid item md={12} sm={12} xs={12} style={{marginTop: 20}}>
                                 <TextField
                                     label="Multiline Placeholder"
                                     placeholder="Entry complete addresss"
@@ -258,7 +267,7 @@ const EditTeamDashboardPage = props => {
                                 />
                             </Grid>
 
-                            <Grid item md={12} style={{marginTop: 10}}>
+                            <Grid item md={12} sm={12} xs={12} style={{marginTop: 10}}>
                                 <Typography variant={'body2'} style={{marginBottom: 10}}>
                                     Student ID Card* (pdf file)
                                 </Typography>
@@ -299,7 +308,7 @@ const EditTeamDashboardPage = props => {
                                 </label>
                             </Grid>
 
-                            <Grid item md={12} style={{marginTop: 10}}>
+                            <Grid item md={12} sm={12} xs={12} style={{marginTop: 10}}>
                                 <Typography variant={'body2'} style={{marginBottom: 10}}>
                                     Identity Card* (pdf file)
                                 </Typography>
@@ -340,9 +349,6 @@ const EditTeamDashboardPage = props => {
                                 </label>
                             </Grid>
 
-                            <Grid item md={12}/>
-
-
                             <Grid item md={12}>
                                 <hr style={{
                                     backgroundColor: '#000000',
@@ -350,7 +356,7 @@ const EditTeamDashboardPage = props => {
                                 }}/>
                             </Grid>
 
-                            <Grid item md={12} style={{marginTop: 20}}>
+                            <Grid item md={12}  sm={12} xs={12} style={{marginTop: 20}}>
 
                                 <TextField
                                     className={classes.margin}
@@ -362,7 +368,7 @@ const EditTeamDashboardPage = props => {
                                 />
                             </Grid>
 
-                            <Grid item md={12} style={{marginTop: 10}}>
+                            <Grid item md={12} xs={12} sm={12} style={{marginTop: 10}}>
                                 <Typography variant={'body2'} style={{marginBottom: 10}}>
                                     Student Mandate Card* (pdf file)
                                 </Typography>

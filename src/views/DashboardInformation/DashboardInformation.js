@@ -13,7 +13,7 @@ import Paper from "@material-ui/core/Paper";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
-import {Scrollable} from "../../components";
+import {Scrollable} from "components";
 
 
 const StyledTableCell = withStyles((theme) => ({
