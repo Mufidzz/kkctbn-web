@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
@@ -69,6 +69,19 @@ const Register = props => {
     const classes = useStyles();
     const isMobile = useMediaQuery(theme => theme.breakpoints.down("sm"))
     const {mover, ...rest} = props;
+    
+    const [formState, setFormState] = useState({      
+        Email : "",
+        Password: "",
+        RetypePassword: ""
+    })
+
+    const handleFormChange = e => {
+        setFormState({
+            ...formState,
+            [e.target.name] : e.target.value
+        })
+    }
 
     return (
         <animated.div {...rest}>
@@ -120,9 +133,12 @@ const Register = props => {
                                         Account</b></Typography>
                                 </OverlapTypography>
                                 <TextField
+                                		onChange={handleFormChange}
+		                                value={formState.Email}
                                     variant="filled"
                                     required
                                     fullWidth
+                                    name="Email"
                                     label="Email"
                                     type="email"
                                     autoFocus
@@ -130,16 +146,22 @@ const Register = props => {
                                 />
 
                                 <TextField
+                                		onChange={handleFormChange}
+		                                value={formState.Password}
                                     variant="filled"
                                     required
                                     fullWidth
+                                    name="Password"
                                     label="Password"
                                     type="password"
                                     id="password"
                                     className={classes.textField}
                                 />
                                 <TextField
+                                		onChange={handleFormChange}
+		                                value={formState.RetypePassword}
                                     variant="filled"
+                                    name="RetypePassword"
                                     required
                                     fullWidth
                                     label="Retype Password"
