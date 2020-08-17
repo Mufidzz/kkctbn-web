@@ -1,6 +1,6 @@
 {
   "name": "ofcode.dev.web.kkctbn2020",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "private": true,
   "dependencies": {
     "@date-io/date-fns": "^1.3.13",
@@ -33,6 +33,8 @@
     "react-spring": "^8.0.27"
   },
   "scripts": {
+    "generate-build-version": "node generate-build-version",
+    "prebuild": "npm run generate-build-version",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

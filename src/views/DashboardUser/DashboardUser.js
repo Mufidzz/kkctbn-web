@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {CardContent, Typography} from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
@@ -58,6 +58,23 @@ const useStyles = makeStyles((theme) => ({
 const DashboardUser = props => {
     const classes = useStyles();
 
+    const [formState, setFormState] = useState({
+        FullName : "",
+        Email : "",
+        StudentIDNumber : "",
+        PhoneNumber : "",
+        Address : ""
+    })
+
+    const handleFormChange = e => {
+        setFormState({
+            ...formState,
+            [e.target.name] : e.target.value
+        })
+    }
+
+
+
     return (
         <Grid container>
             <Card style={{width: "100%"}}>
@@ -69,6 +86,8 @@ const DashboardUser = props => {
                     <Grid container spacing={2}>
                         <Grid item md={6} sm={12} xs={12} style={{marginTop: 20}}>
                             <TextField
+                                onChange={handleFormChange}
+                                value={formState.FullName}
                                 className={classes.margin}
                                 label="Full name according to ID card"
                                 required
@@ -76,50 +95,63 @@ const DashboardUser = props => {
                                 placeholder={"Entry your full name."}
                                 fullWidth
                                 helperText="ex : Joni Irawan"
+                                name="FullName"
                             />
                         </Grid>
 
                         <Grid item md={6} sm={12} xs={12} style={{marginTop: 20}}>
                             <TextField
+                                onChange={handleFormChange}
+                                value={formState.Email}
                                 className={classes.margin}
                                 label="Email Address"
                                 required
                                 variant="filled"
                                 placeholder={"Entry your email address."} fullWidth
                                 helperText="ex : kkctbn@gmail.com"
+                                name="Email"
                             />
                         </Grid>
 
                         <Grid item md={12} sm={12} xs={12} style={{marginTop: 20}}>
                             <TextField
+                                onChange={handleFormChange}
+                                value={formState.StudentIDNumber}
                                 className={classes.margin}
                                 label="Student ID Number"
                                 required
                                 variant="filled"
                                 placeholder={"Entry your student id number"} fullWidth
                                 helperText="The student ID number of each campus has its own characteristics"
+                                name="StudentIDNumber"
                             />
                         </Grid>
 
                         <Grid item md={12} sm={12} xs={12} style={{marginTop: 20}}>
                             <TextField
+                                onChange={handleFormChange}
+                                value={formState.PhoneNumber}
                                 className={classes.margin}
                                 label="Phone Number"
                                 required
                                 variant="filled"
                                 placeholder={"Entry your phone number"} fullWidth
                                 helperText="ex : 08123456..."
+                                name="PhoneNumber"
                             />
                         </Grid>
 
                         <Grid item md={12} sm={12} xs={12} style={{marginTop: 20}}>
                             <TextField
+                                onChange={handleFormChange}
+                                value={formState.Address}
                                 label="Complete Address"
                                 placeholder="Entry complete addresss"
                                 multiline
                                 fullWidth
                                 helperText="ex : Jalan Raya Tlogomas No. 246 Tlogomas, Babatan, Tegalgondo, Kec. Lowokwaru, Kota Malang, Jawa Timur 65144"
                                 variant="filled"
+                                name="Address"
                             />
                         </Grid>
 
