@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
     width: '80%', // Fix IE 11 issue.
   },
   cards : {
-  	borderRadius: '5%',  
+  	borderRadius: '0 0 0 0.5',  
 		color: 'white',
   	display: 'inline-block',
     width: '40%',
