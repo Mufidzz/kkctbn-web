@@ -40,6 +40,41 @@ const routes = [
                 path: "/dashboard/information",
                 exact: true,
                 component : lazy(() => import("./views/DashboardInformation"))
+            },
+            {
+                path: "/dashboard/judger/submission",
+                exact: true,
+                component : lazy(() => import("./views/DashboardInformation"))
+            },
+            {
+                path: "/dashboard/manage/users",
+                exact: true,
+                component : lazy(() => import("./views/DashboardAdminManageUsers"))
+            },
+            {
+                path: "/dashboard/manage/teams",
+                exact: true,
+                component : lazy(() => import("./views/DashboardAdminManageTeams"))
+            },
+            {
+                path: "/dashboard/manage/teams/view",
+                exact: true,
+                component : lazy(() => import("./views/DashboardAdminManageTeamsView"))
+            },
+            {
+                path: "/dashboard/manage/accounts",
+                exact: true,
+                component : lazy(() => import("./views/DashboardAdminManageAccounts"))
+            },
+            {
+                path: "/dashboard/manage/judge",
+                exact: true,
+                component : lazy(() => import("./views/DashboardJudgerManageJudge"))
+            },
+            {
+                path: "/dashboard/manage/judge/view",
+                exact: true,
+                component : lazy(() => import("./views/DashboardJudgerManageJudgeView"))
             }
         ]
     }

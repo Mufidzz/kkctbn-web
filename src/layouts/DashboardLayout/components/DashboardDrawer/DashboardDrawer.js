@@ -15,7 +15,10 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
+import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
+import HowToRegIcon from '@material-ui/icons/HowToReg';
+import AssignmentIcon from '@material-ui/icons/Assignment';
+import GroupWorkIcon from '@material-ui/icons/GroupWork';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import PeopleIcon from '@material-ui/icons/People';
 import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
@@ -179,6 +182,22 @@ const DashboardDrawer = props => {
                                 <ListItemIcon><PeopleIcon/></ListItemIcon>
                                 <ListItemText primary={'Team'}/>
                             </ListItem>
+                        <ListItem button key={'Manage Users'} component={Link} to={'/dashboard/manage/users'}>
+                            <ListItemIcon><AssignmentIndIcon/></ListItemIcon>
+                            <ListItemText primary={'Manage Users'}/>
+                        </ListItem>
+                        <ListItem button key={'Manage Teams'} component={Link} to={'/dashboard/manage/teams'}>
+                            <ListItemIcon><GroupWorkIcon/></ListItemIcon>
+                            <ListItemText primary={'Manage Teams'}/>
+                        </ListItem>
+                        <ListItem button key={'Manage Accounts'} component={Link} to={'/dashboard/manage/accounts'}>
+                            <ListItemIcon><HowToRegIcon/></ListItemIcon>
+                            <ListItemText primary={'Manage Accounts'}/>
+                        </ListItem>
+                        <ListItem button key={'Judger'} component={Link} to={'/dashboard/manage/judge'}>
+                            <ListItemIcon><AssignmentIcon/></ListItemIcon>
+                            <ListItemText primary={'Judger'}/>
+                        </ListItem>
                     </List>
                     <Divider/>
                     <List>
