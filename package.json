@@ -1,6 +1,6 @@
 {
   "name": "ofcode.dev.web.kkctbn2020",
-  "version": "0.1.0",
+  "version": "1.1.2",
   "private": true,
   "dependencies": {
     "@date-io/date-fns": "^1.3.13",
@@ -16,6 +16,7 @@
     "clsx": "^1.1.1",
     "date-fns": "^2.14.0",
     "fontsource-montserrat": "^3.0.5",
+    "material-table": "^1.68.1",
     "node-sass": "^4.14.1",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",

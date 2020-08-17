@@ -15,13 +15,19 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
+import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
+import HowToRegIcon from '@material-ui/icons/HowToReg';
+import AssignmentIcon from '@material-ui/icons/Assignment';
+import GroupWorkIcon from '@material-ui/icons/GroupWork';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import PeopleIcon from '@material-ui/icons/People';
 import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
 import ElevationScroll from "../../../../components/ElevationScroll";
 import PropTypes from "prop-types";
-import Link from "@material-ui/core/Link";
+import {Link} from "react-router-dom";
+import useScrollTrigger from "@material-ui/core/useScrollTrigger";
+import mainLogo from 'assets/images/logo-wh.png'
+
 
 const drawerWidth = 240;
 
@@ -78,7 +84,6 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         justifyContent: 'flex-end',
         padding: theme.spacing(0, 1),
-        // necessary for content to be below app bar
         ...theme.mixins.toolbar,
     },
     content: {
@@ -86,9 +91,12 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+
+
 const DashboardDrawer = props => {
+
     const classes = useStyles();
-    const {children} = props;
+    const {children, window} = props;
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
 
@@ -100,95 +108,112 @@ const DashboardDrawer = props => {
         setOpen(false);
     };
 
-    const getHeight = element => {
-        if (element) { // need to check that we haven't already set the height or we'll create an infinite render loop
-            // this.setState({ elementHeight: element.clientHeight });
-            alert(element.clientHeight)
-        }
-    }
+
+    const ElevationTrigger = useScrollTrigger({
+        disableHysteresis: true,
+        threshold: 0,
+        target: window ? window() : undefined,
+    });
+
 
     return (
-        <div className={classes.root}>
-            <CssBaseline/>
-            <AppBar
-                position="fixed"
-                className={clsx(classes.appBar, {
-                    [classes.appBarShift]: open,
-                })}
-                color={"transparent"}
-                style={{boxShadow: "none"}}
-            >
-                <Toolbar>
-                    <IconButton
-                        color="white"
-                        aria-label="open drawer"
-                        onClick={handleDrawerOpen}
-                        edge="start"
-                        className={clsx(classes.menuButton, {
-                            [classes.hide]: open,
-                        })}
-                        style={{
-                            color: "#FFFFFF"
-                        }}
-                    >
-                        <MenuIcon/>
-                    </IconButton>
-                    <Typography variant="h5" noWrap>
-                        <b>KKCTBN 2020</b>
-                    </Typography>
-                </Toolbar>
-            </AppBar>
+        <ElevationScroll trigger={ElevationTrigger}>
+            <div className={classes.root}>
+                <CssBaseline/>
+                <AppBar
+                    position="fixed"
+                    className={clsx(classes.appBar, {
+                        [classes.appBarShift]: open,
+                    })}
+                    color={"transparent"}
+                    style={{boxShadow: "none"}}
+                >
+                    <Toolbar style={ElevationTrigger ? {backgroundColor: "#CF2424", color: "#FFFFFF"} : {backgroundColor: "inherit"}}>
+                        <IconButton
+                            color="white"
+                            aria-label="open drawer"
+                            onClick={handleDrawerOpen}
+                            edge="start"
+                            className={clsx(classes.menuButton, {
+                                [classes.hide]: open,
+                            })}
+                            style={{
+                                color: "#FFFFFF"
+                            }}
+                        >
+                            <MenuIcon/>
+                        </IconButton>
+                        <Typography variant="h5" noWrap>
+                            <b>KKCTBN 2020</b>
+                        </Typography>
+                    </Toolbar>
+                </AppBar>
 
-
-            <Drawer
-                variant="permanent"
-                className={clsx(classes.drawer, {
-                    [classes.drawerOpen]: open,
-                    [classes.drawerClose]: !open,
-                })}
-                classes={{
-                    paper: clsx({
+                <Drawer
+                    variant="permanent"
+                    className={clsx(classes.drawer, {
                         [classes.drawerOpen]: open,
                         [classes.drawerClose]: !open,
-                    }),
-                }}
-            >
-                <div className={classes.toolbar} style={{backgroundColor: "#D72C2C"}}>
-                    <IconButton onClick={handleDrawerClose} style={{color: "#FFFFFF"}}>
-                        {open ? theme.direction === 'rtl' ? <ChevronRightIcon/> : <ChevronLeftIcon/> : null}
-                    </IconButton>
-                </div>
-                <Divider/>
-                <List>
-                    <Link style={{textDecoration: 'none', color: '#454545'}} href={'/dashboard/user'}>
-                        <ListItem button key={'User'}>
-                            <ListItemIcon><AccountCircleIcon/></ListItemIcon>
-                            <ListItemText primary={'User'}/>
+                    })}
+                    classes={{
+                        paper: clsx({
+                            [classes.drawerOpen]: open,
+                            [classes.drawerClose]: !open,
+                        }),
+                    }}
+                >
+                    <div className={classes.toolbar} style={{backgroundColor: "#D72C2C"}}>
+                        {open ?
+                        <Link to={"/"}>
+                            <img  src={mainLogo} alt={"KKCTBN LOGO"} />
+                        </Link>
+                             : null}
+                        <IconButton onClick={handleDrawerClose} style={{color: "#FFFFFF"}}>
+                            {open ? theme.direction === 'rtl' ? <ChevronRightIcon/> : <ChevronLeftIcon/> : null}
+                        </IconButton>
+                    </div>
+                    <Divider/>
+                    <List>
+                            <ListItem  button key={'User'} component={Link} to={'/dashboard/user'}>
+                                <ListItemIcon><AccountCircleIcon/></ListItemIcon>
+                                <ListItemText primary={'User'}/>
+                            </ListItem>
+                            <ListItem button key={'Team'} component={Link} to={'/dashboard/team'}>
+                                <ListItemIcon><PeopleIcon/></ListItemIcon>
+                                <ListItemText primary={'Team'}/>
+                            </ListItem>
+                        <ListItem button key={'Manage Users'} component={Link} to={'/dashboard/manage/users'}>
+                            <ListItemIcon><AssignmentIndIcon/></ListItemIcon>
+                            <ListItemText primary={'Manage Users'}/>
                         </ListItem>
-                    </Link>
-                    <Link style={{textDecoration: 'none', color: '#454545'}} href={'/dashboard/team'}>
-                        <ListItem button key={'Team'}>
-                            <ListItemIcon><PeopleIcon/></ListItemIcon>
-                            <ListItemText primary={'Team'}/>
+                        <ListItem button key={'Manage Teams'} component={Link} to={'/dashboard/manage/teams'}>
+                            <ListItemIcon><GroupWorkIcon/></ListItemIcon>
+                            <ListItemText primary={'Manage Teams'}/>
                         </ListItem>
-                    </Link>
-                </List>
-                <Divider/>
-                <List>
-                    <Link style={{textDecoration: 'none', color: '#454545'}} href={'/dashboard/information'}>
-                        <ListItem button key={'Information'}>
-                            <ListItemIcon><NotificationsNoneIcon/></ListItemIcon>
-                            <ListItemText primary={'Information'}/>
+                        <ListItem button key={'Manage Accounts'} component={Link} to={'/dashboard/manage/accounts'}>
+                            <ListItemIcon><HowToRegIcon/></ListItemIcon>
+                            <ListItemText primary={'Manage Accounts'}/>
                         </ListItem>
-                    </Link>
-                </List>
-            </Drawer>
+                        <ListItem button key={'Judger'} component={Link} to={'/dashboard/manage/judge'}>
+                            <ListItemIcon><AssignmentIcon/></ListItemIcon>
+                            <ListItemText primary={'Judger'}/>
+                        </ListItem>
+                    </List>
+                    <Divider/>
+                    <List>
+                            <ListItem button key={'Information'} component={Link} to={'/dashboard/information'}>
+                                <ListItemIcon><NotificationsNoneIcon/></ListItemIcon>
+                                <ListItemText primary={'Information'}/>
+                            </ListItem>
+                    </List>
+                </Drawer>
 
-            <main className={classes.content}>
-                <div className={classes.toolbar}/>
-                {children}
-            </main>
-        </div>
+                <main className={classes.content}>
+                    <div className={classes.toolbar}/>
+                    {children}
+                </main>
+            </div>
+        </ElevationScroll>
     );
 }
 

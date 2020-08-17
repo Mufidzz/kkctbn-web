@@ -9,18 +9,22 @@ import DateFnsUtils from "@date-io/date-fns";
 import routes from "./routes";
 import './assets/scss/index.scss';
 import CssBaseline from "@material-ui/core/CssBaseline";
+import ThemeProvider from "@material-ui/styles/ThemeProvider";
+import theme from "./theme";
 
 const history = createBrowserHistory();
 
 const App = () => {
     return (
         <Suspense fallback={<LinearProgress/>}>
-            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                <Router history={history}>
-                    <CssBaseline/>
-                    {renderRoutes(routes)}
-                </Router>
-            </MuiPickersUtilsProvider>
+            <ThemeProvider theme={theme}>
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                    <Router history={history}>
+                        <CssBaseline/>
+                        {renderRoutes(routes)}
+                    </Router>
+                </MuiPickersUtilsProvider>
+            </ThemeProvider>
         </Suspense>
     );
 }

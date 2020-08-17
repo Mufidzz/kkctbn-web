@@ -1,0 +1,149 @@
+import React from 'react'
+import {CardContent, Typography} from "@material-ui/core";
+import Grid from "@material-ui/core/Grid";
+import Card from "@material-ui/core/Card";
+import {makeStyles} from "@material-ui/core/styles";
+import withStyles from "@material-ui/core/styles/withStyles";
+import green from "@material-ui/core/colors/green";
+import Button from "@material-ui/core/Button";
+import purple from "@material-ui/core/colors/purple";
+import TableContainer from "@material-ui/core/TableContainer";
+import Table from "@material-ui/core/Table";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import Paper from "@material-ui/core/Paper";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import Link from "@material-ui/core/Link";
+import Scrollable from "../../components/Scrollable";
+
+
+const StyledTableCell = withStyles((theme) => ({
+    head: {
+        backgroundColor: theme.palette.primary.main,
+        color: theme.palette.common.white,
+    },
+    body: {
+        fontSize: 14,
+    },
+}))(TableCell);
+
+const StyledTableRow = withStyles((theme) => ({
+    root: {
+        '&:nth-of-type(odd)': {
+            backgroundColor: theme.palette.action.hover,
+        },
+    },
+}))(TableRow);
+
+const createData = (teamName, competitionType, status, submission, action) => {
+    return {teamName, competitionType, status, submission, action};
+}
+
+
+const rows = [
+        createData('Garangan AI',
+            'Desain Kapal Rumah Sakit',
+            <Button variant={"outlined"} style={{color: 'green'}}>Already uploaded</Button>,
+            <Link style={{textDecoration: 'none'}} href={'/dashboard/team/submission'}>
+                <Button variant={'contained'} color={'secondary'}>Submission</Button>
+            </Link>,
+            <Link style={{textDecoration: 'none'}} href={'/dashboard/team/edit'}>
+                <Button variant={'contained'} color={'primary'}>Edit Team</Button>
+            </Link>
+        ),
+        createData('Ayam Kalkulus',
+            'Desain Kapal Rumah Sakit',
+            <Button variant={"outlined"} style={{color: 'red'}}>Not uploaded yet</Button>,
+            <Link style={{textDecoration: 'none'}} href={'/dashboard/team/submission'}>
+                <Button variant={'contained'} color={'secondary'}>Submission</Button>
+            </Link>,
+            <Link style={{textDecoration: 'none'}} href={'/dashboard/team/edit'}>
+                <Button variant={'contained'} color={'primary'}>Edit Team</Button>
+            </Link>
+        ),
+
+    ]
+;
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        display: 'flex',
+        flexWrap: 'wrap',
+    },
+    table: {
+        minWidth: '100%',
+    },
+    header: {
+        marginTop: theme.spacing(1),
+        marginBottom: theme.spacing(2),
+    },
+    containedPurple: {
+        color: theme.palette.getContrastText(purple[500]),
+        backgroundColor: purple[500],
+        "&:hover": {
+            backgroundColor: purple[700],
+            // Reset on touch devices, it doesn't add specificity
+            "@media (hover: none)": {
+                backgroundColor: purple[500]
+            }
+        }
+    },
+    url: {
+        textDecoration: 'none'
+    }
+}));
+
+
+const TeamDashboardPage = props => {
+    const classes = useStyles();
+
+    return (
+        <Grid container style={{width: "100%"}}>
+            <Scrollable>
+                <Card style={{width: '100%'}}>
+                    <CardContent>
+                        <Grid item md={12} sm={12} xs={12}>
+                            <Typography variant={"h5"}>Team Management</Typography>
+                        </Grid>
+                        <Grid item md={12} sm={12} xs={12} style={{marginTop: 25}}>
+                            <TableContainer component={Paper}>
+                                <Table className={classes.table} aria-label="customized table">
+                                    <TableHead>
+                                        <TableRow>
+                                            <StyledTableCell>Team Name</StyledTableCell>
+                                            <StyledTableCell align="right">Type of Competition</StyledTableCell>
+                                            <StyledTableCell align="right">Status</StyledTableCell>
+                                            <StyledTableCell align="right">Submission</StyledTableCell>
+                                            <StyledTableCell align="right">Action</StyledTableCell>
+                                        </TableRow>
+                                    </TableHead>
+                                    <TableBody>
+                                        {rows.map((row) => (
+                                            <StyledTableRow key={row.name}>
+                                                <StyledTableCell component="th" scope="row">
+                                                    {row.teamName}
+                                                </StyledTableCell>
+                                                <StyledTableCell align="right">{row.competitionType}</StyledTableCell>
+                                                <StyledTableCell align="right">{row.status}</StyledTableCell>
+                                                <StyledTableCell align="right">{row.submission}</StyledTableCell>
+                                                <StyledTableCell align="right">{row.action}</StyledTableCell>
+                                            </StyledTableRow>
+                                        ))}
+                                    </TableBody>
+                                </Table>
+                            </TableContainer>
+                        </Grid>
+                        <Grid item md={2} sm={12} xs={12} style={{marginTop: 20}}>
+                            <Link href={'/dashboard/team/edit'} style={{textDecoration: 'none'}}>
+                                <Button variant={'contained'} color={'primary'}>Create a new team</Button>
+                            </Link>
+                        </Grid>
+                    </CardContent>
+                </Card>
+            </Scrollable>
+        </Grid>
+    )
+}
+
+export default TeamDashboardPage;

@@ -8,7 +8,7 @@ import Grid from "@material-ui/core/Grid";
 import useScrollTrigger from "@material-ui/core/useScrollTrigger";
 import whiteLogo from 'assets/images/logo-wh.png';
 import colorLogo from 'assets/images/logo-color.png';
-import {Link as Scroll, animateScroll as scroll, Events} from 'react-scroll'
+import {Link as Scroll} from 'react-scroll'
 import {Link} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
@@ -36,15 +36,11 @@ const LandingAppBar = props => {
     const classes = useStyles();
     const {window} = props
 
-
-
     const ElevationTrigger = useScrollTrigger({
         disableHysteresis: true,
         threshold: 0,
         target: window ? window() : undefined,
     });
-
-
 
     return (
         <Fragment>
@@ -140,7 +136,7 @@ const LandingAppBar = props => {
 
 
 
-                                <Typography component={Link} to={"/login"} style={{cursor: "pointer", color: ElevationTrigger ? "#000000" : "#FFFFFF"}} variant="h6"
+                                <Typography component={Link} to={"/auth"} style={{cursor: "pointer", color: ElevationTrigger ? "#000000" : "#FFFFFF"}} variant="h6"
                                             color="primary">
                                     Login
                                 </Typography>
