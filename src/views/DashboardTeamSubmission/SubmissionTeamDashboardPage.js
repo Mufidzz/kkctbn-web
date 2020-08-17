@@ -124,10 +124,12 @@ const SubmissionTeamDashboardPage = props => {
                             </Button>
                         </Grid>
 
-                        <Grid item md={6} sm={12} xs={12} style={{textAlign: "right", marginTop: 10}}>
-                            <Button fullWidth variant={"contained"} size={"large"} color={'primary'} endIcon={<SendIcon/>}>
-                                Submit Proposal
-                            </Button>
+                        <Grid item container md={12} sm={12} xs={12} justify={"flex-end"} style={{marginTop: 10}}>
+                            <Grid item md={6} sm={12} xs={12}>
+                                <Button fullWidth variant={"contained"} size={"large"} color={'primary'} endIcon={<SendIcon/>}>
+                                    Submit Proposal
+                                </Button>
+                            </Grid>
                         </Grid>
                     </Grid>
 
