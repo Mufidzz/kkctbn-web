@@ -155,8 +155,8 @@ const MobileAppBar = props => {
 
                 <Divider/>
 
-                <ListItem>
-                    <Typography component={Link} to={"/login"} style={{cursor: "pointer", color: "#000000"}}
+                <ListItem component={Link} to={"/auth"}>
+                    <Typography  style={{cursor: "pointer", color: "#000000"}}
                                 variant="body2"
                                 color="primary">
                         Login

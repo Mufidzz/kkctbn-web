@@ -81,7 +81,6 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         justifyContent: 'flex-end',
         padding: theme.spacing(0, 1),
-        // necessary for content to be below app bar
         ...theme.mixins.toolbar,
     },
     content: {
@@ -147,7 +146,6 @@ const DashboardDrawer = props => {
                     </Toolbar>
                 </AppBar>
 
-
                 <Drawer
                     variant="permanent"
                     className={clsx(classes.drawer, {
@@ -162,7 +160,11 @@ const DashboardDrawer = props => {
                     }}
                 >
                     <div className={classes.toolbar} style={{backgroundColor: "#D72C2C"}}>
-                        {open ? <img src={mainLogo} alt={"KKCTBN LOGO"} /> : null}
+                        {open ?
+                        <Link to={"/"}>
+                            <img  src={mainLogo} alt={"KKCTBN LOGO"} />
+                        </Link>
+                             : null}
                         <IconButton onClick={handleDrawerClose} style={{color: "#FFFFFF"}}>
                             {open ? theme.direction === 'rtl' ? <ChevronRightIcon/> : <ChevronLeftIcon/> : null}
                         </IconButton>

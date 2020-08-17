@@ -5,6 +5,7 @@ import logo_ristekbrin from '../../../../../assets/images/ristekbrin-logo-color.
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
+import {useMediaQuery} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -22,16 +23,17 @@ const useStyles = makeStyles((theme) => ({
 
 const Footer = props => {
     const classes = useStyles();
+    const isMobile = useMediaQuery(theme => theme.breakpoints.down('sm'))
 
     return (
         <Fragment>
             <Grid className={classes.root} container justify={"center"} alignContent={"center"} alignItems={"center"}>
                 <Grid item container md={10} spacing={3} justify={"center"} alignContent={"center"} alignItems={"center"}>
-                    <Grid item>
-                        <img src={logo_ristekbrin} alt={"Ristekbrin Logo"}/>
+                    <Grid item md={6} sm={6} xs={6} container justify={"center"}>
+                        <img src={logo_ristekbrin} width={isMobile ? "40%" : 'auto'} alt={"Ristekbrin Logo"}/>
                     </Grid>
-                    <Grid item>
-                        <img src={logo_umm} alt={"UMM Logo"}/>
+                    <Grid item md={6} sm={6} xs={6} container justify={"center"}>
+                        <img src={logo_umm} width={isMobile ? "100%" : 'auto'} alt={"UMM Logo"}/>
                     </Grid>
                 </Grid>
             </Grid>

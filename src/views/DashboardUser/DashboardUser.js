@@ -67,7 +67,7 @@ const DashboardUser = props => {
                 />
                 <CardContent>
                     <Grid container spacing={2}>
-                        <Grid item md={6} style={{marginTop: 20}}>
+                        <Grid item md={6} sm={12} xs={12} style={{marginTop: 20}}>
                             <TextField
                                 className={classes.margin}
                                 label="Full name according to ID card"
@@ -79,7 +79,7 @@ const DashboardUser = props => {
                             />
                         </Grid>
 
-                        <Grid item md={6} style={{marginTop: 20}}>
+                        <Grid item md={6} sm={12} xs={12} style={{marginTop: 20}}>
                             <TextField
                                 className={classes.margin}
                                 label="Email Address"
@@ -90,7 +90,7 @@ const DashboardUser = props => {
                             />
                         </Grid>
 
-                        <Grid item md={12} style={{marginTop: 20}}>
+                        <Grid item md={12} sm={12} xs={12} style={{marginTop: 20}}>
                             <TextField
                                 className={classes.margin}
                                 label="Student ID Number"
@@ -101,7 +101,7 @@ const DashboardUser = props => {
                             />
                         </Grid>
 
-                        <Grid item md={12} style={{marginTop: 20}}>
+                        <Grid item md={12} sm={12} xs={12} style={{marginTop: 20}}>
                             <TextField
                                 className={classes.margin}
                                 label="Phone Number"
@@ -112,7 +112,7 @@ const DashboardUser = props => {
                             />
                         </Grid>
 
-                        <Grid item md={12} style={{marginTop: 20}}>
+                        <Grid item md={12} sm={12} xs={12} style={{marginTop: 20}}>
                             <TextField
                                 label="Complete Address"
                                 placeholder="Entry complete addresss"
@@ -124,7 +124,7 @@ const DashboardUser = props => {
                         </Grid>
 
 
-                        <Grid item md={12} style={{marginTop: 10}}>
+                        <Grid item md={12} sm={12} xs={12} style={{marginTop: 10}}>
                             <Typography variant={'body2'} style={{marginBottom: 10}}>
                                 Student ID Card* (pdf file)
                             </Typography>
@@ -154,7 +154,7 @@ const DashboardUser = props => {
                             </Button>
                         </Grid>
 
-                        <Grid item md={12} style={{marginTop: 10}}>
+                        <Grid item md={12} sm={12} xs={12} style={{marginTop: 10}}>
                             <Typography variant={'body2'} style={{marginBottom: 10}}>
                                 Identity Card* (pdf file)
                             </Typography>
@@ -188,8 +188,8 @@ const DashboardUser = props => {
                             <hr style={{marginTop: 25, maxWidth: '100%'}}/>
                         </Grid>
 
-                        <Grid item container md={12} style={{textAlign: "right", marginTop: 25}} justify={"flex-end"}>
-                            <Grid item md={6} >
+                        <Grid item container md={12} sm={12} xs={12} style={{textAlign: "right", marginTop: 25}} justify={"flex-end"}>
+                            <Grid item md={6} sm={12} xs={12} >
                                 <Button
                                     fullWidth
                                     variant="contained"

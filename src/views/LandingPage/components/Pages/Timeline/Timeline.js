@@ -5,6 +5,7 @@ import {makeStyles} from "@material-ui/core/styles";
 import background from 'assets/images/timeline-main-image.jpg';
 import TimelineCard from "./components/TimelineCard/TimelineCard";
 import {Parallax} from "react-parallax";
+import {useMediaQuery} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -23,13 +24,15 @@ const useStyles = makeStyles((theme) => ({
 const Timeline = props => {
     //Variable
     const classes = useStyles();
+    const isMobile = useMediaQuery(theme => theme.breakpoints.down('sm'))
+
     return (
         <Fragment>
             <Parallax bgImage={background} strength={800}>
                 <Grid container className={classes.root} justify={"center"} style={{color: "#FFFFFF"}}>
                     <Grid item container md={10} justify={"center"} alignContent={"flex-start"}>
                         <Typography variant="h3" align={"center"}>
-                            <b>Timeline of Competition</b>
+                            <b>Timeline {isMobile ? <br/> : null}  of {isMobile ? <br/> : null} Competition</b>
                         </Typography>
                     </Grid>
                     <Grid item container md={8} justify={"center"} alignContent={"flex-start"}>
@@ -38,7 +41,7 @@ const Timeline = props => {
                         </Typography>
                     </Grid>
                     <Grid item container md={8} justify={"space-evenly"} className={classes.card}>
-                        <Grid item md={5}>
+                        <Grid item md={5} style={isMobile ? {marginBottom : "12px"} : null}>
                             <TimelineCard/>
                         </Grid>
                         <Grid item md={5}>

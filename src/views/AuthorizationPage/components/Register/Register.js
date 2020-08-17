@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
@@ -9,6 +9,7 @@ import {OverlapTypography} from "../../../../components";
 import {Typography} from "@material-ui/core";
 import clsx from "clsx";
 import {animated} from 'react-spring'
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -29,6 +30,10 @@ const useStyles = makeStyles((theme) => ({
         height: "50px",
         justifyContent: 'center',
         alignItems: 'center',
+
+        [theme.breakpoints.down("sm")] : {
+            height: "35px",
+        }
     },
     submit: {
         background: "linear-gradient(329deg, rgba(168,0,0,1) 0%, rgba(207,36,36,1) 100%)",
@@ -47,39 +52,53 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(10),
         paddingTop: theme.spacing(2),
         background: "linear-gradient(329deg, rgba(112,3,3,1) 0%, rgba(207,36,36,1) 100%)",
+        [theme.breakpoints.down("sm")]: {
+            height: "100%",
+            borderRadius: '0 0 0 0',
+            padding: theme.spacing(1),
+        }
     },
+
+    mobileCardContainer: {
+        minHeight: '27.5vh',
+    }
 }));
 
 
 const Register = props => {
     const classes = useStyles();
-
+    const isMobile = useMediaQuery(theme => theme.breakpoints.down("sm"))
     const {mover, ...rest} = props;
 
     return (
         <animated.div {...rest}>
             <Grid container justify={"flex-end"} direction={"row-reverse"}>
-                <Grid item container md={11} justify={"space-between"}>
-                    <Grid item container md={6} justify={"flex-end"} alignContent={"flex-end"} alignItems={"flex-end"}>
+                <Grid item container md={11} sm={12} xs={12} justify={"space-between"}>
+                    <Grid item container md={6} sm={12} xs={12} justify={"flex-end"} alignContent={"flex-end"}
+                          alignItems={"flex-end"} className={clsx({[classes.mobileCardContainer]: isMobile})}>
                         <Card className={classes.card}>
                             <Grid
                                 container
                                 justify="center"
                                 alignItems="center"
-                                alignContent={"space-around"}
+                                alignContent={ isMobile ? "center" : "space-around"}
                                 style={{height: "100%"}}
                             >
-                                <Grid item>
-                                    <img style={{cursor: "pointer"}} src={mainLogo} height={200} alt={"Logo KKCTBN"}/>
-                                </Grid>
 
-                                <Grid item>
+                                {isMobile ? null :
+                                    <Grid item>
+                                        <img style={{cursor: "pointer"}} src={mainLogo} height={200}
+                                             alt={"Logo KKCTBN"}/>
+                                    </Grid>}
+
+
+                                <Grid item md={12} sm={12} xs={12}>
                                     <Typography variant={"h4"} align={"center"}><b>Create an Account</b></Typography>
-                                    <Typography variant={"h6"} align={"center"}>To join with us and get your dashboard,
-                                        please fill all needed information</Typography>
+                                    {isMobile ? <Typography variant={"h6"} align={"center"}>or</Typography> : <Typography variant={"h6"} align={"center"}>To join with us and get your dashboard,
+                                        please fill all needed information</Typography>}
                                 </Grid>
 
-                                <Grid item md={12}>
+                                <Grid item md={12} sm={10} xs={10}>
                                     <Button fullWidth variant="outlined"
                                             onClick={() => mover("login")}
                                             className={clsx(classes.button, classes.register)}>Sign In</Button>
@@ -88,9 +107,10 @@ const Register = props => {
                         </Card>
                     </Grid>
 
-                    <Grid item container md={6} justify={"flex-start"} direction={"row-reverse"}
-                          style={{height: "100vh"}}>
-                        <Grid item container md={10} justify={"center"} alignItems={"center"} alignContent={"center"}
+                    <Grid item container md={6} sm={12} xs={12} justify={isMobile ? "center" : "flex-start"} direction={"row-reverse"}
+                          style={isMobile ? {minHeight: "60vh"} : {height: "100vh"}}>
+                        <Grid item container md={10} sm={11} xs={11} justify={"center"} alignItems={isMobile ? "space-evenly" : "center"}
+                              alignContent={isMobile ? "space-evenly" : "center"}
                               style={{height: "100%"}}>
                             <Grid item md={12}>
                                 <OverlapTypography
@@ -127,7 +147,7 @@ const Register = props => {
                                     id="password"
                                 />
                             </Grid>
-                            <Grid item md={8}>
+                            <Grid item md={8} sm={11} xs={11} style={isMobile ? {paddingBottom: "30px"} : null}>
                                 <Button
                                     fullWidth
                                     variant="contained"

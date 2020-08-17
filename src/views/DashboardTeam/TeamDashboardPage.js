@@ -1,15 +1,11 @@
 import React from 'react'
-import {CardContent, FormControl, Typography} from "@material-ui/core";
+import {CardContent, Typography} from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
 import {makeStyles} from "@material-ui/core/styles";
 import withStyles from "@material-ui/core/styles/withStyles";
-import TextField from "@material-ui/core/TextField";
-import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
 import green from "@material-ui/core/colors/green";
 import Button from "@material-ui/core/Button";
-import SaveIcon from '@material-ui/icons/Save';
-import ThemeProvider from "@material-ui/styles/ThemeProvider";
 import purple from "@material-ui/core/colors/purple";
 import TableContainer from "@material-ui/core/TableContainer";
 import Table from "@material-ui/core/Table";
@@ -18,8 +14,8 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
-import CardHeader from "@material-ui/core/CardHeader";
 import Link from "@material-ui/core/Link";
+import Scrollable from "../../components/Scrollable";
 
 
 const StyledTableCell = withStyles((theme) => ({
@@ -76,11 +72,11 @@ const useStyles = makeStyles((theme) => ({
         flexWrap: 'wrap',
     },
     table: {
-        minWidth: 700,
+        minWidth: '100%',
     },
     header: {
-        marginTop: '1vh',
-        marginBottom: '2vh',
+        marginTop: theme.spacing(1),
+        marginBottom: theme.spacing(2),
     },
     containedPurple: {
         color: theme.palette.getContrastText(purple[500]),
@@ -103,47 +99,49 @@ const TeamDashboardPage = props => {
     const classes = useStyles();
 
     return (
-        <Grid container>
-            <Card style={{width: '100%'}}>
-                <CardContent>
-                    <Grid item md={12}>
-                        <Typography variant={"h5"}>Team Management</Typography>
-                    </Grid>
-                    <Grid item md={12} style={{marginTop: 25}}>
-                        <TableContainer component={Paper}>
-                            <Table className={classes.table} aria-label="customized table">
-                                <TableHead>
-                                    <TableRow>
-                                        <StyledTableCell>Team Name</StyledTableCell>
-                                        <StyledTableCell align="right">Type of Competition</StyledTableCell>
-                                        <StyledTableCell align="right">Status</StyledTableCell>
-                                        <StyledTableCell align="right">Submission</StyledTableCell>
-                                        <StyledTableCell align="right">Action</StyledTableCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    {rows.map((row) => (
-                                        <StyledTableRow key={row.name}>
-                                            <StyledTableCell component="th" scope="row">
-                                                {row.teamName}
-                                            </StyledTableCell>
-                                            <StyledTableCell align="right">{row.competitionType}</StyledTableCell>
-                                            <StyledTableCell align="right">{row.status}</StyledTableCell>
-                                            <StyledTableCell align="right">{row.submission}</StyledTableCell>
-                                            <StyledTableCell align="right">{row.action}</StyledTableCell>
-                                        </StyledTableRow>
-                                    ))}
-                                </TableBody>
-                            </Table>
-                        </TableContainer>
-                    </Grid>
-                    <Grid item md={2} style={{marginTop: 20}}>
-                        <Link href={'/dashboard/team/create'} style={{textDecoration: 'none'}}>
-                            <Button variant={'contained'}>Create a new team</Button>
-                        </Link>
-                    </Grid>
-                </CardContent>
-            </Card>
+        <Grid container style={{width: "100%"}}>
+            <Scrollable>
+                <Card style={{width: '100%'}}>
+                    <CardContent>
+                        <Grid item md={12} sm={12} xs={12}>
+                            <Typography variant={"h5"}>Team Management</Typography>
+                        </Grid>
+                        <Grid item md={12} sm={12} xs={12} style={{marginTop: 25}}>
+                            <TableContainer component={Paper}>
+                                <Table className={classes.table} aria-label="customized table">
+                                    <TableHead>
+                                        <TableRow>
+                                            <StyledTableCell>Team Name</StyledTableCell>
+                                            <StyledTableCell align="right">Type of Competition</StyledTableCell>
+                                            <StyledTableCell align="right">Status</StyledTableCell>
+                                            <StyledTableCell align="right">Submission</StyledTableCell>
+                                            <StyledTableCell align="right">Action</StyledTableCell>
+                                        </TableRow>
+                                    </TableHead>
+                                    <TableBody>
+                                        {rows.map((row) => (
+                                            <StyledTableRow key={row.name}>
+                                                <StyledTableCell component="th" scope="row">
+                                                    {row.teamName}
+                                                </StyledTableCell>
+                                                <StyledTableCell align="right">{row.competitionType}</StyledTableCell>
+                                                <StyledTableCell align="right">{row.status}</StyledTableCell>
+                                                <StyledTableCell align="right">{row.submission}</StyledTableCell>
+                                                <StyledTableCell align="right">{row.action}</StyledTableCell>
+                                            </StyledTableRow>
+                                        ))}
+                                    </TableBody>
+                                </Table>
+                            </TableContainer>
+                        </Grid>
+                        <Grid item md={2} sm={12} xs={12} style={{marginTop: 20}}>
+                            <Link href={'/dashboard/team/edit'} style={{textDecoration: 'none'}}>
+                                <Button variant={'contained'} color={'primary'}>Create a new team</Button>
+                            </Link>
+                        </Grid>
+                    </CardContent>
+                </Card>
+            </Scrollable>
         </Grid>
     )
 }
