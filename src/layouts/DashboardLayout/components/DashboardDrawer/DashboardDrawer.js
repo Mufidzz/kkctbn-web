@@ -9,6 +9,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
+import AnnouncementIcon from '@material-ui/icons/Announcement';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
@@ -27,6 +28,9 @@ import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
 import useScrollTrigger from "@material-ui/core/useScrollTrigger";
 import mainLogo from 'assets/images/logo-wh.png'
+import {AccountCircle} from "@material-ui/icons";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
 
 
 const drawerWidth = 240;
@@ -89,6 +93,9 @@ const useStyles = makeStyles((theme) => ({
     content: {
         flexGrow: 1
     },
+    title: {
+        flexGrow: 1
+    }
 }));
 
 
@@ -99,6 +106,23 @@ const DashboardDrawer = props => {
     const {children, window} = props;
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
+
+    const [auth, setAuth] = React.useState(true);
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const openProfile = Boolean(anchorEl);
+
+    const handleChange = (event) => {
+        setAuth(event.target.checked);
+    };
+
+    const handleMenu = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -143,9 +167,42 @@ const DashboardDrawer = props => {
                         >
                             <MenuIcon/>
                         </IconButton>
-                        <Typography variant="h5" noWrap>
+                        <Typography variant="h5" noWrap className={classes.title}>
                             <b>KKCTBN 2020</b>
                         </Typography>
+
+                        {auth && (
+                            <div>
+                                <IconButton
+                                    aria-label="account of current user"
+                                    aria-controls="menu-appbar"
+                                    aria-haspopup="true"
+                                    onClick={handleMenu}
+                                    color="inherit"
+                                >
+                                    <AccountCircle />
+                                </IconButton>
+                                <Menu
+                                    id="menu-appbar"
+                                    anchorEl={anchorEl}
+                                    anchorOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'right',
+                                    }}
+                                    keepMounted
+                                    transformOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'right',
+                                    }}
+                                    open={openProfile}
+                                    onClose={handleClose}
+                                >
+                                    <MenuItem onClick={handleClose}>Profile</MenuItem>
+                                    <MenuItem onClick={handleClose}>My account</MenuItem>
+                                </Menu>
+                            </div>
+                        )}
+
                     </Toolbar>
                 </AppBar>
 
@@ -182,6 +239,10 @@ const DashboardDrawer = props => {
                                 <ListItemIcon><PeopleIcon/></ListItemIcon>
                                 <ListItemText primary={'Team'}/>
                             </ListItem>
+                        <ListItem button key={'Manage News'} component={Link} to={'/dashboard/manage/news'}>
+                            <ListItemIcon><AnnouncementIcon/></ListItemIcon>
+                            <ListItemText primary={'Manage News'}/>
+                        </ListItem>
                         <ListItem button key={'Manage Users'} component={Link} to={'/dashboard/manage/users'}>
                             <ListItemIcon><AssignmentIndIcon/></ListItemIcon>
                             <ListItemText primary={'Manage Users'}/>
