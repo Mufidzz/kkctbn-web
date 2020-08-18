@@ -47,6 +47,11 @@ const routes = [
                 component : lazy(() => import("./views/DashboardInformation"))
             },
             {
+                path: "/dashboard/manage/news",
+                exact: true,
+                component : lazy(() => import("./views/DashboardAdminManageNews"))
+            },
+            {
                 path: "/dashboard/manage/users",
                 exact: true,
                 component : lazy(() => import("./views/DashboardAdminManageUsers"))
@@ -75,7 +80,8 @@ const routes = [
                 path: "/dashboard/manage/judge/view",
                 exact: true,
                 component : lazy(() => import("./views/DashboardJudgerManageJudgeView"))
-            }
+            },
+
         ]
     }
 ]
