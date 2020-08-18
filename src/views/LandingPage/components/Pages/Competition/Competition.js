@@ -8,15 +8,21 @@ import {useMediaQuery} from "@material-ui/core";
 import ReactCardFlip from "react-card-flip";
 
 const catCompetition = [
-    "Lomba Inovasi",
-    "Lomba Poster",
-    "Lomba Desain"
+    "Lomba Desain Inovasi Desain Kapal Kesehatan",
+    "Lomba Lomba Pembuatan dan Performance Prototype1",
+    "Lomba Poster"
 ]
 
 const expCompetition = [
     "Desain Kapal Kesehatan",
-    "Desain Poster Keceh",
-    "Kapal Perang Korona"
+    "ASV - ERC - FERC",
+    "INOVASI TEKNOLOGI KEMARITIMAN DALAM PENANGANAN COVID 19"
+]
+
+const expCompetitionFlipped = [
+    "Penjelasan 1",
+    "Penjelasan 2",
+    "Penjelasan 3"
 ]
 
 const useStyles = makeStyles((theme) => ({
@@ -56,10 +62,11 @@ const Competition = props => {
 
                         {catCompetition.map((v,i) => {
                         		const itemExpCompetition = expCompetition[i];
+                        		const itemExpCompetitionFlipped = expCompetitionFlipped[i];
                             return (
                                 <Grid item md={4} style={isMobile ? {marginBottom : "12px"} : null} >
                                    
-                                    <CompetitionCard image={competitionCardImage}>
+                                    <CompetitionCard image={competitionCardImage} title={v} explain={itemExpCompetitionFlipped}>
                                         <Typography variant="h5" component="h2" style={{color: "#fff"}}>
                                             <b>{v}</b>
                                         </Typography>
