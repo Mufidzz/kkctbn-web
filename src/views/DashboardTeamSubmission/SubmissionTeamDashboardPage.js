@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {CardContent, FormControl, Typography} from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
@@ -62,6 +62,18 @@ const useStyles = makeStyles((theme) => ({
 const SubmissionTeamDashboardPage = props => {
     const classes = useStyles();
 
+    const [formState, setFormState] = useState({
+        Title : "",
+        YoutubeURL : ""
+    })
+
+    const handleFormChange = e => {
+        setFormState({
+            ...formState,
+            [e.target.name] : e.target.value
+        })
+    }
+
     return (
 
         <Grid container>
@@ -74,6 +86,7 @@ const SubmissionTeamDashboardPage = props => {
                     <Grid container spacing={2}>
                         <Grid item md={12} sm={12} xs={12}>
                             <TextField
+                                name="Title"
                                 className={classes.margin}
                                 label="Title of Innovation"
                                 required
@@ -89,6 +102,7 @@ const SubmissionTeamDashboardPage = props => {
                         </Grid>
                         <Grid item md={8} sm={12} xs={12}>
                             <TextField
+                                name="YoutubeURL"
                                 className={classes.margin}
                                 label="Youtube URL"
                                 required

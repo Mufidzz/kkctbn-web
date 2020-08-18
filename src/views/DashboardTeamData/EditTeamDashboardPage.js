@@ -120,6 +120,23 @@ const EditTeamDashboardPage = props => {
         }
     }
 
+    const [formState, setFormState] = useState({
+        TeamName : "",
+        FullName : "",
+        StudentIDNumber : "",
+        EmailAddress : "",
+        PhoneNumber : "",
+        CompleteAddress : "",
+        LecturerName : ""
+    })
+
+    const handleFormChange = e => {
+        setFormState({
+            ...formState,
+            [e.target.name] : e.target.value
+        })
+    }
+
 
     return (
         <Grid container>
@@ -136,6 +153,7 @@ const EditTeamDashboardPage = props => {
                         <Grid container spacing={2}>
                             <Grid item md={12}>
                                 <TextField
+                                    name="TeamName"
                                     className={classes.margin}
                                     label="Team name"
                                     required
@@ -204,6 +222,7 @@ const EditTeamDashboardPage = props => {
                             <Grid item md={6} style={{marginTop: 20}}>
 
                                 <TextField
+                                    name="FullName"
                                     className={classes.margin}
                                     label="Full Name According to ID Card"
                                     required
@@ -215,6 +234,7 @@ const EditTeamDashboardPage = props => {
 
                             <Grid item md={6} style={{marginTop: 20}}>
                                 <TextField
+                                    name="EmailAddress"
                                     className={classes.margin}
                                     label="Email Address"
                                     required
@@ -226,6 +246,7 @@ const EditTeamDashboardPage = props => {
 
                             <Grid item md={12} style={{marginTop: 20}}>
                                 <TextField
+                                    name="StudentIdNumber"
                                     className={classes.margin}
                                     label="Student ID Number"
                                     required
@@ -238,6 +259,7 @@ const EditTeamDashboardPage = props => {
 
                             <Grid item md={12} style={{marginTop: 20}}>
                                 <TextField
+                                    name="PhoneNumber"
                                     className={classes.margin}
                                     label="Phone Number"
                                     required
@@ -249,6 +271,7 @@ const EditTeamDashboardPage = props => {
 
                             <Grid item md={12} style={{marginTop: 20}}>
                                 <TextField
+                                    name="CompleteAddress"
                                     label="Multiline Placeholder"
                                     placeholder="Entry complete addresss"
                                     multiline
@@ -353,6 +376,7 @@ const EditTeamDashboardPage = props => {
                             <Grid item md={12} style={{marginTop: 20}}>
 
                                 <TextField
+                                    name="LecturerName"
                                     className={classes.margin}
                                     label="Supervisory Lecturer Name"
                                     required

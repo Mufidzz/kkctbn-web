@@ -178,7 +178,7 @@ const ManageUsersDashboardPage = props => {
                 completeAddress: 'Jl. Ikan Pahlawan No. -21 Malang',
                 studentIdCard: <Button variant={'contained'} color={'secondary'}>Open File</Button>,
                 identityCard: <Button variant={'contained'} color={'secondary'}>Open File</Button>,
-                deleteUser: <Button variant={'contained'} color={'primary'}>Open File</Button>,
+                deleteUser: <Button variant={'contained'} color={'primary'}>Delete User</Button>,
 
             },
         ],
