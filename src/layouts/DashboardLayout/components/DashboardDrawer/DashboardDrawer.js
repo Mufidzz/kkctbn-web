@@ -25,7 +25,7 @@ import PeopleIcon from '@material-ui/icons/People';
 import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
 import ElevationScroll from "../../../../components/ElevationScroll";
 import PropTypes from "prop-types";
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import useScrollTrigger from "@material-ui/core/useScrollTrigger";
 import mainLogo from 'assets/images/logo-wh.png'
 import {AccountCircle} from "@material-ui/icons";
@@ -105,8 +105,9 @@ const DashboardDrawer = props => {
     const classes = useStyles();
     const {children, window} = props;
     const theme = useTheme();
-    const [open, setOpen] = React.useState(false);
+    const history = useHistory();
 
+    const [open, setOpen] = React.useState(false);
     const [auth, setAuth] = React.useState(true);
     const [anchorEl, setAnchorEl] = React.useState(null);
     const openProfile = Boolean(anchorEl);
@@ -122,6 +123,15 @@ const DashboardDrawer = props => {
     const handleClose = () => {
         setAnchorEl(null);
     };
+
+    const gotoProfile = () => {
+        history.push("/dashboard/user")
+    }
+
+    const logout = () => {
+        history.replace("/")
+        localStorage.clear()
+    }
 
 
     const handleDrawerOpen = () => {
@@ -197,8 +207,8 @@ const DashboardDrawer = props => {
                                     open={openProfile}
                                     onClose={handleClose}
                                 >
-                                    <MenuItem onClick={handleClose}>Profile</MenuItem>
-                                    <MenuItem onClick={handleClose}>My account</MenuItem>
+                                    <MenuItem onClick={gotoProfile}>Profile</MenuItem>
+                                    <MenuItem onClick={logout}>Logout</MenuItem>
                                 </Menu>
                             </div>
                         )}

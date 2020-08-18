@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {CardContent, FormControl, Typography} from "@material-ui/core";
+import {CardContent, Typography} from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
 import {makeStyles} from "@material-ui/core/styles";
@@ -7,7 +7,6 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import SendIcon from '@material-ui/icons/Send';
 import CardHeader from "@material-ui/core/CardHeader";
-import withStyles from "@material-ui/core/styles/withStyles";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -59,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const SubmissionTeamDashboardPage = props => {
+const SubmissionTeamDashboardPage = () => {
     const classes = useStyles();
 
     const [formState, setFormState] = useState({
@@ -127,7 +126,7 @@ const SubmissionTeamDashboardPage = props => {
                             <label htmlFor="raised-button-file">
                                 <Button fullWidth variant="contained" component="span"
                                         className={classes.containedOrange}>
-                                    Reupload
+                                    ReUpload
                                 </Button>
                             </label>
                         </Grid>

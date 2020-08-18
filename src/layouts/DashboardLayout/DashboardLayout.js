@@ -1,13 +1,13 @@
-import React, {Suspense, useEffect, useMemo, useState} from 'react'
+import React, {Suspense, useEffect, useState} from 'react'
 import {makeStyles} from "@material-ui/core/styles";
 import DashboardDrawer from "./components/DashboardDrawer/DashboardDrawer";
 import Grid from "@material-ui/core/Grid";
 import {LinearProgress, Typography} from "@material-ui/core";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import {renderRoutes} from "react-router-config";
 import PropTypes from "prop-types";
-import useScrollTrigger from "@material-ui/core/useScrollTrigger";
+import {STORAGE_KEY} from "../../configs/local_storage";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -31,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
 const DashboardLayout = props => {
     const classes = useStyles();
     const {route} = props
+    const history = useHistory();
 
     const [height, setHeight] = useState({
         footer: 0,
@@ -41,8 +42,16 @@ const DashboardLayout = props => {
 
     useEffect(() => {
         setBreadcrumbsLocation(props.location.pathname.split("/").slice(1))
+        return () => null
     }, [props.location.pathname])
 
+    useEffect(() => {
+        if (localStorage.getItem(STORAGE_KEY.JWT) === null || localStorage.getItem(STORAGE_KEY.JWT) === "") {
+          alert("You are not Authorized");
+          history.replace("/auth")
+        }
+        return () => null
+    }, [localStorage.getItem(STORAGE_KEY.JWT)])
 
     const getFooterHeight = element => {
         if (element && height.footer <= 0) {
@@ -73,14 +82,15 @@ const DashboardLayout = props => {
 
                         {breadcrumbsLocation.map((v, i) => {
                             return (
-                                i < breadcrumbsLocation.length -1 ?
+                                i < breadcrumbsLocation.length - 1 ?
                                     <Link color="inherit"
-                                          to={"/" + breadcrumbsLocation.slice(0,i+1).join("/")}
+                                          to={"/" + breadcrumbsLocation.slice(0, i + 1).join("/")}
                                     >
                                         {v.charAt(0).toUpperCase() + v.slice(1)}
                                     </Link>
                                     :
-                                    <Typography color="textPrimary">{v.charAt(0).toUpperCase() + v.slice(1)}</Typography>
+                                    <Typography
+                                        color="textPrimary">{v.charAt(0).toUpperCase() + v.slice(1)}</Typography>
                             )
                         })}
                     </Breadcrumbs>

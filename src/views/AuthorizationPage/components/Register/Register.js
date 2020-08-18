@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
@@ -10,6 +10,7 @@ import {Typography} from "@material-ui/core";
 import clsx from "clsx";
 import {animated} from 'react-spring'
 import useMediaQuery from "@material-ui/core/useMediaQuery";
+import {ENDPOINT} from "../../../../configs/api";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -31,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'center',
         alignItems: 'center',
 
-        [theme.breakpoints.down("sm")] : {
+        [theme.breakpoints.down("sm")]: {
             height: "35px",
         }
     },
@@ -66,22 +67,49 @@ const useStyles = makeStyles((theme) => ({
 
 
 const Register = props => {
+    //Variable
     const classes = useStyles();
     const isMobile = useMediaQuery(theme => theme.breakpoints.down("sm"))
     const {mover, ...rest} = props;
-    
-    const [formState, setFormState] = useState({      
-        Email : "",
+
+    //State
+    const [formState, setFormState] = useState({
+        Email: "",
         Password: "",
         RetypePassword: ""
     })
 
+    const [apiData, setApiData] = useState({
+        Message: ""
+    })
+
+    //Use
+    //Handle
     const handleFormChange = e => {
         setFormState({
             ...formState,
-            [e.target.name] : e.target.value
+            [e.target.name]: e.target.value
         })
     }
+
+    //Function
+
+    const register = () => {
+        fetch(ENDPOINT.USER, {
+            method: "POST",
+            body: JSON.stringify(formState)
+        })
+            .then(res => {
+                if (res.status === 200) {
+                    return res.json()
+                }
+            })
+            .then(resJSON => {
+                alert(`Register ${resJSON["message"]}`)
+                mover("login")
+            })
+    }
+
 
     return (
         <animated.div {...rest}>
@@ -94,7 +122,7 @@ const Register = props => {
                                 container
                                 justify="center"
                                 alignItems="center"
-                                alignContent={ isMobile ? "center" : "space-around"}
+                                alignContent={isMobile ? "center" : "space-around"}
                                 style={{height: "100%"}}
                             >
 
@@ -107,8 +135,10 @@ const Register = props => {
 
                                 <Grid item md={12} sm={12} xs={12}>
                                     <Typography variant={"h4"} align={"center"}><b>Create an Account</b></Typography>
-                                    {isMobile ? <Typography variant={"h6"} align={"center"}>or</Typography> : <Typography variant={"h6"} align={"center"}>To join with us and get your dashboard,
-                                        please fill all needed information</Typography>}
+                                    {isMobile ? <Typography variant={"h6"} align={"center"}>or</Typography> :
+                                        <Typography variant={"h6"} align={"center"}>To join with us and get your
+                                            dashboard,
+                                            please fill all needed information</Typography>}
                                 </Grid>
 
                                 <Grid item md={12} sm={10} xs={10}>
@@ -120,9 +150,11 @@ const Register = props => {
                         </Card>
                     </Grid>
 
-                    <Grid item container md={6} sm={12} xs={12} justify={isMobile ? "center" : "flex-start"} direction={"row-reverse"}
+                    <Grid item container md={6} sm={12} xs={12} justify={isMobile ? "center" : "flex-start"}
+                          direction={"row-reverse"}
                           style={isMobile ? {minHeight: "60vh"} : {height: "100vh"}}>
-                        <Grid item container md={10} sm={11} xs={11} justify={"center"} alignItems={isMobile ? "space-evenly" : "center"}
+                        <Grid item container md={10} sm={11} xs={11} justify={"center"}
+                              alignItems={isMobile ? "space-evenly" : "center"}
                               alignContent={isMobile ? "space-evenly" : "center"}
                               style={{height: "100%"}}>
                             <Grid item md={12}>
@@ -133,8 +165,8 @@ const Register = props => {
                                         Account</b></Typography>
                                 </OverlapTypography>
                                 <TextField
-                                		onChange={handleFormChange}
-		                                value={formState.Email}
+                                    onChange={handleFormChange}
+                                    value={formState.Email}
                                     variant="filled"
                                     required
                                     fullWidth
@@ -146,8 +178,8 @@ const Register = props => {
                                 />
 
                                 <TextField
-                                		onChange={handleFormChange}
-		                                value={formState.Password}
+                                    onChange={handleFormChange}
+                                    value={formState.Password}
                                     variant="filled"
                                     required
                                     fullWidth
@@ -158,8 +190,8 @@ const Register = props => {
                                     className={classes.textField}
                                 />
                                 <TextField
-                                		onChange={handleFormChange}
-		                                value={formState.RetypePassword}
+                                    onChange={handleFormChange}
+                                    value={formState.RetypePassword}
                                     variant="filled"
                                     name="RetypePassword"
                                     required
@@ -171,6 +203,7 @@ const Register = props => {
                             </Grid>
                             <Grid item md={8} sm={11} xs={11} style={isMobile ? {paddingBottom: "30px"} : null}>
                                 <Button
+                                    onClick={register}
                                     fullWidth
                                     variant="contained"
                                     className={clsx(classes.button, classes.submit)}>

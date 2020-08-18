@@ -21,26 +21,60 @@ import ViewColumn from '@material-ui/icons/ViewColumn';
 import {Scrollable} from "../../components";
 
 const tableIcons = {
-    Add: forwardRef((props, ref) => <AddBox {...props} ref={ref}/>),
-    Check: forwardRef((props, ref) => <Check {...props} ref={ref}/>),
-    Clear: forwardRef((props, ref) => <Clear {...props} ref={ref}/>),
-    Delete: forwardRef((props, ref) => <DeleteOutline {...props} ref={ref}/>),
-    DetailPanel: forwardRef((props, ref) => <ChevronRight {...props} ref={ref}/>),
-    Edit: forwardRef((props, ref) => <Edit {...props} ref={ref}/>),
-    Export: forwardRef((props, ref) => <SaveAlt {...props} ref={ref}/>),
-    Filter: forwardRef((props, ref) => <FilterList {...props} ref={ref}/>),
-    FirstPage: forwardRef((props, ref) => <FirstPage {...props} ref={ref}/>),
-    LastPage: forwardRef((props, ref) => <LastPage {...props} ref={ref}/>),
-    NextPage: forwardRef((props, ref) => <ChevronRight {...props} ref={ref}/>),
-    PreviousPage: forwardRef((props, ref) => <ChevronLeft {...props} ref={ref}/>),
-    ResetSearch: forwardRef((props, ref) => <Clear {...props} ref={ref}/>),
-    Search: forwardRef((props, ref) => <Search {...props} ref={ref}/>),
-    SortArrow: forwardRef((props, ref) => <ArrowDownward {...props} ref={ref}/>),
-    ThirdStateCheck: forwardRef((props, ref) => <Remove {...props} ref={ref}/>),
-    ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref}/>)
+    Add: forwardRef((props, ref) => {
+        return <AddBox {...props} ref={ref}/>;
+    }),
+    Check: forwardRef((props, ref) => {
+        return <Check {...props} ref={ref}/>;
+    }),
+    Clear: forwardRef((props, ref) => {
+        return <Clear {...props} ref={ref}/>;
+    }),
+    Delete: forwardRef((props, ref) => {
+        return <DeleteOutline {...props} ref={ref}/>;
+    }),
+    DetailPanel: forwardRef((props, ref) => {
+        return <ChevronRight {...props} ref={ref}/>;
+    }),
+    Edit: forwardRef((props, ref) => {
+        return <Edit {...props} ref={ref}/>;
+    }),
+    Export: forwardRef((props, ref) => {
+        return <SaveAlt {...props} ref={ref}/>;
+    }),
+    Filter: forwardRef((props, ref) => {
+        return <FilterList {...props} ref={ref}/>;
+    }),
+    FirstPage: forwardRef((props, ref) => {
+        return <FirstPage {...props} ref={ref}/>;
+    }),
+    LastPage: forwardRef((props, ref) => {
+        return <LastPage {...props} ref={ref}/>;
+    }),
+    NextPage: forwardRef((props, ref) => {
+        return <ChevronRight {...props} ref={ref}/>;
+    }),
+    PreviousPage: forwardRef((props, ref) => {
+        return <ChevronLeft {...props} ref={ref}/>;
+    }),
+    ResetSearch: forwardRef((props, ref) => {
+        return <Clear {...props} ref={ref}/>;
+    }),
+    Search: forwardRef((props, ref) => {
+        return <Search {...props} ref={ref}/>;
+    }),
+    SortArrow: forwardRef((props, ref) => {
+        return <ArrowDownward {...props} ref={ref}/>;
+    }),
+    ThirdStateCheck: forwardRef((props, ref) => {
+        return <Remove {...props} ref={ref}/>;
+    }),
+    ViewColumn: forwardRef((props, ref) => {
+        return <ViewColumn {...props} ref={ref}/>;
+    })
 };
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     root: {
         display: 'flex',
         flexWrap: 'wrap',
@@ -51,7 +85,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const ManageAccountsDashboardPage = props => {
+const ManageAccountsDashboardPage = () => {
     const classes = useStyles();
 
     const [state, setState] = React.useState({

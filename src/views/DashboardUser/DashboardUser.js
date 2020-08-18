@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useMemo, useState} from 'react'
 import {CardContent, Typography} from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
@@ -7,6 +7,8 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import SaveIcon from '@material-ui/icons/Save';
 import CardHeader from "@material-ui/core/CardHeader";
+import {STORAGE_KEY} from "../../configs/local_storage";
+import {ENDPOINT} from "../../configs/api";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -39,15 +41,15 @@ const useStyles = makeStyles((theme) => ({
         }
     },
 
-    cardHeader : {
+    cardHeader: {
         backgroundColor: theme.palette.primary.main,
         color: '#fff'
     },
-    saveButton : {
-        color : "#FFFFFF",
+    saveButton: {
+        color: "#FFFFFF",
         backgroundColor: theme.palette.primary.main,
         height: 50,
-        "&:hover" : {
+        "&:hover": {
             backgroundColor: "#a61d1d",
         }
     }
@@ -56,23 +58,59 @@ const useStyles = makeStyles((theme) => ({
 
 
 const DashboardUser = props => {
+    //Variable
     const classes = useStyles();
 
+    //State
     const [formState, setFormState] = useState({
-        FullName : "",
-        Email : "",
-        StudentIDNumber : "",
-        PhoneNumber : "",
-        Address : ""
+        ID : -1,
+        FullName: "",
+        Email: "",
+        StudentID: "",
+        Phone: "",
+        Address: ""
     })
 
+    //Use
+    useMemo(() => {
+        const userData = JSON.parse(localStorage.getItem(STORAGE_KEY.USER_DATA));
+        setFormState(userData)
+
+        return () => {
+        }
+
+    }, [])
+
+    //Handle
     const handleFormChange = e => {
         setFormState({
             ...formState,
-            [e.target.name] : e.target.value
+            [e.target.name]: e.target.value
         })
     }
 
+    //Function
+    const save = () => {
+        const token = localStorage.getItem(STORAGE_KEY.JWT);
+
+        fetch(ENDPOINT.USER + formState.ID, {
+            method: 'PUT',
+            headers: {
+                'Token' : token
+            },
+            body: JSON.stringify(formState),
+
+        })
+            .then(res => {
+                if (res.status >= 200) {
+                    return res.json();
+                }
+            })
+            .then(resJSON => {
+                localStorage.setItem(STORAGE_KEY.USER_DATA, JSON.stringify(resJSON["data"]))
+                alert(`Update User ${resJSON["message"]}`)
+            })
+    }
 
 
     return (
@@ -102,42 +140,42 @@ const DashboardUser = props => {
                         <Grid item md={6} sm={12} xs={12} style={{marginTop: 20}}>
                             <TextField
                                 onChange={handleFormChange}
+                                disabled
                                 value={formState.Email}
                                 className={classes.margin}
                                 label="Email Address"
                                 required
                                 variant="filled"
                                 placeholder={"Entry your email address."} fullWidth
-                                helperText="ex : kkctbn@gmail.com"
-                                name="Email"
+                                helperText="Email Cannot be changed"
                             />
                         </Grid>
 
                         <Grid item md={12} sm={12} xs={12} style={{marginTop: 20}}>
                             <TextField
                                 onChange={handleFormChange}
-                                value={formState.StudentIDNumber}
+                                value={formState.StudentID}
                                 className={classes.margin}
                                 label="Student ID Number"
                                 required
                                 variant="filled"
                                 placeholder={"Entry your student id number"} fullWidth
                                 helperText="The student ID number of each campus has its own characteristics"
-                                name="StudentIDNumber"
+                                name="StudentID"
                             />
                         </Grid>
 
                         <Grid item md={12} sm={12} xs={12} style={{marginTop: 20}}>
                             <TextField
                                 onChange={handleFormChange}
-                                value={formState.PhoneNumber}
+                                value={formState.Phone}
                                 className={classes.margin}
                                 label="Phone Number"
                                 required
                                 variant="filled"
                                 placeholder={"Entry your phone number"} fullWidth
                                 helperText="ex : 08123456..."
-                                name="PhoneNumber"
+                                name="Phone"
                             />
                         </Grid>
 
@@ -220,11 +258,13 @@ const DashboardUser = props => {
                             <hr style={{marginTop: 25, maxWidth: '100%'}}/>
                         </Grid>
 
-                        <Grid item container md={12} sm={12} xs={12} style={{textAlign: "right", marginTop: 25}} justify={"flex-end"}>
-                            <Grid item md={6} sm={12} xs={12} >
+                        <Grid item container md={12} sm={12} xs={12} style={{textAlign: "right", marginTop: 25}}
+                              justify={"flex-end"}>
+                            <Grid item md={6} sm={12} xs={12}>
                                 <Button
                                     fullWidth
                                     variant="contained"
+                                    onClick={save}
                                     className={classes.saveButton}
                                     startIcon={<SaveIcon/>}
                                 >

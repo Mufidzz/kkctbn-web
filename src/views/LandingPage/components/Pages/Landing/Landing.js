@@ -7,6 +7,7 @@ import clsx from "clsx";
 import mainImage from "assets/images/main-image.jpg"
 import mainLogoWhite from "assets/images/logo-wh.png"
 import {useMediaQuery} from "@material-ui/core";
+import {Link} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -127,10 +128,12 @@ const Landing = props => {
                                 </Typography>
                             </Grid>
                         </Grid>
-                        <Grid item md={3} sm={12} xs={12}>
-                            <Button fullWidth variant="contained" className={classes.roundedButton}>
-                                <Typography variant={"button"}> Daftar </Typography>
-                            </Button>
+                        <Grid item container md={12}>
+                            <Grid item md={3} sm={12} xs={12}>
+                                <Button fullWidth variant="contained" className={classes.roundedButton}>
+                                    <Typography variant={"button"}> Daftar </Typography>
+                                </Button>
+                            </Grid>
                         </Grid>
                     </Grid>
                 </Grid>
