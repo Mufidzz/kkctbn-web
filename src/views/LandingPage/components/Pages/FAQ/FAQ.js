@@ -6,6 +6,10 @@ import {OverlapTypography} from "../../../../../components";
 import {ArrowForwardIos} from "@material-ui/icons";
 import faqShip from "assets/images/faq-ship.png"
 import {useMediaQuery} from "@material-ui/core";
+import Accordion from '@material-ui/core/Accordion';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -17,6 +21,11 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: 90,
         marginBottom: 20
     },
+    heading: {
+    fontSize: theme.typography.pxToRem(15),
+    flexBasis: '50%',
+    flexShrink: 0,
+  	},
     overlayText: {
         color: "rgba(255, 0, 0,.1)",
         userSelect: "none",
@@ -34,10 +43,22 @@ const faqQuestion = [
     "Mengapa tim saya belum di verifikasi ?"
 ]
 
+const faqAnswer = [
+    "Peserta KKCTBN 2020 dapat mengikuti lebih dari satu kategori lomba",
+    "Panduan dan aturan mengenai jumlah peserta dapat dilihat di panduan teknis",
+    "Berdasarkan panduan, batas akhir pendaftaran tim adalah 20 Oktober 2020",
+    "Mohon untuk menunggu 2x24 jam untuk verifikasi tim ya :)"
+]
+
 const FAQ = props => {
     const classes = useStyles();
     const isMobile = useMediaQuery(theme => theme.breakpoints.down('sm'))
-
+		const [expanded, setExpanded] = React.useState(false);
+		
+		const handleChange = (panel) => (event, isExpanded) => {
+    setExpanded(isExpanded ? panel : false);
+  	};
+		
     return (
         <Fragment>
             <Grid container justify={"center"} className={classes.root}>
@@ -49,20 +70,27 @@ const FAQ = props => {
                                 <Typography className={classes.mainText} variant={"h2"}><b>FAQ</b></Typography>
                             </OverlapTypography>
                         </Grid>
-
-
                         <Grid item container md={12} sm={12} xs={12} spacing={2}>
                             {faqQuestion.map((v,i) => {
                                 return (
                                     <Grid item container md={12} sm={12} xs={12} alignItems={"center"}>
-                                        <Grid item md={10} sm={10} xs={10}>
-                                            <Typography variant="h6">
+                                        <Accordion expanded={expanded === i} onChange={handleChange(i)}>
+																					<AccordionSummary
+																						expandIcon={<ExpandMoreIcon />}
+																						aria-controls="panel1bh-content"
+																						id="panel1bh-header"
+																					>
+																						<Typography variant="h6" className={classes.heading}>
                                                 <b>{v}</b>
                                             </Typography>
-                                        </Grid>
-                                        <Grid item container md={2} sm={2} xs={2} justify={"flex-end"}>
-                                            <ArrowForwardIos fontSize="large"/>
-                                        </Grid>
+																					</AccordionSummary>
+																					<AccordionDetails>
+																						<Typography>
+																							Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat. Aliquam eget
+																							maximus est, id dignissim quam.
+																						</Typography>
+																					</AccordionDetails>
+																				</Accordion>		
                                     </Grid>
                                 )
                             })}
