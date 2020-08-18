@@ -1,5 +1,5 @@
-import React, {useState} from 'react'
-import {CardContent, FormControl, Typography} from "@material-ui/core";
+import React, {useMemo, useState} from 'react'
+import {CardContent, Typography} from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
 import {makeStyles} from "@material-ui/core/styles";
@@ -7,12 +7,15 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import AddIcon from '@material-ui/icons/Add';
 import CardHeader from "@material-ui/core/CardHeader";
-import withStyles from "@material-ui/core/styles/withStyles";
-import Checkbox from "@material-ui/core/Checkbox";
-import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import GroupAddIcon from '@material-ui/icons/GroupAdd';
 import RemoveIcon from '@material-ui/icons/Remove';
+import Switch from "@material-ui/core/Switch";
+import Autocomplete from "@material-ui/lab/Autocomplete";
+import {STORAGE_KEY} from "../../configs/local_storage";
+import {ENDPOINT} from "../../configs/api";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import SaveIcon from '@material-ui/icons/Save';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -77,10 +80,10 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: theme.palette.primary.main,
         color: '#FFF'
     },
-    memberSelectorContainer : {
+    memberSelectorContainer: {
         paddingRight: theme.spacing(3)
     },
-    activeMember : {
+    activeMember: {
         color: '#FFF',
         backgroundColor: theme.palette.primary.main,
         "&:hover": {
@@ -90,10 +93,10 @@ const useStyles = makeStyles((theme) => ({
             }
         }
     },
-    inactiveMember : {
+    inactiveMember: {
         color: theme.palette.primary.main,
         backgroundColor: "rgba(0,0,0,0)",
-        border : "solid 1px " + theme.palette.primary.light,
+        border: "solid 1px " + theme.palette.primary.light,
         "&:hover": {
             color: theme.palette.white,
             backgroundColor: theme.palette.primary.light,
@@ -101,40 +104,202 @@ const useStyles = makeStyles((theme) => ({
                 backgroundColor: "rgba(0,0,0,0)"
             }
         },
+    },
+    bottomSpacing: {
+        marginBottom: 32
     }
 }));
 
 
 const EditTeamDashboardPage = props => {
-
+    //Variable
     const classes = useStyles();
-    const [memberData, setMemberData] = useState(["a"]);
-    const [selectedMemberIndex, setSelectedMemberIndex] = useState(0);
+    const memberStruct = {
+        UserDetail: {
+            FullName: "",
+            StudentID: "",
+            Email: "",
+            Phone: "",
+            Address: "",
+        },
+    }
 
+    const teamCompetitionStruct = {
+        Status: false,
+        CompetitionID: 0,
+    }
+
+    //State
+    const [state, setState] = useState({
+        flag: 0,
+        initialMemberLength : 1,
+    })
+    const [selectedMemberIndex, setSelectedMemberIndex] = useState(0);
+    const [formState, setFormState] = useState({
+        Name: "",
+        LecturerName: ""
+    })
+    const [memberData, setMemberData] = useState([
+        memberStruct
+    ]);
+    const [teamCompetition, setTeamCompetition] = useState([
+        teamCompetitionStruct,
+        teamCompetitionStruct,
+        {
+            Status: true,
+            CompetitionID: 7,
+        },
+    ])
+    const [competitionList, setCompetitionList] = useState([])
+
+    //Use
+    useMemo(() => {
+
+        fetch(ENDPOINT.TEAM + "check/", {method: "GET", headers:{"Token" : localStorage.getItem(STORAGE_KEY.JWT)}})
+            .then(res => {
+                if (res.status === 200) {
+                    return res.json()
+                }
+            })
+            .then(resJSON => {
+                if (resJSON["data"] !== null) {
+                    const {LecturerName, Name, Competitions, Members} = resJSON["data"]
+
+                    setFormState({
+                        ...formState,
+                        LecturerName: LecturerName,
+                        Name: Name
+                    })
+
+                    setTeamCompetition([...Competitions])
+                    setMemberData([...Members])
+                    setState({
+                        ...state,
+                        flag: 1,
+                        initialMemberLength: Members.length
+                    })
+                } else {
+                    setState({
+                        ...state,
+                        flag: 0
+                    })
+                }
+            })
+
+
+        if (localStorage.getItem(STORAGE_KEY.COMPETITION) === "" || localStorage.getItem(STORAGE_KEY.COMPETITION) === null) {
+            fetch(ENDPOINT.COMPETITION, {method: "GET"})
+                .then(res => {
+                    if (res.status === 200) {
+                        return res.json()
+                    }
+                })
+                .then(resJSON => {
+                    console.log(resJSON)
+                    localStorage.setItem(STORAGE_KEY.COMPETITION, JSON.stringify(resJSON["data"]));
+                    setCompetitionList(resJSON["data"]);
+                })
+        } else {
+            setCompetitionList(JSON.parse(localStorage.getItem(STORAGE_KEY.COMPETITION)));
+        }
+
+        return () => {
+        }
+    }, [])
+
+    //Handle
+    const handleTeamFormChange = e => {
+        setFormState({
+            ...formState,
+            [e.target.name]: e.target.value
+        })
+    }
+
+    const handleMemberFormChange = (i, e) => {
+        let mD = memberData;
+        mD[i] = {
+            ...mD[i],
+            UserDetail: {
+                ...mD[i].UserDetail,
+                [e.target.name]: e.target.value
+            }
+        }
+        setMemberData([
+            ...mD
+        ])
+    }
+
+    const handleSetCompetition = (e, v, i) => {
+        let tC = teamCompetition
+        tC[i] = {
+            ...tC[i],
+            CompetitionID: v.ID
+        }
+        console.log(teamCompetition)
+
+        setTeamCompetition([...tC])
+        console.log(teamCompetition)
+    }
+
+    //Function
     const addMember = () => {
-        if(memberData.length < 3) {
+        if (memberData.length < 3) {
             setMemberData([
                 ...memberData,
-                "x"
+                memberStruct
             ])
         }
     }
 
-    const [formState, setFormState] = useState({
-        TeamName : "",
-        FullName : "",
-        StudentIDNumber : "",
-        EmailAddress : "",
-        PhoneNumber : "",
-        CompleteAddress : "",
-        LecturerName : ""
-    })
+    const removeMember = () => {
+        setSelectedMemberIndex(0)
 
-    const handleFormChange = e => {
-        setFormState({
+        if (memberData.length > 1) {
+            let memberArray = memberData
+            memberArray.splice(selectedMemberIndex, 1)
+            setMemberData([...memberArray])
+        }
+    }
+
+    const save = () => {
+        const json = {
             ...formState,
-            [e.target.name] : e.target.value
+            Competitions: [
+                ...teamCompetition
+            ],
+            Members: [
+                ...memberData
+            ]
+        };
+
+        fetch(ENDPOINT.TEAM, {
+            method: state.flag === 1 ? "PUT" : "POST",
+            headers: {
+                'Token': localStorage.getItem(STORAGE_KEY.JWT)
+            },
+            body: JSON.stringify(json)
         })
+            .then(res => {
+                if (res.status >= 200) {
+                    return res.json()
+                }
+            })
+            .then(resJSON => {
+                console.log(resJSON)
+                alert(`Update Status ${resJSON['message']}`)
+            })
+
+    }
+
+
+    const toggleCompetition = (index) => {
+        let tC = teamCompetition;
+        tC[index] = {
+            ...tC[index],
+            Status: !teamCompetition[index].Status,
+            CompetitionID: 0
+        }
+        setTeamCompetition([...tC])
     }
 
 
@@ -151,34 +316,92 @@ const EditTeamDashboardPage = props => {
 
                     <CardContent style={{marginTop: 25}}>
                         <Grid container spacing={2}>
+                            <Grid item md={12} sm={12} xs={12}>
+                                <Typography variant={"body2"} className={classes.label}>Team Information</Typography>
+                            </Grid>
                             <Grid item md={12}>
                                 <TextField
-                                    name="TeamName"
+                                    value={formState.Name}
+                                    onChange={handleTeamFormChange}
+                                    name="Name"
                                     className={classes.margin}
                                     label="Team name"
                                     required
                                     variant="filled"
-                                    placeholder={"Entry your team name."} fullWidth
+                                    placeholder={"Entry your team name."}
+                                    fullWidth
                                     helperText="ex : Panda Terbang"
                                 />
                             </Grid>
 
                             <Grid item md={12}>
-                                <Typography variant={"body2"} className={classes.label}>Selected competition</Typography>
-                                <FormGroup>
-                                    <FormControlLabel
-                                        control={<Checkbox name="competition[]"/>}
-                                        label="Desain Inovasi Kapal Rumah Sakit"
-                                    />
-                                    <FormControlLabel
-                                        control={<Checkbox name="competition[]"/>}
-                                        label="Desain Inovasi Kapal Rumah Sakit"
-                                    />
-                                    <FormControlLabel
-                                        control={<Checkbox name="competition[]"/>}
-                                        label="Desain Inovasi Kapal Rumah Sakit"
-                                    />
-                                </FormGroup>
+
+                                <TextField
+                                    value={formState.LecturerName}
+                                    onChange={handleTeamFormChange}
+                                    name="LecturerName"
+                                    className={classes.margin}
+                                    label="Supervisory Lecturer Name"
+                                    required
+                                    variant="filled"
+                                    placeholder={"Entry your supervisory lecturer name."} fullWidth
+                                    helperText="ex : Joni Irawan, S.Kom"
+                                />
+                            </Grid>
+
+
+                            <Grid item container md={12} sm={12} xs={12}>
+
+                                <Grid item md={12} sm={12} xs={12}>
+                                    <Typography variant={"body2"} className={classes.label}>Selected
+                                        competition</Typography>
+                                </Grid>
+
+
+                                <Grid item container md={12} sm={12} xs={12} justify={"center"}>
+                                    {competitionList != null ? competitionList.map((competition, i) => {
+                                        return (
+                                            <Grid item container md={11} sm={12} xs={12} justify={"center"}
+                                                  alignItems={"center"} className={classes.bottomSpacing}>
+                                                <Grid item md={6} sm={12} xs={12}>
+                                                    <FormControlLabel
+                                                        control={<Switch key={competition["Name"]}
+                                                                         checked={teamCompetition[i].Status}
+                                                                         onChange={() => competition["Competitions"].length <= 1 ? null : toggleCompetition(i)}
+                                                                         color={"primary"}/>}
+
+                                                        label={ competition["Name"]}
+                                                    />
+                                                </Grid>
+                                                <Grid item md={6} sm={12} xs={12}>
+                                                    <Autocomplete
+                                                        disableClearable
+                                                        fullWidth
+                                                        disabled={competition["Competitions"].length <= 1 || !teamCompetition[i].Status}
+                                                        options={competition["Competitions"]}
+                                                        getOptionLabel={(option) => option.Name}
+                                                        value={competition["Competitions"].find(e => e.ID === teamCompetition[i].CompetitionID)}
+                                                        defaultValue={competition["Competitions"].find(e => e.ID === teamCompetition[i].CompetitionID)}
+                                                        onChange={(e, v) => handleSetCompetition(e, v, i)}
+                                                        renderInput={(params) =>
+                                                            <TextField {...params} fullWidth
+                                                                       label="Sub-Competition"
+                                                                       variant="filled"/>
+                                                        }
+                                                    />
+                                                </Grid>
+                                                <Grid item container md={12} justify={"flex-end"}>
+                                                    <Grid item md={6}>
+                                                        <Typography variant={"caption"}>
+                                                            Current : <br/>{competition["Competitions"].find(e => e.ID === teamCompetition[i].CompetitionID) !== undefined ? competition["Competitions"].find(e => e.ID === teamCompetition[i].CompetitionID)["Name"] : "-"}
+                                                        </Typography>
+                                                    </Grid>
+                                                </Grid>
+                                            </Grid>
+                                        )
+                                    }) : <CircularProgress/>}
+
+                                </Grid>
                             </Grid>
 
 
@@ -196,12 +419,13 @@ const EditTeamDashboardPage = props => {
 
                             <Grid item container md={12} justify={"flex-start"} spacing={2}>
 
-                                {memberData.map((v,i) => {
+                                {memberData.map((v, i) => {
                                     return (
                                         <Grid item md={3}>
                                             <Button variant={selectedMemberIndex === i ? 'contained' : 'outlined'}
                                                     className={selectedMemberIndex === i ? classes.activeMember : classes.inactiveMember}
-                                                    size={'large'} fullWidth>Member {i + 1}</Button>
+                                                    size={'large'} onClick={() => setSelectedMemberIndex(i)}
+                                                    fullWidth>Member {i + 1}</Button>
                                         </Grid>
                                     )
                                 })}
@@ -209,12 +433,16 @@ const EditTeamDashboardPage = props => {
 
                                 <Grid item container md={3} spacing={1}>
                                     <Grid item md={6} justify={"space-between"}>
-                                        <Button disabled={memberData.length <= 1} fullWidth className={classes.containedRed} variant={'contained'}
+                                        <Button disabled={memberData.length <= 1 || memberData.length <= state.initialMemberLength} fullWidth
+                                                className={classes.containedRed} variant={'contained'}
+                                                onClick={removeMember}
                                                 size={'large'} style={{height: '100%'}}><RemoveIcon/></Button>
                                     </Grid>
                                     <Grid item md={6}>
-                                        <Button disabled={memberData.length >= 3} fullWidth className={classes.containedLightBlue} variant={'contained'}
-                                                size={'large'} style={{height: '100%'}} onClick={addMember} ><AddIcon/></Button>
+                                        <Button disabled={memberData.length >= 3} fullWidth
+                                                className={classes.containedLightBlue} variant={'contained'}
+                                                size={'large'} style={{height: '100%'}}
+                                                onClick={addMember}><AddIcon/></Button>
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -223,6 +451,8 @@ const EditTeamDashboardPage = props => {
 
                                 <TextField
                                     name="FullName"
+                                    onChange={e => handleMemberFormChange(selectedMemberIndex, e)}
+                                    value={memberData[selectedMemberIndex].UserDetail.FullName}
                                     className={classes.margin}
                                     label="Full Name According to ID Card"
                                     required
@@ -234,19 +464,23 @@ const EditTeamDashboardPage = props => {
 
                             <Grid item md={6} style={{marginTop: 20}}>
                                 <TextField
-                                    name="EmailAddress"
+                                    name="Email"
+                                    onChange={e => handleMemberFormChange(selectedMemberIndex, e)}
+                                    value={memberData[selectedMemberIndex].UserDetail.Email}
                                     className={classes.margin}
                                     label="Email Address"
                                     required
                                     variant="filled"
-                                    placeholder={"Entry your email address."} fullWidth
+                                    placeholder={"Entry your email Address."} fullWidth
                                     helperText="ex : kkctbn@gmail.com"
                                 />
                             </Grid>
 
                             <Grid item md={12} style={{marginTop: 20}}>
                                 <TextField
-                                    name="StudentIdNumber"
+                                    name="StudentID"
+                                    onChange={e => handleMemberFormChange(selectedMemberIndex, e)}
+                                    value={memberData[selectedMemberIndex].UserDetail.StudentID}
                                     className={classes.margin}
                                     label="Student ID Number"
                                     required
@@ -259,7 +493,9 @@ const EditTeamDashboardPage = props => {
 
                             <Grid item md={12} style={{marginTop: 20}}>
                                 <TextField
-                                    name="PhoneNumber"
+                                    name="Phone"
+                                    onChange={e => handleMemberFormChange(selectedMemberIndex, e)}
+                                    value={memberData[selectedMemberIndex].UserDetail.Phone}
                                     className={classes.margin}
                                     label="Phone Number"
                                     required
@@ -271,9 +507,11 @@ const EditTeamDashboardPage = props => {
 
                             <Grid item md={12} style={{marginTop: 20}}>
                                 <TextField
-                                    name="CompleteAddress"
-                                    label="Multiline Placeholder"
-                                    placeholder="Entry complete addresss"
+                                    name="Address"
+                                    onChange={e => handleMemberFormChange(selectedMemberIndex, e)}
+                                    value={memberData[selectedMemberIndex].UserDetail.Address}
+                                    label="Address"
+                                    placeholder="Entry complete Address"
                                     multiline
                                     fullWidth
                                     helperText="ex : Jalan Raya Tlogomas No. 246 Tlogomas, Babatan, Tegalgondo, Kec. Lowokwaru, Kota Malang, Jawa Timur 65144"
@@ -373,18 +611,6 @@ const EditTeamDashboardPage = props => {
                                 }}/>
                             </Grid>
 
-                            <Grid item md={12} style={{marginTop: 20}}>
-
-                                <TextField
-                                    name="LecturerName"
-                                    className={classes.margin}
-                                    label="Supervisory Lecturer Name"
-                                    required
-                                    variant="filled"
-                                    placeholder={"Entry your supervisory lecturer name."} fullWidth
-                                    helperText="ex : Joni Irawan, S.Kom"
-                                />
-                            </Grid>
 
                             <Grid item md={12} style={{marginTop: 10}}>
                                 <Typography variant={'body2'} style={{marginBottom: 10}}>
@@ -472,10 +698,14 @@ const EditTeamDashboardPage = props => {
                                 }}/>
                             </Grid>
 
-                            <Grid item md={12} style={{textAlign: "right", marginTop: 10}}>
-                                <Button variant={"contained"} color={'secondary'} startIcon={<GroupAddIcon/>}>
-                                    Edit now
-                                </Button>
+                            <Grid item container md={12} justify={"flex-end"} style={{marginTop: 10}}>
+                                <Grid item md={6}>
+                                    <Button fullWidth size={"large"} onClick={save} variant={"contained"}
+                                            color={'primary'}
+                                            startIcon={state.flag !== 1 ? <GroupAddIcon/> : <SaveIcon/>}>
+                                        {state.flag === 1 ? "Save" : "Create Team" }
+                                    </Button>
+                                </Grid>
                             </Grid>
 
 

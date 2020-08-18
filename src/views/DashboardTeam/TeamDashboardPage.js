@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useMemo, useState} from 'react'
 import {CardContent, Typography} from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
@@ -14,8 +14,10 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
-import Link from "@material-ui/core/Link";
+import {Link} from "react-router-dom";
 import Scrollable from "../../components/Scrollable";
+import {ENDPOINT} from "../../configs/api";
+import {STORAGE_KEY} from "../../configs/local_storage";
 
 
 const StyledTableCell = withStyles((theme) => ({
@@ -36,33 +38,26 @@ const StyledTableRow = withStyles((theme) => ({
     },
 }))(TableRow);
 
-const createData = (teamName, competitionType, status, submission, action) => {
-    return {teamName, competitionType, status, submission, action};
+const createData = (competitionType, status, submission) => {
+    return {competitionType, status, submission};
 }
 
 
 const rows = [
-        createData('Garangan AI',
+        createData(
             'Desain Kapal Rumah Sakit',
             <Button variant={"outlined"} style={{color: 'green'}}>Already uploaded</Button>,
             <Link style={{textDecoration: 'none'}} href={'/dashboard/team/submission'}>
                 <Button variant={'contained'} color={'secondary'}>Submission</Button>
-            </Link>,
-            <Link style={{textDecoration: 'none'}} href={'/dashboard/team/edit'}>
-                <Button variant={'contained'} color={'primary'}>Edit Team</Button>
             </Link>
         ),
-        createData('Ayam Kalkulus',
+        createData(
             'Desain Kapal Rumah Sakit',
             <Button variant={"outlined"} style={{color: 'red'}}>Not uploaded yet</Button>,
             <Link style={{textDecoration: 'none'}} href={'/dashboard/team/submission'}>
                 <Button variant={'contained'} color={'secondary'}>Submission</Button>
-            </Link>,
-            <Link style={{textDecoration: 'none'}} href={'/dashboard/team/edit'}>
-                <Button variant={'contained'} color={'primary'}>Edit Team</Button>
             </Link>
         ),
-
     ]
 ;
 
@@ -98,6 +93,45 @@ const useStyles = makeStyles((theme) => ({
 const TeamDashboardPage = props => {
     const classes = useStyles();
 
+    const [competitionRow, setCompetitionRow] = useState([])
+    const [state, setState] = useState({
+        TeamFound : false
+    })
+
+
+    useMemo(() => {
+        fetch(ENDPOINT.TEAM + "check/", {method: "GET", headers:{"Token" : localStorage.getItem(STORAGE_KEY.JWT)}})
+            .then(res => {
+                if (res.status === 200) {
+                    return res.json()
+                }
+            })
+            .then(resJSON => {
+                if (resJSON["data"] !== null) {
+                    let cRA = []
+
+                    resJSON['data']['Competitions'].map((competition, i) => {
+                        if (competition["CompetitionDetail"]["ID"] !== 0) {
+                            cRA.push(
+                                createData(
+                                    competition["CompetitionDetail"]["Name"],
+                                    <Button variant={"outlined"} style={{color: 'green'}}>Already uploaded</Button>,
+                                    <Button component={Link} to={'/dashboard/team/submission'} variant={'contained'} color={'secondary'}>Submission</Button>
+                                )
+                            )
+                        }
+                    })
+
+                    setCompetitionRow([...cRA]);
+                    setState({
+                        ...state,
+                        TeamFound: true
+                    })
+                }
+            })
+
+    }, [])
+
     return (
         <Grid container style={{width: "100%"}}>
             <Scrollable>
@@ -106,39 +140,34 @@ const TeamDashboardPage = props => {
                         <Grid item md={12} sm={12} xs={12}>
                             <Typography variant={"h5"}>Team Management</Typography>
                         </Grid>
+                        <Grid item md={4} sm={12} xs={12} style={{marginTop: 20}}>
+                            <Link to={'/dashboard/team/edit'} style={{textDecoration: 'none'}}>
+                                <Button fullWidth variant={'contained'} color={'primary'}>{state.TeamFound ? "Edit Team" : "Create a new team"}  </Button>
+                            </Link>
+                        </Grid>
                         <Grid item md={12} sm={12} xs={12} style={{marginTop: 25}}>
                             <TableContainer component={Paper}>
                                 <Table className={classes.table} aria-label="customized table">
                                     <TableHead>
                                         <TableRow>
-                                            <StyledTableCell>Team Name</StyledTableCell>
-                                            <StyledTableCell align="right">Type of Competition</StyledTableCell>
+                                            <StyledTableCell align="left">Type of Competition</StyledTableCell>
                                             <StyledTableCell align="right">Status</StyledTableCell>
-                                            <StyledTableCell align="right">Submission</StyledTableCell>
                                             <StyledTableCell align="right">Action</StyledTableCell>
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>
-                                        {rows.map((row) => (
+                                        {competitionRow.map((row) => (
                                             <StyledTableRow key={row.name}>
-                                                <StyledTableCell component="th" scope="row">
-                                                    {row.teamName}
-                                                </StyledTableCell>
-                                                <StyledTableCell align="right">{row.competitionType}</StyledTableCell>
+                                                <StyledTableCell align="left">{row.competitionType}</StyledTableCell>
                                                 <StyledTableCell align="right">{row.status}</StyledTableCell>
                                                 <StyledTableCell align="right">{row.submission}</StyledTableCell>
-                                                <StyledTableCell align="right">{row.action}</StyledTableCell>
                                             </StyledTableRow>
                                         ))}
                                     </TableBody>
                                 </Table>
                             </TableContainer>
                         </Grid>
-                        <Grid item md={2} sm={12} xs={12} style={{marginTop: 20}}>
-                            <Link href={'/dashboard/team/edit'} style={{textDecoration: 'none'}}>
-                                <Button variant={'contained'} color={'primary'}>Create a new team</Button>
-                            </Link>
-                        </Grid>
+
                     </CardContent>
                 </Card>
             </Scrollable>
