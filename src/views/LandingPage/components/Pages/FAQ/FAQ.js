@@ -21,11 +21,6 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: 90,
         marginBottom: 20
     },
-    heading: {
-    fontSize: theme.typography.pxToRem(15),
-    flexBasis: '50%',
-    flexShrink: 0,
-  	},
     overlayText: {
         color: "rgba(255, 0, 0,.1)",
         userSelect: "none",
@@ -81,7 +76,7 @@ const FAQ = props => {
 																						aria-controls="panel1bh-content"
 																						id="panel1bh-header"
 																					>
-																						<Typography variant="h6" className={classes.heading}>
+																						<Typography variant="h6">
                                                 <b>{v}</b>
                                             </Typography>
 																					</AccordionSummary>
