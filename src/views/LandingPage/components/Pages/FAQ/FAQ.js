@@ -72,6 +72,7 @@ const FAQ = props => {
                         </Grid>
                         <Grid item container md={12} sm={12} xs={12} spacing={2}>
                             {faqQuestion.map((v,i) => {
+                            		const itemAnswer = faqAnswer[i];
                                 return (
                                     <Grid item container md={12} sm={12} xs={12} alignItems={"center"}>
                                         <Accordion expanded={expanded === i} onChange={handleChange(i)}>
@@ -86,8 +87,7 @@ const FAQ = props => {
 																					</AccordionSummary>
 																					<AccordionDetails>
 																						<Typography>
-																							Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat. Aliquam eget
-																							maximus est, id dignissim quam.
+																							{itemAnswer}
 																						</Typography>
 																					</AccordionDetails>
 																				</Accordion>		
