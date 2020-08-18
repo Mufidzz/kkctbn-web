@@ -1,10 +1,23 @@
-import React, {Fragment} from 'react'
+import React, {Fragment, useState } from 'react'
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import {makeStyles} from "@material-ui/core/styles";
 import competitionCardImage from "assets/images/ship-red.png"
 import {CompetitionCard} from "./components";
 import {useMediaQuery} from "@material-ui/core";
+import ReactCardFlip from "react-card-flip";
+
+const catCompetition = [
+    "Lomba Inovasi",
+    "Lomba Poster",
+    "Lomba Desain"
+]
+
+const expCompetition = [
+    "Desain Kapal Kesehatan",
+    "Desain Poster Keceh",
+    "Kapal Perang Korona"
+]
 
 const useStyles = makeStyles((theme) => ({
     root : {
@@ -19,8 +32,14 @@ const useStyles = makeStyles((theme) => ({
 
 const Competition = props => {
     //Variable
+    const [isFlipped, setIsFlipped] = useState(false);
+
+  	const handleClick = () => {
+    setIsFlipped(!isFlipped);
+  	};
     const classes = useStyles();
     const isMobile = useMediaQuery(theme => theme.breakpoints.down('sm'))
+    
 
     return (
         <Fragment>
@@ -35,15 +54,17 @@ const Competition = props => {
 
                     <Grid item container md={10} sm={11} xs={11} justify={"center"} spacing={isMobile ? 0 : 3}>
 
-                        {[1,2,30].map((v,i) => {
+                        {catCompetition.map((v,i) => {
+                        		const itemExpCompetition = expCompetition[i];
                             return (
                                 <Grid item md={4} style={isMobile ? {marginBottom : "12px"} : null} >
+                                   
                                     <CompetitionCard image={competitionCardImage}>
                                         <Typography variant="h5" component="h2" style={{color: "#fff"}}>
-                                            Lomba Inovasi
+                                            <b>{v}</b>
                                         </Typography>
                                         <Typography variant="subtitle2" component="p" style={{color: "#fff"}}>
-                                            Desain Kapal Kesehatan
+                                            {itemExpCompetition}
                                         </Typography>
                                     </CompetitionCard>
                                 </Grid>
