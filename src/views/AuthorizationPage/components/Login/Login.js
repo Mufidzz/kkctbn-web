@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
@@ -60,6 +60,18 @@ const Login = props => {
     const classes = useStyles();
     const isMobile = useMediaQuery(theme => theme.breakpoints.down("sm"))
     const {mover, ...rest} = props
+    
+    const [formState, setFormState] = useState({      
+        Email : "",
+        Password: ""
+    })
+
+    const handleFormChange = e => {
+        setFormState({
+            ...formState,
+            [e.target.name] : e.target.value
+        })
+    }
 
     return (
         <animated.div {...rest}>
@@ -75,25 +87,27 @@ const Login = props => {
                                     <Typography className={classes.mainText} variant={"h2"}><b>Sign in</b></Typography>
                                 </OverlapTypography>
                                 <TextField
+                                		onChange={handleFormChange}
+		                                value={formState.Email}
                                     variant="filled"
                                     required
                                     fullWidth
-                                    id="email"
                                     label="Email"
-                                    name="email"
+                                    name="Email"
                                     autoComplete="email"
                                     type="email"
                                     autoFocus
                                     className={classes.textField}
                                 />
                                 <TextField
+                                		onChange={handleFormChange}
+		                                value={formState.Password}
                                     variant="filled"
                                     required
                                     fullWidth
-                                    name="password"
+                                    name="Password"
                                     label="Password"
                                     type="password"
-                                    id="password"
                                 />
                             </Grid>
                             <Grid item md={8} sm={10} xs={10}>
