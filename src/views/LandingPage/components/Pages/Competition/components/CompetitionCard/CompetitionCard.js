@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, {useState} from 'react'
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
 import Card from "@material-ui/core/Card";
@@ -22,38 +22,38 @@ const CompetitionCard = props => {
     //Variable
     const {image, children, title, explain} = props;
     const classes = useStyles();
-    
+
     const [isFlipped, setIsFlipped] = useState(false);
 
-  	const handleClick = () => {
-    setIsFlipped(!isFlipped);
-  	};
+    const handleClick = () => {
+        setIsFlipped(!isFlipped);
+    };
 
     return (
-    	<ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
-        <Card className={classes.card}>
-            <CardActionArea onClick={handleClick}>
-                <CardContent>
-                    <img width={"100%"} src={image} alt={"Card Image"}/>
-                </CardContent>
-                <CardContent className={classes.cardContent}>
-                    {children}
-                </CardContent>
-            </CardActionArea>
-        </Card>
-        
-        
-        <Card className={classes.card}>
-            <CardActionArea onClick={handleClick}>
-                <CardContent>
-                    {title}
-                </CardContent>
-                <CardContent className={classes.cardContent}>
-                    {explain}
-                </CardContent>
-            </CardActionArea>
-        </Card>
-       </ReactCardFlip>
+        <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
+            <Card className={classes.card}>
+                <CardActionArea onClick={handleClick}>
+                    <CardContent>
+                        <img width={"100%"} src={image} alt={"Card Image"}/>
+                    </CardContent>
+                    <CardContent className={classes.cardContent}>
+                        {children}
+                    </CardContent>
+                </CardActionArea>
+            </Card>
+
+
+            <Card className={classes.card}>
+                <CardActionArea onClick={handleClick}>
+                    <CardContent>
+                        {title}
+                    </CardContent>
+                    <CardContent className={classes.cardContent}>
+                        {explain}
+                    </CardContent>
+                </CardActionArea>
+            </Card>
+        </ReactCardFlip>
     )
 }
 

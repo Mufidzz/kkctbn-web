@@ -1,4 +1,4 @@
-import React, {useMemo, useState} from 'react'
+import React, {useEffect, useMemo, useState} from 'react'
 import {CardContent, Typography} from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
@@ -9,6 +9,8 @@ import SaveIcon from '@material-ui/icons/Save';
 import CardHeader from "@material-ui/core/CardHeader";
 import {STORAGE_KEY} from "../../configs/local_storage";
 import {ENDPOINT} from "../../configs/api";
+import FileInputComponent from 'react-file-input-previews-base64'
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -62,8 +64,13 @@ const DashboardUser = props => {
     const classes = useStyles();
 
     //State
+    const [state, setState] = useState({
+        request : false,
+        requestState : ""
+    })
+
     const [formState, setFormState] = useState({
-        ID : -1,
+        ID: -1,
         FullName: "",
         Email: "",
         StudentID: "",
@@ -71,11 +78,43 @@ const DashboardUser = props => {
         Address: ""
     })
 
+    const [userFile, setUserFile] = useState(
+        {
+            StudentIdentityCardSubmission : {
+                ID : 0,
+                OriginFileName: "",
+                Base: ""
+            },
+            IdentityCardSubmission : {
+                ID : 0,
+                OriginFileName: "",
+                Base: ""
+            }
+        }
+
+
+    )
+
     //Use
     useMemo(() => {
         const userData = JSON.parse(localStorage.getItem(STORAGE_KEY.USER_DATA));
         setFormState(userData)
 
+        fetch(ENDPOINT.USER_SUBMISSION+userData['ID'], {method: "GET"})
+
+            .then(res => {
+                if (res.status === 200) {
+                    return res.json()
+                }
+            })
+            .then(resJSON => {
+                console.log(resJSON['data'])
+                setUserFile({
+                    ...userFile,
+                    StudentIdentityCardSubmission: resJSON['data']['StudentIdentityCardSubmission'],
+                    IdentityCardSubmission: resJSON['data']['IdentityCardSubmission']
+                })
+            })
         return () => {
         }
 
@@ -89,14 +128,22 @@ const DashboardUser = props => {
         })
     }
 
+
+
     //Function
     const save = () => {
         const token = localStorage.getItem(STORAGE_KEY.JWT);
+        setState({
+            ...state,
+            request: true,
+            requestState: "Waiting Connection"
+        })
+
 
         fetch(ENDPOINT.USER + formState.ID, {
             method: 'PUT',
             headers: {
-                'Token' : token
+                'Token': token
             },
             body: JSON.stringify(formState),
 
@@ -110,6 +157,44 @@ const DashboardUser = props => {
                 localStorage.setItem(STORAGE_KEY.USER_DATA, JSON.stringify(resJSON["data"]))
                 alert(`Update User ${resJSON["message"]}`)
             })
+
+        console.log(JSON.stringify({
+                UserID: formState.ID,
+                ...userFile
+            }
+        ))
+
+        fetch(ENDPOINT.USER_SUBMISSION, {
+                method: "POST",
+                body: JSON.stringify({
+                    UserID : formState.ID,
+                    ...userFile
+                })
+            })
+                .then(res => {
+                    if (res.status === 200) {
+                        return res.json()
+                    }
+                })
+                .then(resJSON => {
+                    setUserFile({
+                        ...userFile,
+                        StudentIdentityCardSubmission: {
+                            ...userFile.StudentIdentityCardSubmission,
+                            Base: ""
+                        },
+                        IdentityCardSubmission: {
+                            ...userFile.IdentityCardSubmission,
+                            Base: ""
+                        }
+                    })
+                })
+
+        setState({
+            ...state,
+            request: false,
+            requestState: ""
+        })
     }
 
 
@@ -198,60 +283,96 @@ const DashboardUser = props => {
                             <Typography variant={'body2'} style={{marginBottom: 10}}>
                                 Student ID Card* (pdf file)
                             </Typography>
-
                         </Grid>
 
                         <Grid item md={2}>
-                            <input
+                            <FileInputComponent
+                                parentStyle={{margin: "0 !important"}}
+                                labelText={"Current : -"}
+                                labelStyle={{display: "none"}}
+                                buttonComponent={
+                                    <Button fullWidth variant="contained" component="span"
+                                            className={classes.containedOrange}>
+                                        {userFile.StudentIdentityCardSubmission.OriginFileName !== "" ? "Reupload" : "Upload"}
+                                    </Button>
+                                }
+                                multiple={false}
+                                imagePreview={false}
+                                callbackFunction={(fileMeta)=>{
+                                    setUserFile({
+                                        ...userFile,
+                                        StudentIdentityCardSubmission: {
+                                            ...userFile.StudentIdentityCardSubmission,
+                                            OriginFileName: fileMeta['name'],
+                                            Base: fileMeta['base64']
+                                        }
+                                    })
+                                }}
                                 accept="application/pdf"
-                                className={classes.input}
-                                style={{display: 'none'}}
-                                id="raised-button-file"
-                                multiple
-                                type="file"
                             />
-                            <label htmlFor="raised-button-file">
-                                <Button fullWidth variant="contained" component="span"
-                                        className={classes.containedOrange}>
-                                    Reupload
-                                </Button>
-                            </label>
                         </Grid>
 
                         <Grid item md={2}>
-                            <Button fullWidth variant="contained" component="span" className={classes.containedTeal}>
+                            <Button fullWidth variant="contained" component="span" className={classes.containedTeal} onClick={() => {
+                                window.open(ENDPOINT.SUBMISSION + userFile.StudentIdentityCardSubmission.ID + "/download", '_blank')
+                            }}>
                                 Download
                             </Button>
                         </Grid>
 
                         <Grid item md={12} sm={12} xs={12} style={{marginTop: 10}}>
-                            <Typography variant={'body2'} style={{marginBottom: 10}}>
+                            <Typography variant={'caption'} style={{marginBottom: 10}}>
+                                Current : {userFile.StudentIdentityCardSubmission.OriginFileName !== "" ? userFile.StudentIdentityCardSubmission.OriginFileName : '-'}
+                            </Typography>
+                        </Grid>
+
+
+                        <Grid item md={12} sm={12} xs={12}>
+                            <Typography variant={'body2'}>
                                 Identity Card* (pdf file)
                             </Typography>
-
                         </Grid>
 
                         <Grid item md={2}>
-                            <input
+
+                            <FileInputComponent
+                                parentStyle={{margin: "0 !important"}}
+                                labelText={"Current : -"}
+                                labelStyle={{display: "none"}}
+                                buttonComponent={
+                                    <Button fullWidth variant="contained" component="span"
+                                            className={classes.containedOrange}>
+                                        {userFile.IdentityCardSubmission.OriginFileName !== "" ? "Reupload" : "Upload"}
+
+                                    </Button>
+                                }
+                                multiple={false}
+                                imagePreview={false}
+                                callbackFunction={(fileMeta)=>{
+                                    setUserFile({
+                                        ...userFile,
+                                        IdentityCardSubmission: {
+                                            ...userFile.IdentityCardSubmission,
+                                            OriginFileName: fileMeta['name'],
+                                            Base: fileMeta['base64']
+                                        }
+                                    })
+                                }}
                                 accept="application/pdf"
-                                className={classes.input}
-                                style={{display: 'none'}}
-                                id="raised-button-file"
-                                multiple
-                                type="file"
                             />
-                            <label htmlFor="raised-button-file">
-                                <Button fullWidth variant="contained" component="span"
-                                        className={classes.containedOrange}>
-                                    Reupload
-                                </Button>
-                            </label>
                         </Grid>
 
                         <Grid item md={2}>
-                            <Button fullWidth variant="contained" component="span" className={classes.containedTeal}>
+                            <Button fullWidth variant="contained" component="span" className={classes.containedTeal} onClick={() => {
+                                window.open(ENDPOINT.SUBMISSION + userFile.IdentityCardSubmission.ID + "/download", '_blank')
+                            }}>
                                 Download
                             </Button>
+                        </Grid>
+                        <Grid item md={12} sm={12} xs={12}>
+                            <Typography variant={'caption'}>
+                                Current : {userFile.IdentityCardSubmission.OriginFileName !== "" ? userFile.IdentityCardSubmission.OriginFileName : '-'}
+                            </Typography>
                         </Grid>
 
                         <Grid item md={12}>
@@ -260,17 +381,29 @@ const DashboardUser = props => {
 
                         <Grid item container md={12} sm={12} xs={12} style={{textAlign: "right", marginTop: 25}}
                               justify={"flex-end"}>
-                            <Grid item md={6} sm={12} xs={12}>
-                                <Button
-                                    fullWidth
-                                    variant="contained"
-                                    onClick={save}
-                                    className={classes.saveButton}
-                                    startIcon={<SaveIcon/>}
-                                >
-                                    Save
-                                </Button>
-                            </Grid>
+
+                            {state.request ?
+                                <Grid item md={6} sm={12} xs={12}>
+                                    <CircularProgress/>
+                                    <Typography variant={"caption"}>
+                                        {state.requestState}
+                                    </Typography>
+                                </Grid>
+
+
+                                :
+                                <Grid item md={6} sm={12} xs={12}>
+                                    <Button
+                                        fullWidth
+                                        variant="contained"
+                                        onClick={save}
+                                        className={classes.saveButton}
+                                        startIcon={<SaveIcon/>}
+                                    >
+                                        Save
+                                    </Button>
+                                </Grid>
+                            }
                         </Grid>
                     </Grid>
 

@@ -90,18 +90,23 @@ const ManageRegistrationsDashboardPage = props => {
             })
             .then(resJSON => {
                 let data = []
-                resJSON['data'].map((v,i) => {
-                    let cS = ""
-                    v['Competitions'].map((c,j) => {
-                        cS += c['CompetitionDetail']['CompetitionGroup']['Name'] === "" ? "" : "•"
-                        cS += c['CompetitionDetail']['CompetitionGroup']['Name']
-                        cS += c['CompetitionDetail']['CompetitionGroup']['Name'] === "" ? "" : "\n\n"
-                    })
-
+                resJSON['data'].map((v, i) => {
                     data.push({
                         teamName: v['Name'],
                         campusName: '-',
-                        typeCompetition: cS,
+                        typeCompetition: <ul>
+                            {
+                                v['Competitions'].map((c,j) => {
+
+                                    return (
+                                        c['CompetitionDetail']['CompetitionGroup']['Name'] !== "" ?
+                                            <li>{c['CompetitionDetail']['CompetitionGroup']['Name']}</li>
+                                            :
+                                            null
+                                    )
+                                })
+                            }
+                        </ul>,
                         documents:
                             <Link to={'/dashboard/manage/teams/view'} style={{textDecoration: 'none'}}>
                                 <Button variant={'contained'} color={'secondary'}>View Documents</Button>
@@ -113,7 +118,7 @@ const ManageRegistrationsDashboardPage = props => {
 
                 setState({
                     ...state,
-                    data : [...data]
+                    data: [...data]
                 })
             })
     }, [])

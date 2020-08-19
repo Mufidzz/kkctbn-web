@@ -105,7 +105,7 @@ const Register = props => {
                 }
             })
             .then(resJSON => {
-                alert(`Register ${resJSON["message"]}`)
+                alert(`Register ${resJSON["message"]|"Success"}`)
                 mover("login")
             })
     }

@@ -93,6 +93,7 @@ const ManageAccountsDashboardPage = () => {
     const [state, setState] = React.useState({
         columns: [
             {title: 'Email', field: 'emailAddress'},
+            {title: 'Status', field: 'status'},
             {title: 'Resend Activation', field: 'resendActivation'},
             {title: 'Reset Password', field: 'resetPassword'},
         ],
@@ -117,6 +118,7 @@ const ManageAccountsDashboardPage = () => {
                 resJSON['data'].map((v,i) => {
                     data.push({
                         emailAddress: v['Email'],
+                        status: v['VerifiedDate'] != null ? "Verified" : "Need Verification",
                         resendActivation: <Button variant={"contained"} color={'primary'}>Resend Activation</Button>,
                         resetPassword: <Button variant={"contained"} color={'primary'}>Reset Password</Button>
                     })

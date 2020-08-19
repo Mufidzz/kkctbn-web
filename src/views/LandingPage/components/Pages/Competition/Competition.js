@@ -5,7 +5,7 @@ import {makeStyles} from "@material-ui/core/styles";
 import competitionCardImage from "assets/images/ship-red.png"
 import {CompetitionCard} from "./components";
 import {useMediaQuery} from "@material-ui/core";
-import ReactCardFlip from "react-card-flip";
+// import ReactCardFlip from "react-card-flip";
 
 const catCompetition = [
     "Lomba Desain Inovasi Desain Kapal Kesehatan",

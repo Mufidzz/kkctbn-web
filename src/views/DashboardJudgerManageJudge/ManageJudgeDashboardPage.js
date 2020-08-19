@@ -92,17 +92,22 @@ const ManageRegistrationsDashboardPage = props => {
             .then(resJSON => {
                 let data = []
                 resJSON['data'].map((v,i) => {
-                    let cS = ""
-                    v['Competitions'].map((c,j) => {
-                        cS += c['CompetitionDetail']['CompetitionGroup']['Name'] === "" ? "" : "•"
-                        cS += c['CompetitionDetail']['CompetitionGroup']['Name']
-                        cS += c['CompetitionDetail']['CompetitionGroup']['Name'] === "" ? "" : "\n\n"
-                    })
-
                     data.push({
                         teamName: v['Name'],
                         campusName: '-',
-                        typeCompetition: cS,
+                        typeCompetition:
+                            <ul>
+                                {
+                                    v['Competitions'].map((c,j) => {
+                                        return (
+                                            c['CompetitionDetail']['CompetitionGroup']['Name'] !== "" ?
+                                                <li>{c['CompetitionDetail']['CompetitionGroup']['Name']}</li>
+                                                :
+                                                null
+                                        )
+                                    })
+                                }
+                            </ul>,
                         statusSubmission: <Button variant={'outlined'} style={{color: 'green'}}>Already Uploaded</Button>,
                         submission:
                             <Link to={'/dashboard/manage/judge/view'} style={{textDecoration: 'none'}}>
