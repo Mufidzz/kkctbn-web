@@ -155,7 +155,7 @@ const EditTeamDashboardPage = props => {
     //Use
     useMemo(() => {
 
-        fetch(ENDPOINT.TEAM + "check/", {method: "GET", headers:{"Token" : localStorage.getItem(STORAGE_KEY.JWT)}})
+        fetch(ENDPOINT.TEAM + "check", {method: "GET", headers:{"Token" : localStorage.getItem(STORAGE_KEY.JWT)}})
             .then(res => {
                 if (res.status === 200) {
                     return res.json()

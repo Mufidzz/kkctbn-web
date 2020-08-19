@@ -1,4 +1,4 @@
-import React, {forwardRef} from 'react'
+import React, {forwardRef, useMemo} from 'react'
 import Grid from "@material-ui/core/Grid";
 import {makeStyles} from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
@@ -19,6 +19,8 @@ import SaveAlt from '@material-ui/icons/SaveAlt';
 import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
 import {Scrollable} from "../../components";
+import {ENDPOINT} from "../../configs/api";
+import {Link} from "react-router-dom";
 
 const tableIcons = {
     Add: forwardRef((props, ref) => {
@@ -102,6 +104,31 @@ const ManageAccountsDashboardPage = () => {
             },
         ],
     });
+
+    useMemo(() => {
+        fetch(ENDPOINT.USER, {method: "GET"})
+            .then(res => {
+                if (res.status === 200) {
+                    return res.json()
+                }
+            })
+            .then(resJSON => {
+                let data = []
+                resJSON['data'].map((v,i) => {
+                    data.push({
+                        emailAddress: v['Email'],
+                        resendActivation: <Button variant={"contained"} color={'primary'}>Resend Activation</Button>,
+                        resetPassword: <Button variant={"contained"} color={'primary'}>Reset Password</Button>
+                    })
+                })
+
+                setState({
+                    ...state,
+                    data : [...data]
+                })
+            })
+    }, [])
+
 
     return (
         <Grid container style={{width: '100%'}}>

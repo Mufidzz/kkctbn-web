@@ -1,4 +1,4 @@
-import React, {forwardRef} from 'react'
+import React, {forwardRef, useMemo} from 'react'
 import Grid from "@material-ui/core/Grid";
 import {makeStyles} from "@material-ui/core/styles";
 import {Link} from 'react-router-dom';
@@ -20,6 +20,7 @@ import SaveAlt from '@material-ui/icons/SaveAlt';
 import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
 import {Scrollable} from "../../components";
+import {ENDPOINT} from "../../configs/api";
 
 const tableIcons = {
     Add: forwardRef((props, ref) => <AddBox {...props} ref={ref}/>),
@@ -79,6 +80,43 @@ const ManageRegistrationsDashboardPage = props => {
             },
         ],
     });
+
+
+    useMemo(() => {
+        fetch(ENDPOINT.TEAM, {method: "GET"})
+            .then(res => {
+                if (res.status === 200) {
+                    return res.json()
+                }
+            })
+            .then(resJSON => {
+                let data = []
+                resJSON['data'].map((v,i) => {
+                    let cS = ""
+                    v['Competitions'].map((c,j) => {
+                        cS += c['CompetitionDetail']['CompetitionGroup']['Name'] === "" ? "" : "•"
+                        cS += c['CompetitionDetail']['CompetitionGroup']['Name']
+                        cS += c['CompetitionDetail']['CompetitionGroup']['Name'] === "" ? "" : "\n\n"
+                    })
+
+                    data.push({
+                        teamName: v['Name'],
+                        campusName: '-',
+                        typeCompetition: cS,
+                        statusSubmission: <Button variant={'outlined'} style={{color: 'green'}}>Already Uploaded</Button>,
+                        submission:
+                            <Link to={'/dashboard/manage/judge/view'} style={{textDecoration: 'none'}}>
+                                <Button variant={'contained'} color={'secondary'}>View Submission</Button>
+                            </Link>
+                    })
+                })
+
+                setState({
+                    ...state,
+                    data : [...data]
+                })
+            })
+    }, [])
 
 
     return (

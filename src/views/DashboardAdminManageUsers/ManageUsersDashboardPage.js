@@ -1,24 +1,11 @@
-import React, {forwardRef} from 'react'
-import {CardContent, FormControl, Typography} from "@material-ui/core";
+import React, {forwardRef, useMemo} from 'react'
 import Grid from "@material-ui/core/Grid";
-import Card from "@material-ui/core/Card";
 import {makeStyles} from "@material-ui/core/styles";
 import withStyles from "@material-ui/core/styles/withStyles";
-import TextField from "@material-ui/core/TextField";
-import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
-import green from "@material-ui/core/colors/green";
 import Button from "@material-ui/core/Button";
-import SaveIcon from '@material-ui/icons/Save';
-import ThemeProvider from "@material-ui/styles/ThemeProvider";
 import purple from "@material-ui/core/colors/purple";
-import TableContainer from "@material-ui/core/TableContainer";
-import Table from "@material-ui/core/Table";
-import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import Paper from "@material-ui/core/Paper";
-import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
-import CardHeader from "@material-ui/core/CardHeader";
 import Link from "@material-ui/core/Link";
 import MaterialTable from "material-table";
 import AddBox from '@material-ui/icons/AddBox';
@@ -37,6 +24,7 @@ import SaveAlt from '@material-ui/icons/SaveAlt';
 import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
 import {Scrollable} from "../../components";
+import {ENDPOINT} from "../../configs/api";
 
 const tableIcons = {
     Add: forwardRef((props, ref) => <AddBox {...props} ref={ref}/>),
@@ -183,6 +171,39 @@ const ManageUsersDashboardPage = props => {
             },
         ],
     });
+
+    useMemo(() => {
+        fetch(ENDPOINT.USER, {method: "GET"})
+            .then(res => {
+                if (res.status === 200) {
+                    return res.json()
+                }
+            })
+            .then(resJSON => {
+                let data = []
+                resJSON['data'].map((v,i) => {
+                    data.push({
+                        fullName: v['FullName'],
+                        emailAddress: v['Email'],
+                        studentIdNumber: v['StudentID'],
+                        phoneNumber: v['Phone'],
+                        completeAddress: v['Address'],
+                        studentIdCard: <Button variant={'contained'} color={'secondary'}>Open File</Button>,
+                        identityCard: <Button variant={'contained'} color={'secondary'}>Open File</Button>,
+                        deleteUser: <Button variant={'contained'} color={'primary'}>Delete User</Button>,
+
+                    })
+                })
+
+                setState({
+                    ...state,
+                    data : [...data]
+                })
+            })
+
+        return () => {}
+    }, []);
+
 
     return (
 

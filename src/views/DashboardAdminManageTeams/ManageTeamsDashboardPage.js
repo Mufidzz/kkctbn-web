@@ -1,4 +1,4 @@
-import React, {forwardRef} from 'react'
+import React, {forwardRef, useMemo} from 'react'
 import Grid from "@material-ui/core/Grid";
 import {makeStyles} from "@material-ui/core/styles";
 import {Link} from 'react-router-dom';
@@ -20,6 +20,7 @@ import SaveAlt from '@material-ui/icons/SaveAlt';
 import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
 import {Scrollable} from "../../components";
+import {ENDPOINT} from "../../configs/api";
 
 const tableIcons = {
     Add: forwardRef((props, ref) => <AddBox {...props} ref={ref}/>),
@@ -45,12 +46,17 @@ const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
         flexWrap: 'wrap',
-    }
+    },
+    bullet: {
+        display: 'inline-block',
+        transform: 'scale(0.8)',
+    },
 }));
 
 
 const ManageRegistrationsDashboardPage = props => {
     const classes = useStyles();
+    const bull = <span className={classes.bullet}>•</span>;
 
     const [state, setState] = React.useState({
         columns: [
@@ -75,6 +81,42 @@ const ManageRegistrationsDashboardPage = props => {
         ],
     });
 
+    useMemo(() => {
+        fetch(ENDPOINT.TEAM, {method: "GET"})
+            .then(res => {
+                if (res.status === 200) {
+                    return res.json()
+                }
+            })
+            .then(resJSON => {
+                let data = []
+                resJSON['data'].map((v,i) => {
+                    let cS = ""
+                    v['Competitions'].map((c,j) => {
+                        cS += c['CompetitionDetail']['CompetitionGroup']['Name'] === "" ? "" : "•"
+                        cS += c['CompetitionDetail']['CompetitionGroup']['Name']
+                        cS += c['CompetitionDetail']['CompetitionGroup']['Name'] === "" ? "" : "\n\n"
+                    })
+
+                    data.push({
+                        teamName: v['Name'],
+                        campusName: '-',
+                        typeCompetition: cS,
+                        documents:
+                            <Link to={'/dashboard/manage/teams/view'} style={{textDecoration: 'none'}}>
+                                <Button variant={'contained'} color={'secondary'}>View Documents</Button>
+                            </Link>
+                        ,
+                        delete: <Button variant={'contained'} color={'primary'}>Delete Team</Button>
+                    })
+                })
+
+                setState({
+                    ...state,
+                    data : [...data]
+                })
+            })
+    }, [])
 
     return (
         <Grid container style={{width: '100%'}}>
