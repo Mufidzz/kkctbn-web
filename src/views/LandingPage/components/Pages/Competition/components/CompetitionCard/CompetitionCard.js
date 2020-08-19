@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
 import Card from "@material-ui/core/Card";
 import PropTypes from 'prop-types'
 import makeStyles from "@material-ui/core/styles/makeStyles";
+import ReactCardFlip from "react-card-flip";
 
 const useStyles = makeStyles((theme) => ({
     card: {
@@ -19,12 +20,19 @@ const useStyles = makeStyles((theme) => ({
 
 const CompetitionCard = props => {
     //Variable
-    const {image, children} = props;
+    const {image, children, title, explain} = props;
     const classes = useStyles();
+    
+    const [isFlipped, setIsFlipped] = useState(false);
+
+  	const handleClick = () => {
+    setIsFlipped(!isFlipped);
+  	};
 
     return (
+    	<ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
         <Card className={classes.card}>
-            <CardActionArea>
+            <CardActionArea onClick={handleClick}>
                 <CardContent>
                     <img width={"100%"} src={image} alt={"Card Image"}/>
                 </CardContent>
@@ -33,6 +41,19 @@ const CompetitionCard = props => {
                 </CardContent>
             </CardActionArea>
         </Card>
+        
+        
+        <Card className={classes.card}>
+            <CardActionArea onClick={handleClick}>
+                <CardContent>
+                    {title}
+                </CardContent>
+                <CardContent className={classes.cardContent}>
+                    {explain}
+                </CardContent>
+            </CardActionArea>
+        </Card>
+       </ReactCardFlip>
     )
 }
 
