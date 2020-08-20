@@ -253,10 +253,9 @@ const EditTeamDashboardPage = props => {
 
 
     useEffect(() => {
-        console.log(memberFileData)
-        console.log(memberFileData[selectedMemberIndex])
+        console.log(competitionList)
 
-    }, [memberFileData, selectedMemberIndex])
+    }, [competitionList])
 
     //Handle
     const handleTeamFormChange = e => {
