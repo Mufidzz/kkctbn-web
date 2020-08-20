@@ -647,7 +647,9 @@ const EditTeamDashboardPage = props => {
 
                                 <Grid item md={2}>
                                     <Button fullWidth variant="contained" component="span"
-                                            className={classes.containedTeal}>
+                                            className={classes.containedTeal} onClick={() => {
+                                        window.open(ENDPOINT.SUBMISSION + memberFileData[selectedMemberIndex].StudentIdentityCardSubmission.ID + "/download", '_blank')
+                                    }}>
                                         Download
                                     </Button>
                                 </Grid>
@@ -706,8 +708,11 @@ const EditTeamDashboardPage = props => {
                                         type="file"
                                     />
                                     <label htmlFor="raised-button-file">
-                                        <Button fullWidth variant="contained" component="span"
+                                        <Button fullWidth variant="contained" component="span" onClick={() => {
+                                            window.open(ENDPOINT.SUBMISSION + memberFileData[selectedMemberIndex].IdentityCardSubmission.ID + "/download", '_blank')
+                                        }}
                                                 className={classes.containedTeal}>
+
                                             Download
                                         </Button>
                                     </label>
