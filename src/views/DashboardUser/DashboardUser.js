@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState} from 'react'
+import React, {useMemo, useState} from 'react'
 import {CardContent, Typography} from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
@@ -65,8 +65,9 @@ const DashboardUser = props => {
 
     //State
     const [state, setState] = useState({
-        request : false,
-        requestState : ""
+        request: false,
+        requestState: "",
+        isUserFileChanged: false,
     })
 
     const [formState, setFormState] = useState({
@@ -80,19 +81,17 @@ const DashboardUser = props => {
 
     const [userFile, setUserFile] = useState(
         {
-            StudentIdentityCardSubmission : {
-                ID : 0,
+            StudentIdentityCardSubmission: {
+                ID: 0,
                 OriginFileName: "",
                 Base: ""
             },
-            IdentityCardSubmission : {
-                ID : 0,
+            IdentityCardSubmission: {
+                ID: 0,
                 OriginFileName: "",
                 Base: ""
             }
         }
-
-
     )
 
     //Use
@@ -100,7 +99,7 @@ const DashboardUser = props => {
         const userData = JSON.parse(localStorage.getItem(STORAGE_KEY.USER_DATA));
         setFormState(userData)
 
-        fetch(ENDPOINT.USER_SUBMISSION+userData['ID'], {method: "GET"})
+        fetch(ENDPOINT.USER_SUBMISSION + userData['ID'], {method: "GET"})
 
             .then(res => {
                 if (res.status === 200) {
@@ -111,8 +110,8 @@ const DashboardUser = props => {
                 console.log(resJSON['data'])
                 setUserFile({
                     ...userFile,
-                    StudentIdentityCardSubmission: resJSON['data']['StudentIdentityCardSubmission'],
-                    IdentityCardSubmission: resJSON['data']['IdentityCardSubmission']
+                    StudentIdentityCardSubmission: resJSON['data']['StudentIdentityCardSubmission'] !== undefined ? resJSON['data']['StudentIdentityCardSubmission'] : {},
+                    IdentityCardSubmission: resJSON['data']['IdentityCardSubmission'] !== undefined ? resJSON['data']['IdentityCardSubmission'] : {}
                 })
             })
         return () => {
@@ -129,16 +128,9 @@ const DashboardUser = props => {
     }
 
 
-
     //Function
     const save = () => {
         const token = localStorage.getItem(STORAGE_KEY.JWT);
-        setState({
-            ...state,
-            request: true,
-            requestState: "Waiting Connection"
-        })
-
 
         fetch(ENDPOINT.USER + formState.ID, {
             method: 'PUT',
@@ -164,10 +156,11 @@ const DashboardUser = props => {
             }
         ))
 
-        fetch(ENDPOINT.USER_SUBMISSION, {
+        if (state.isUserFileChanged) {
+            fetch(ENDPOINT.USER_SUBMISSION, {
                 method: "POST",
                 body: JSON.stringify({
-                    UserID : formState.ID,
+                    UserID: formState.ID,
                     ...userFile
                 })
             })
@@ -177,24 +170,23 @@ const DashboardUser = props => {
                     }
                 })
                 .then(resJSON => {
+                    setState({
+                        ...state,
+                        isUserFileChanged: false
+                    })
                     setUserFile({
                         ...userFile,
                         StudentIdentityCardSubmission: {
-                            ...userFile.StudentIdentityCardSubmission,
+                            ...resJSON['data']['StudentIdentityCardSubmission'],
                             Base: ""
                         },
                         IdentityCardSubmission: {
-                            ...userFile.IdentityCardSubmission,
+                            ...resJSON['data']['IdentityCardSubmission'],
                             Base: ""
                         }
                     })
                 })
-
-        setState({
-            ...state,
-            request: false,
-            requestState: ""
-        })
+        }
     }
 
 
@@ -298,7 +290,7 @@ const DashboardUser = props => {
                                 }
                                 multiple={false}
                                 imagePreview={false}
-                                callbackFunction={(fileMeta)=>{
+                                callbackFunction={(fileMeta) => {
                                     setUserFile({
                                         ...userFile,
                                         StudentIdentityCardSubmission: {
@@ -307,22 +299,28 @@ const DashboardUser = props => {
                                             Base: fileMeta['base64']
                                         }
                                     })
+                                    setState(({
+                                        ...state,
+                                        isUserFileChanged: true
+                                    }))
                                 }}
                                 accept="application/pdf"
                             />
                         </Grid>
 
                         <Grid item md={2}>
-                            <Button fullWidth variant="contained" component="span" className={classes.containedTeal} onClick={() => {
-                                window.open(ENDPOINT.SUBMISSION + userFile.StudentIdentityCardSubmission.ID + "/download", '_blank')
-                            }}>
+                            <Button fullWidth variant="contained" component="span" className={classes.containedTeal}
+                                    onClick={() => {
+                                        window.open(ENDPOINT.SUBMISSION + userFile.StudentIdentityCardSubmission.ID + "/download", '_blank')
+                                    }}>
                                 Download
                             </Button>
                         </Grid>
 
                         <Grid item md={12} sm={12} xs={12} style={{marginTop: 10}}>
                             <Typography variant={'caption'} style={{marginBottom: 10}}>
-                                Current : {userFile.StudentIdentityCardSubmission.OriginFileName !== "" ? userFile.StudentIdentityCardSubmission.OriginFileName : '-'}
+                                Current
+                                : {userFile.StudentIdentityCardSubmission.OriginFileName !== "" ? userFile.StudentIdentityCardSubmission.OriginFileName : '-'}
                             </Typography>
                         </Grid>
 
@@ -348,7 +346,7 @@ const DashboardUser = props => {
                                 }
                                 multiple={false}
                                 imagePreview={false}
-                                callbackFunction={(fileMeta)=>{
+                                callbackFunction={(fileMeta) => {
                                     setUserFile({
                                         ...userFile,
                                         IdentityCardSubmission: {
@@ -357,21 +355,27 @@ const DashboardUser = props => {
                                             Base: fileMeta['base64']
                                         }
                                     })
+                                    setState(({
+                                        ...state,
+                                        isUserFileChanged: true
+                                    }))
                                 }}
                                 accept="application/pdf"
                             />
                         </Grid>
 
                         <Grid item md={2}>
-                            <Button fullWidth variant="contained" component="span" className={classes.containedTeal} onClick={() => {
-                                window.open(ENDPOINT.SUBMISSION + userFile.IdentityCardSubmission.ID + "/download", '_blank')
-                            }}>
+                            <Button fullWidth variant="contained" component="span" className={classes.containedTeal}
+                                    onClick={() => {
+                                        window.open(ENDPOINT.SUBMISSION + userFile.IdentityCardSubmission.ID + "/download", '_blank')
+                                    }}>
                                 Download
                             </Button>
                         </Grid>
                         <Grid item md={12} sm={12} xs={12}>
                             <Typography variant={'caption'}>
-                                Current : {userFile.IdentityCardSubmission.OriginFileName !== "" ? userFile.IdentityCardSubmission.OriginFileName : '-'}
+                                Current
+                                : {userFile.IdentityCardSubmission.OriginFileName !== "" ? userFile.IdentityCardSubmission.OriginFileName : '-'}
                             </Typography>
                         </Grid>
 
