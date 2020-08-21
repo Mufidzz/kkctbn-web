@@ -339,7 +339,7 @@ const EditTeamDashboardPage = props => {
             ])
 
             setMemberFileData([
-                ...memberFileDataStruct,
+                ...memberFileData,
                 memberFileDataStruct
             ])
         }
