@@ -135,6 +135,7 @@ const DashboardUser = props => {
     //Function
     const save = () => {
         const token = localStorage.getItem(STORAGE_KEY.JWT);
+        let response;
 
         fetch(ENDPOINT.USER, {
             method: 'PUT',
@@ -151,7 +152,7 @@ const DashboardUser = props => {
             })
             .then(resJSON => {
                 localStorage.setItem(STORAGE_KEY.USER_DATA, JSON.stringify(resJSON["data"]))
-                alert(`Update User ${resJSON["message"]}`)
+                response = resJSON['data']
             })
 
         console.log(JSON.stringify({
@@ -189,7 +190,11 @@ const DashboardUser = props => {
                             Base: ""
                         }
                     })
+
+                    response = resJSON['data']
                 })
+
+            alert(`Update User ${response["message"]}`)
         }
     }
 
