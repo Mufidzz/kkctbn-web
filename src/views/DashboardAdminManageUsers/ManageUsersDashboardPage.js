@@ -180,6 +180,8 @@ const ManageUsersDashboardPage = props => {
                 }
             })
             .then(resJSON => {
+                console.log(resJSON)
+
                 let data = []
                 resJSON['data'].map((v,i) => {
                     data.push({
@@ -188,10 +190,21 @@ const ManageUsersDashboardPage = props => {
                         studentIdNumber: v['StudentID'],
                         phoneNumber: v['Phone'],
                         completeAddress: v['Address'],
-                        studentIdCard: <Button variant={'contained'} color={'secondary'}>Open File</Button>,
-                        identityCard: <Button variant={'contained'} color={'secondary'}>Open File</Button>,
-                        deleteUser: <Button variant={'contained'} color={'primary'}>Delete User</Button>,
-
+                        studentIdCard:
+                            <Button disabled={v['Submission']['StudentIdentityCardSubmission'].ID === 0} fullWidth variant="contained" component="span" color={'secondary'}
+                                    onClick={() => {
+                                        window.open(ENDPOINT.SUBMISSION + v['Submission']['StudentIdentityCardSubmission'].ID + "/stream", '_blank')
+                                    }}>
+                                Open File
+                            </Button>,
+                        identityCard:
+                            <Button disabled={v['Submission']['IdentityCardSubmission'].ID === 0} fullWidth variant="contained" component="span" color={'secondary'}
+                                    onClick={() => {
+                                        window.open(ENDPOINT.SUBMISSION + v['Submission']['IdentityCardSubmission'].ID + "/stream", '_blank')
+                                    }}>
+                                Open File
+                            </Button>,
+                        deleteUser: <Button disabled variant={'contained'} color={'primary'}>Delete User</Button>,
                     })
                 })
 
@@ -219,7 +232,6 @@ const ManageUsersDashboardPage = props => {
                 </Grid>
             </Scrollable>
         </Grid>
-
     )
 }
 

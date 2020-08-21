@@ -32,7 +32,7 @@ const routes = [
                 component : lazy(() => import("./views/DashboardTeamData"))
             },
             {
-                path: "/dashboard/team/submission",
+                path: "/dashboard/team/submission/:cid",
                 exact: true,
                 component: lazy(() => import("./views/DashboardTeamSubmission"))
             },
@@ -62,7 +62,7 @@ const routes = [
                 component : lazy(() => import("./views/DashboardAdminManageTeams"))
             },
             {
-                path: "/dashboard/manage/teams/view",
+                path: "/dashboard/manage/teams/view/:tid",
                 exact: true,
                 component : lazy(() => import("./views/DashboardAdminManageTeamsView"))
             },

@@ -3,6 +3,8 @@ const URL = "http://localhost:4444"
 export const ENDPOINT = {
     USER : `${URL}/user/`,
     USER_SUBMISSION : `${URL}/user-submission/`,
+    TEAM_SUBMISSION : `${URL}/team-submission/`,
+    TEAM_ADMINISTRATION_SUBMISSION : `${URL}/team-administration-submission/`,
     SUBMISSION : `${URL}/submission/`,
     AUTH : `${URL}/auth/`,
     COMPETITION : `${URL}/competition-group/`,

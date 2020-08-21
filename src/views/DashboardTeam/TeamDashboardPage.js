@@ -43,24 +43,6 @@ const createData = (competitionType, status, submission) => {
 }
 
 
-const rows = [
-        createData(
-            'Desain Kapal Rumah Sakit',
-            <Button variant={"outlined"} style={{color: 'green'}}>Already uploaded</Button>,
-            <Link style={{textDecoration: 'none'}} href={'/dashboard/team/submission'}>
-                <Button variant={'contained'} color={'secondary'}>Submission</Button>
-            </Link>
-        ),
-        createData(
-            'Desain Kapal Rumah Sakit',
-            <Button variant={"outlined"} style={{color: 'red'}}>Not uploaded yet</Button>,
-            <Link style={{textDecoration: 'none'}} href={'/dashboard/team/submission'}>
-                <Button variant={'contained'} color={'secondary'}>Submission</Button>
-            </Link>
-        ),
-    ]
-;
-
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
@@ -89,34 +71,38 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-
+// <Button variant={'outlined'} style={{color: 'red'}}>Not Uploaded Yet</Button>
 const TeamDashboardPage = props => {
     const classes = useStyles();
 
     const [competitionRow, setCompetitionRow] = useState([])
     const [state, setState] = useState({
-        TeamFound : false
+        TeamFound: false
     })
 
 
     useMemo(() => {
-        fetch(ENDPOINT.TEAM + "check", {method: "GET", headers:{"Token" : localStorage.getItem(STORAGE_KEY.JWT)}})
+        fetch(ENDPOINT.TEAM + "check", {method: "GET", headers: {"Token": localStorage.getItem(STORAGE_KEY.JWT)}})
             .then(res => {
                 if (res.status === 200) {
                     return res.json()
                 }
             })
             .then(resJSON => {
+                console.log(resJSON)
                 if (resJSON["data"] !== null) {
                     let cRA = []
 
                     resJSON['data']['Competitions'].map((competition, i) => {
-                        if (competition["CompetitionDetail"]["ID"] !== 0) {
+                        if (competition["Status"]) {
                             cRA.push(
                                 createData(
                                     competition["CompetitionDetail"]["Name"],
-                                    <Button variant={"outlined"} style={{color: 'green'}}>Already uploaded</Button>,
-                                    <Button component={Link} to={'/dashboard/team/submission'} variant={'contained'} color={'secondary'}>Submission</Button>
+                                    competition["Submission"]['ID'] === 0 ?
+                                        <Button variant={'outlined'} style={{color: 'red'}}>Not Uploaded Yet</Button> :
+                                        <Button variant={"outlined"} style={{color: 'green'}}>Already uploaded</Button>,
+                                    <Button component={Link} to={'/dashboard/team/submission/' + competition["ID"]}
+                                            variant={'contained'} color={'secondary'}>Submission</Button>
                                 )
                             )
                         }
@@ -142,7 +128,8 @@ const TeamDashboardPage = props => {
                         </Grid>
                         <Grid item md={4} sm={12} xs={12} style={{marginTop: 20}}>
                             <Link to={'/dashboard/team/edit'} style={{textDecoration: 'none'}}>
-                                <Button fullWidth variant={'contained'} color={'primary'}>{state.TeamFound ? "Edit Team" : "Create a new team"}  </Button>
+                                <Button fullWidth variant={'contained'}
+                                        color={'primary'}>{state.TeamFound ? "Edit Team" : "Create a new team"}  </Button>
                             </Link>
                         </Grid>
                         <Grid item md={12} sm={12} xs={12} style={{marginTop: 25}}>
@@ -167,7 +154,6 @@ const TeamDashboardPage = props => {
                                 </Table>
                             </TableContainer>
                         </Grid>
-
                     </CardContent>
                 </Card>
             </Scrollable>

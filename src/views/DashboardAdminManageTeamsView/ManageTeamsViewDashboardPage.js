@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useMemo, useState} from 'react'
 import {CardContent, FormControl, Typography} from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
@@ -14,6 +14,7 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import Link from "@material-ui/core/Link";
 import {Scrollable} from "../../components";
+import {ENDPOINT} from "../../configs/api";
 
 
 const StyledTableCell = withStyles((theme) => ({
@@ -95,6 +96,72 @@ const useStyles = makeStyles((theme) => ({
 const ManageTeamsViewDashboardPage = props => {
     const classes = useStyles();
 
+    const {tid} = props.match.params
+
+    const [teamData, setTeamData] = useState({
+        Name: "",
+        LecturerName: "",
+        MembersRow: [],
+        Competitions: [],
+        LeaderDetail: {},
+        Submission: {}
+    })
+
+    useMemo(() => {
+        fetch(ENDPOINT.TEAM + `check/${tid}`, {method: "GET"})
+            .then(res => {
+                if (res.status === 200) {
+                    return res.json()
+                }
+            })
+            .then(resJSON => {
+                const {Members} = resJSON['data']
+
+                console.log(resJSON)
+
+                let mR = [];
+
+                Members.map((v, i) => {
+                    const {UserDetail} = v
+
+                    mR.push(
+                        createData(
+                            UserDetail["FullName"],
+                            UserDetail["Email"],
+                            UserDetail["StudentID"],
+                            UserDetail["Phone"],
+                            UserDetail["Address"],
+                            <Link to={''} style={{textDecoration: 'none'}}>
+                                <Button variant={'contained'} color={'primary'}
+                                        onClick={() => {
+                                            window.open(ENDPOINT.SUBMISSION + v.Submission.StudentIdentityCardSubmission.ID + "/stream", '_blank')
+                                        }}>
+                                    Open File
+                                </Button>
+                            </Link>,
+                            <Link to={''} style={{textDecoration: 'none'}}>
+                                <Button variant={'contained'} color={'primary'}
+                                        onClick={() => {
+                                            window.open(ENDPOINT.SUBMISSION + v.Submission.IdentityCardSubmission.ID + "/stream", '_blank')
+                                        }}>
+                                    Open File
+                                </Button>
+                            </Link>
+                        )
+                    )
+                })
+
+                setTeamData({
+                    ...resJSON['data'],
+                    MembersRow: mR
+                })
+            })
+
+        return () => {
+        }
+    }, [])
+
+
     return (
         <Grid container style={{width: '100%'}}>
             <Scrollable>
@@ -102,17 +169,31 @@ const ManageTeamsViewDashboardPage = props => {
                     <CardContent>
                         <Grid container spacing={1}>
                             <Grid item md={12} style={{marginBottom: 20}}>
-                                <Typography variant={"h4"}>Garangan AI</Typography>
+                                <Typography variant={"h4"}>{teamData.Name}</Typography>
                             </Grid>
                             <Grid item md={12}>
+
+
                                 <Typography variant={"body2"} className={classes.label}>
                                     Type of Competition
                                 </Typography>
                             </Grid>
                             <Grid item md={12}>
-                                <Typography variant={"h6"}>
-                                    Lomba Inovasi Desain
-                                </Typography>
+                                {
+                                    teamData.Competitions.map((c, j) => {
+
+                                        return (
+                                            c['CompetitionDetail']['CompetitionGroup']['Name'] !== "" ?
+                                                <Typography variant={"h6"}>
+                                                    <li>
+                                                        {c['CompetitionDetail']['CompetitionGroup']['Name']}
+                                                    </li>
+                                                </Typography>
+                                                :
+                                                null
+                                        )
+                                    })
+                                }
                             </Grid>
                             <Grid item md={12}>
                                 <Typography variant={"body2"} className={classes.label}>
@@ -121,7 +202,7 @@ const ManageTeamsViewDashboardPage = props => {
                             </Grid>
                             <Grid item md={8}>
                                 <Typography variant={"h6"}>
-                                    Rerereree
+                                    {teamData.LeaderDetail.FullName}
                                 </Typography>
                             </Grid>
                             <Grid item md={12}>
@@ -131,16 +212,22 @@ const ManageTeamsViewDashboardPage = props => {
                             </Grid>
                             <Grid item md={8}>
                                 <Typography variant={"h6"}>
-                                    Rere, DD.Os
+                                    {teamData.LecturerName}
                                 </Typography>
                             </Grid>
                             <Grid item md={2} style={{textAlign: 'right'}}>
-                                <Button variant={'outlined'} fullWidth>
+                                <Button variant={'outlined'} fullWidth
+                                        onClick={() => {
+                                            window.open(ENDPOINT.SUBMISSION + teamData.Submission.StudentMandateLetter.ID + "/stream", '_blank')
+                                        }}>
                                     Student Mandate
                                 </Button>
                             </Grid>
                             <Grid item md={2} style={{textAlign: 'right'}}>
-                                <Button variant={'outlined'} fullWidth>
+                                <Button variant={'outlined'} fullWidth
+                                        onClick={() => {
+                                            window.open(ENDPOINT.SUBMISSION + teamData.Submission.LecturerMandateLetter.ID + "/stream", '_blank')
+                                        }}>
                                     Lecturer Mandate
                                 </Button>
                             </Grid>
@@ -159,7 +246,7 @@ const ManageTeamsViewDashboardPage = props => {
                                             </TableRow>
                                         </TableHead>
                                         <TableBody>
-                                            {rows.map((row) => (
+                                            {teamData.MembersRow.map((row) => (
                                                 <StyledTableRow key={row.name}>
                                                     <StyledTableCell component="th" scope="row">
                                                         {row.fullName}

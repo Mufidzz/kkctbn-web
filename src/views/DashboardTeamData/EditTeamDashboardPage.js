@@ -142,8 +142,19 @@ const EditTeamDashboardPage = props => {
             OriginFileName: "",
             Base: ""
         }
-
-
+    }
+    const teamFileDataStruct = {
+        isUserFileChanged: false,
+        StudentIdentityCardSubmission: {
+            ID: 0,
+            OriginFileName: "",
+            Base: ""
+        },
+        IdentityCardSubmission: {
+            ID: 0,
+            OriginFileName: "",
+            Base: ""
+        }
     }
 
     //State
@@ -163,6 +174,17 @@ const EditTeamDashboardPage = props => {
     const [memberFileData, setMemberFileData] = useState([
         memberFileDataStruct
     ])
+    const [teamAdministrationData, setTeamAdministrationData] = useState({
+        isChanged : false,
+        TeamID : 0,
+        StudentMandateLetter : {
+            ...teamFileDataStruct
+        },
+        LecturerMandateLetter : {
+            ...teamFileDataStruct
+        }
+    })
+
 
 
     const [teamCompetition, setTeamCompetition] = useState([
@@ -216,6 +238,23 @@ const EditTeamDashboardPage = props => {
                             setMemberFileData(mFA)
                         })
                     })
+
+
+                    fetch(ENDPOINT.TEAM_ADMINISTRATION_SUBMISSION + resJSON['data']["ID"], {method: "GET"})
+                        .then(res => {
+                            if (res.status === 200) {
+                                return res.json()
+                            }
+                        })
+                        .then(resJSON => {
+                            setTeamAdministrationData({
+                                ...teamAdministrationData,
+                                LecturerMandateLetter: {...resJSON['data']['LecturerMandateLetter']},
+                                StudentMandateLetter: {...resJSON['data']['StudentMandateLetter']}
+                            })
+                        })
+
+
                     setState({
                         ...state,
                         flag: 1,
@@ -361,10 +400,28 @@ const EditTeamDashboardPage = props => {
                                 }
                             })
                             .then(resJSON => {
-                                console.log("AVCCVV", resJSON)
+
                             })
                     }
                 })
+
+                if (teamAdministrationData.isChanged) {
+                    fetch(ENDPOINT.TEAM_ADMINISTRATION_SUBMISSION, {
+                        method: "POST",
+                        body: JSON.stringify({
+                            ...teamAdministrationData,
+                            TeamID: resJSON['data']['ID']
+                        })
+                    })
+                        .then(res => {
+                            if (res.status === 200) {
+                                return res.json()
+                            }
+                        })
+                        .then(resJSON => {
+                            console.log("TASRSLT", resJSON)
+                        })
+                }
 
 
                 alert(`Update Status ${resJSON['message']}`)
@@ -698,23 +755,13 @@ const EditTeamDashboardPage = props => {
                                 </Grid>
 
                                 <Grid item md={2}>
-                                    <input
-                                        accept="application/pdf"
-                                        className={classes.input}
-                                        style={{display: 'none'}}
-                                        id="raised-button-file"
-                                        multiple
-                                        type="file"
-                                    />
-                                    <label htmlFor="raised-button-file">
-                                        <Button fullWidth variant="contained" component="span" onClick={() => {
-                                            window.open(ENDPOINT.SUBMISSION + memberFileData[selectedMemberIndex].IdentityCardSubmission.ID + "/download", '_blank')
-                                        }}
-                                                className={classes.containedTeal}>
+                                    <Button fullWidth variant="contained" component="span" onClick={() => {
+                                        window.open(ENDPOINT.SUBMISSION + memberFileData[selectedMemberIndex].IdentityCardSubmission.ID + "/download", '_blank')
+                                    }}
+                                            className={classes.containedTeal}>
 
-                                            Download
-                                        </Button>
-                                    </label>
+                                        Download
+                                    </Button>
                                 </Grid>
 
                                 <Grid item md={12} sm={12} xs={12}>
@@ -735,43 +782,56 @@ const EditTeamDashboardPage = props => {
 
                                 <Grid item md={12} style={{marginTop: 10}}>
                                     <Typography variant={'body2'} style={{marginBottom: 10}}>
-                                        Student Mandate Card* (pdf file)
+                                        Student Mandate Letter* (pdf file)
                                     </Typography>
 
                                 </Grid>
 
                                 <Grid item md={2}>
-                                    <input
+                                    <FileInputComponent
+                                        parentStyle={{margin: "0 !important"}}
+                                        labelText={"Current : -"}
+                                        labelStyle={{display: "none"}}
+                                        buttonComponent={
+                                            <Button fullWidth variant="contained" component="span"
+                                                    color={"secondary"}>
+                                                {teamAdministrationData.StudentMandateLetter.OriginFileName !== "" ? "Reupload" : "Upload"}
+                                            </Button>
+                                        }
+                                        multiple={false}
+                                        imagePreview={false}
+                                        callbackFunction={(fileMeta) => {
+                                            setTeamAdministrationData({
+                                                ...teamAdministrationData,
+                                                isChanged: true,
+                                                StudentMandateLetter: {
+                                                    ...teamAdministrationData.StudentMandateLetter,
+                                                    OriginFileName: fileMeta['name'],
+                                                    Base: fileMeta['base64']
+                                                }
+                                            })
+                                        }}
                                         accept="application/pdf"
-                                        className={classes.input}
-                                        style={{display: 'none'}}
-                                        id="raised-button-file"
-                                        multiple
-                                        type="file"
                                     />
-                                    <label htmlFor="raised-button-file">
-                                        <Button fullWidth variant="contained" component="span">
-                                            Reupload
-                                        </Button>
-                                    </label>
+
                                 </Grid>
 
                                 <Grid item md={2}>
-                                    <input
-                                        accept="application/pdf"
-                                        className={classes.input}
-                                        style={{display: 'none'}}
-                                        id="raised-button-file"
-                                        multiple
-                                        type="file"
-                                    />
-                                    <label htmlFor="raised-button-file">
-                                        <Button fullWidth variant="contained" component="span"
-                                                className={classes.containedTeal}>
-                                            Download
-                                        </Button>
-                                    </label>
+                                    <Button fullWidth variant="contained" component="span"
+                                            className={classes.containedTeal} onClick={() => {
+                                        window.open(ENDPOINT.SUBMISSION + teamAdministrationData.StudentMandateLetter.ID + "/download", '_blank')
+                                    }}>
+                                        Download
+                                    </Button>
                                 </Grid>
+
+                                <Grid item md={12} sm={12} xs={12}>
+                                    <Typography variant={'caption'}>
+                                        Current
+                                        : {teamAdministrationData.StudentMandateLetter.OriginFileName !== "" ? teamAdministrationData.StudentMandateLetter.OriginFileName : '-'}
+                                    </Typography>
+                                </Grid>
+
 
                                 <Grid item md={12} style={{marginTop: 10}}>
                                     <Typography variant={'body2'} style={{marginBottom: 10}}>
@@ -781,19 +841,31 @@ const EditTeamDashboardPage = props => {
                                 </Grid>
 
                                 <Grid item md={2}>
-                                    <input
+                                    <FileInputComponent
+                                        parentStyle={{margin: "0 !important"}}
+                                        labelText={"Current : -"}
+                                        labelStyle={{display: "none"}}
+                                        buttonComponent={
+                                            <Button fullWidth variant="contained" component="span"
+                                                    color={"secondary"}>
+                                                {teamAdministrationData.LecturerMandateLetter.OriginFileName !== "" ? "Reupload" : "Upload"}
+                                            </Button>
+                                        }
+                                        multiple={false}
+                                        imagePreview={false}
+                                        callbackFunction={(fileMeta) => {
+                                            setTeamAdministrationData({
+                                                ...teamAdministrationData,
+                                                isChanged: true,
+                                                LecturerMandateLetter: {
+                                                    ...teamAdministrationData.LecturerMandateLetter,
+                                                    OriginFileName: fileMeta['name'],
+                                                    Base: fileMeta['base64']
+                                                }
+                                            })
+                                        }}
                                         accept="application/pdf"
-                                        className={classes.input}
-                                        style={{display: 'none'}}
-                                        id="raised-button-file"
-                                        multiple
-                                        type="file"
                                     />
-                                    <label htmlFor="raised-button-file">
-                                        <Button fullWidth variant="contained" component="span">
-                                            Reupload
-                                        </Button>
-                                    </label>
                                 </Grid>
 
                                 <Grid item md={2}>
@@ -807,11 +879,21 @@ const EditTeamDashboardPage = props => {
                                     />
                                     <label htmlFor="raised-button-file">
                                         <Button fullWidth variant="contained" component="span"
-                                                className={classes.containedTeal}>
+                                                className={classes.containedTeal} onClick={() => {
+                                            window.open(ENDPOINT.SUBMISSION + teamAdministrationData.LecturerMandateLetter.ID + "/download", '_blank')
+                                        }}>
                                             Download
                                         </Button>
                                     </label>
                                 </Grid>
+
+                                <Grid item md={12} sm={12} xs={12}>
+                                    <Typography variant={'caption'}>
+                                        Current
+                                        : {teamAdministrationData.LecturerMandateLetter.OriginFileName !== "" ? teamAdministrationData.LecturerMandateLetter.OriginFileName : '-'}
+                                    </Typography>
+                                </Grid>
+
 
                                 <Grid item md={12}>
                                     <hr style={{

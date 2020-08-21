@@ -1,4 +1,4 @@
-import React, {forwardRef, useMemo} from 'react'
+import React, {forwardRef, useEffect, useMemo} from 'react'
 import Grid from "@material-ui/core/Grid";
 import {makeStyles} from "@material-ui/core/styles";
 import {Link} from 'react-router-dom';
@@ -56,7 +56,6 @@ const useStyles = makeStyles((theme) => ({
 
 const ManageRegistrationsDashboardPage = props => {
     const classes = useStyles();
-    const bull = <span className={classes.bullet}>•</span>;
 
     const [state, setState] = React.useState({
         columns: [
@@ -67,28 +66,33 @@ const ManageRegistrationsDashboardPage = props => {
             {title: 'Delete', field: 'delete'}
         ],
         data: [
-            {
-                teamName: 'GaranganAI',
-                campusName: 'Universitas Muhammadiyah Malang',
-                typeCompetition: 'Desain Kapal',
-                documents:
-                    <Link to={'/dashboard/manage/teams/view'} style={{textDecoration: 'none'}}>
-                        <Button variant={'contained'} color={'secondary'}>View Documents</Button>
-                    </Link>
-                ,
-                delete: <Button variant={'contained'} color={'primary'}>Delete Team</Button>
-            }
+            // {
+            //     teamName: 'GaranganAI',
+            //     campusName: 'Universitas Muhammadiyah Malang',
+            //     typeCompetition: 'Desain Kapal',
+            //     documents:
+            //         <Link to={'/dashboard/manage/teams/view'} style={{textDecoration: 'none'}}>
+            //             <Button variant={'contained'} color={'secondary'}>View Documents</Button>
+            //         </Link>
+            //     ,
+            //     delete: <Button variant={'contained'} color={'primary'}>Delete Team</Button>
+            // }
         ],
     });
 
-    useMemo(() => {
+    useEffect(() => {
+        console.log("useEffect")
+
         fetch(ENDPOINT.TEAM, {method: "GET"})
             .then(res => {
+                console.log(res)
                 if (res.status === 200) {
                     return res.json()
                 }
             })
             .then(resJSON => {
+                console.log(resJSON)
+
                 let data = []
                 resJSON['data'].map((v, i) => {
                     data.push({
@@ -108,11 +112,11 @@ const ManageRegistrationsDashboardPage = props => {
                             }
                         </ul>,
                         documents:
-                            <Link to={'/dashboard/manage/teams/view'} style={{textDecoration: 'none'}}>
+                            <Link to={'/dashboard/manage/teams/view/' + v['ID']} style={{textDecoration: 'none'}}>
                                 <Button variant={'contained'} color={'secondary'}>View Documents</Button>
                             </Link>
                         ,
-                        delete: <Button variant={'contained'} color={'primary'}>Delete Team</Button>
+                        delete: <Button disabled variant={'contained'} color={'primary'}>Delete Team</Button>
                     })
                 })
 
