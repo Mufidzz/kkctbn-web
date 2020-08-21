@@ -87,7 +87,7 @@ const routes = [
                 component : lazy(() => import("./views/DashboardJudgerManageJudge"))
             },
             {
-                path: "/dashboard/manage/judge/view",
+                path: "/dashboard/manage/judge/view/:tid",
                 exact: true,
                 component : lazy(() => import("./views/DashboardJudgerManageJudgeView"))
             },

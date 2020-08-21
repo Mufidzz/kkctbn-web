@@ -90,11 +90,17 @@ const ManageRegistrationsDashboardPage = props => {
                 }
             })
             .then(resJSON => {
+
+
+
                 let data = []
                 resJSON['data'].map((v,i) => {
+
+                    console.log(v)
+
                     data.push({
                         teamName: v['Name'],
-                        campusName: '-',
+                        campusName: v.LeaderDetail.College.Name ,
                         typeCompetition:
                             <ul>
                                 {
@@ -110,7 +116,7 @@ const ManageRegistrationsDashboardPage = props => {
                             </ul>,
                         statusSubmission: <Button variant={'outlined'} style={{color: 'green'}}>Already Uploaded</Button>,
                         submission:
-                            <Link to={'/dashboard/manage/judge/view'} style={{textDecoration: 'none'}}>
+                            <Link to={'/dashboard/manage/judge/view/' + v['ID']} style={{textDecoration: 'none'}}>
                                 <Button variant={'contained'} color={'secondary'}>View Submission</Button>
                             </Link>
                     })

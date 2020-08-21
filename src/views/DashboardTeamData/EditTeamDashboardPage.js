@@ -443,7 +443,7 @@ const EditTeamDashboardPage = props => {
 
 
     return (
-        state.loading ? <CircularProgress/> :
+        // state.loading ? <CircularProgress/> :
             <Grid container>
                 <Grid item md={12}>
 

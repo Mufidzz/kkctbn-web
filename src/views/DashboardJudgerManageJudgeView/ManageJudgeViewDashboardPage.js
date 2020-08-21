@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useMemo, useState} from 'react'
 import {CardContent, FormControl, Typography} from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
@@ -8,6 +8,7 @@ import CardHeader from "@material-ui/core/CardHeader";
 import theme from "../../theme";
 import {Link} from 'react-router-dom';
 import {Scrollable} from "../../components";
+import {ENDPOINT} from "../../configs/api";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -28,12 +29,16 @@ const useStyles = makeStyles((theme) => ({
                 backgroundColor: '#009688'
             }
         }
+    },
+    cardHeader : {
+        backgroundColor : theme.palette.primary.main,
+        color : "#FFFFFF"
     }
 
 }));
 
 const ManageJudgeViewDashboardPage = props => {
-
+    const {tid} = props.match.params;
     const classes = useStyles();
     const [value, setValue] = React.useState('Controlled');
 
@@ -41,6 +46,22 @@ const ManageJudgeViewDashboardPage = props => {
         setChecked(event.target.checked);
     };
     const [checked, setChecked] = React.useState(true);
+    const [apiData, setApiData] = useState({
+        Competitions : []
+    })
+    useMemo(() => {
+        fetch(ENDPOINT.TEAM + `check/${tid}`, {method : "GET"})
+            .then(res => {
+                if (res.status === 200 ){
+                    return res.json()
+                }
+            })
+            .then(resJSON => {
+                setApiData(resJSON.data)
+            })
+
+        return () => {}
+    }, [])
 
     return (
 
@@ -49,42 +70,56 @@ const ManageJudgeViewDashboardPage = props => {
                 <Card style={{width: '100%'}}>
                     <CardHeader
                         title={'Submission'}
-                        style={{backgroundColor: '#f50057', color: '#FFF'}}
+                        className={classes.cardHeader}
                     />
-                    <CardContent>
 
-                        <Grid container spacing={2}>
-                            <Grid item md={12} xs={12}>
-                                <Typography variant={"body2"} className={classes.label}>Title of Innovation</Typography>
-                                <Typography variant={"h6"}>Desain Kapal Anti Tsunami</Typography>
-                            </Grid>
-                            <Grid item md={12} xs={12}>
-                                <Typography variant={"body2"} className={classes.label}>URL Link of
-                                    Innovation</Typography>
-                                <Typography variant={"h6"}>https://www.youtube.com/</Typography>
-                            </Grid>
-                            <Grid item md={12} xs={12}>
-                                <Typography variant={'body2'} style={{marginTop: 10}}>Submission File</Typography>
-                            </Grid>
-                            <Grid item md={2} xs={12}>
-                                <Button variant={"contained"} className={classes.containedTeal} fullWidth>
-                                    Download
-                                </Button>
-                            </Grid>
-                            <Grid item md={12} xs={12} style={{marginTop: theme.spacing(3)}}>
-                                <hr/>
-                            </Grid>
-                            <Grid item md={10}/>
-                            <Grid item md={2} xs={12}>
-                                <Link to={'/dashboard/manage/judge/'} style={{textDecoration: 'none'}}>
-                                    <Button fullWidth variant={'contained'} color={'primary'}>
-                                        Back
-                                    </Button>
-                                </Link>
-                            </Grid>
-                        </Grid>
+                    {apiData.Competitions.map((v,i) => {
+                        return (
+                            v.Status ?
+                                <CardContent>
+                                    <Grid container spacing={2}>
+                                        <Grid item md={12} xs={12}>
+                                            <Typography variant={"body2"} className={classes.label}>Competition</Typography>
+                                            <Typography variant={"h6"}>{`${v.CompetitionDetail.CompetitionGroup.Name}`}</Typography>
+                                            <Typography variant={"h6"}>{`${v.CompetitionDetail.Name}`}</Typography>
+                                        </Grid>
+                                        <Grid item md={12} xs={12}>
+                                            <Typography variant={"body2"} className={classes.label}>Title of Innovation</Typography>
+                                            <Typography variant={"h6"}>{v.Submission.Title}</Typography>
+                                        </Grid>
+                                        <Grid item md={12} xs={12}>
+                                            <Typography variant={"body2"} className={classes.label}>URL Link of
+                                                Innovation</Typography>
+                                            <Typography variant={"h6"}>{v.Submission.MediaURL}</Typography>
+                                        </Grid>
 
-                    </CardContent>
+
+                                        <Grid item md={12} xs={12}>
+                                            <Typography variant={'body2'} style={{marginTop: 10}}>Submission File</Typography>
+                                        </Grid>
+
+                                        <Grid item md={2} xs={12}>
+                                            <Button variant={"contained"} color="secondary" fullWidth>
+                                                Download
+                                            </Button>
+                                        </Grid>
+                                        <Grid item md={2} xs={12}>
+                                            <Button variant={"contained"} color='primary' fullWidth>
+                                                View
+                                            </Button>
+                                        </Grid>
+
+
+                                        <Grid item md={12} xs={12} style={{marginTop: theme.spacing(3)}}>
+                                            <hr/>
+                                        </Grid>
+                                    </Grid>
+                                </CardContent>
+                            :null
+
+
+                        )
+                    })}
                 </Card>
             </Scrollable>
         </Grid>
