@@ -127,6 +127,10 @@ const DashboardDrawer = props => {
         history.push("/dashboard/user")
     }
 
+    const gotoChangePassword = () => {
+        history.push("/dashboard/user/password")
+    }
+
     const logout = () => {
         history.replace("/")
         localStorage.clear()
@@ -207,6 +211,7 @@ const DashboardDrawer = props => {
                                     onClose={handleClose}
                                 >
                                     <MenuItem onClick={gotoProfile}>Profile</MenuItem>
+                                    <MenuItem onClick={gotoChangePassword}>Change Password</MenuItem>
                                     <MenuItem onClick={logout}>Logout</MenuItem>
                                 </Menu>
                             </div>

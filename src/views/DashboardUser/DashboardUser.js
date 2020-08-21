@@ -76,7 +76,11 @@ const DashboardUser = props => {
         Email: "",
         StudentID: "",
         Phone: "",
-        Address: ""
+        Address: "",
+        College : {
+            NPSN : 0,
+            Name : ""
+        },
     })
 
     const [userFile, setUserFile] = useState(
@@ -132,7 +136,7 @@ const DashboardUser = props => {
     const save = () => {
         const token = localStorage.getItem(STORAGE_KEY.JWT);
 
-        fetch(ENDPOINT.USER + formState.ID, {
+        fetch(ENDPOINT.USER, {
             method: 'PUT',
             headers: {
                 'Token': token
@@ -225,6 +229,17 @@ const DashboardUser = props => {
                                 variant="filled"
                                 placeholder={"Entry your email address."} fullWidth
                                 helperText="Email Cannot be changed"
+                            />
+                        </Grid>
+
+                        <Grid item md={12} sm={12} xs={12} style={{marginTop: 20}}>
+                            <TextField
+                                value={`${formState.College.NPSN} - ${formState.College.Name}`}
+                                className={classes.margin}
+                                label="College"
+                                disabled
+                                fullWidth
+                                variant="filled"
                             />
                         </Grid>
 

@@ -13,6 +13,11 @@ const routes = [
         component : lazy(() => import("./views/AuthorizationPage"))
     },
     {
+        path: "/verify/:id/:vt",
+        exact: true,
+        component : lazy(() => import("./views/VerificationPage"))
+    },
+    {
         path: "/dashboard",
         component: DashboardLayout,
         routes: [
@@ -20,6 +25,11 @@ const routes = [
                 path: "/dashboard/user",
                 exact: true,
                 component : lazy(() => import("./views/DashboardUser"))
+            },
+            {
+                path: "/dashboard/user/password",
+                exact: true,
+                component : lazy(() => import("./views/DashboardUserChangePassword"))
             },
             {
                 path: "/dashboard/team",

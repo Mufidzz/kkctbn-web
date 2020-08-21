@@ -9,4 +9,5 @@ export const ENDPOINT = {
     AUTH : `${URL}/auth/`,
     COMPETITION : `${URL}/competition-group/`,
     TEAM : `${URL}/team/`,
+    COLLEGE : `${URL}/college/`
 }
