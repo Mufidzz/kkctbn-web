@@ -5,6 +5,7 @@ import {About, Competition, Contact, FAQ, Footer, Landing, News, Sponsor, Timeli
 import MobileAppBar from "./components/MobileAppBar/MobileAppBar";
 import {useMediaQuery} from "@material-ui/core";
 import LandingAppBar from "./components/LandingAppBar";
+import GuideBook from "./components/Pages/GuideBook";
 
 
 const LandingPage = () => {
@@ -25,6 +26,7 @@ const LandingPage = () => {
             <Element name={"about"}>
                 <About/>
             </Element>
+            <GuideBook/>
             <News/>
             <Element name={"competition"}>
                 <Competition/>
