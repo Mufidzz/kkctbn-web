@@ -152,50 +152,49 @@ const DashboardUser = props => {
             })
             .then(resJSON => {
                 localStorage.setItem(STORAGE_KEY.USER_DATA, JSON.stringify(resJSON["data"]))
-                response = resJSON['data']
-            })
 
-        console.log(JSON.stringify({
-                UserID: formState.ID,
-                ...userFile
-            }
-        ))
+                if (state.isUserFileChanged) {
 
-        if (state.isUserFileChanged) {
-            fetch(ENDPOINT.USER_SUBMISSION, {
-                method: "POST",
-                body: JSON.stringify({
-                    UserID: formState.ID,
-                    ...userFile
-                })
-            })
-                .then(res => {
-                    if (res.status === 200) {
-                        return res.json()
-                    }
-                })
-                .then(resJSON => {
-                    setState({
-                        ...state,
-                        isUserFileChanged: false
+                    console.log(JSON.stringify({
+                        UserID: formState.ID,
+                        ...userFile
+                    }))
+
+                    fetch(ENDPOINT.USER_SUBMISSION, {
+                        method: "POST",
+                        body: JSON.stringify({
+                            UserID: formState.ID,
+                            ...userFile
+                        })
                     })
-                    setUserFile({
-                        ...userFile,
-                        StudentIdentityCardSubmission: {
-                            ...resJSON['data']['StudentIdentityCardSubmission'],
-                            Base: ""
-                        },
-                        IdentityCardSubmission: {
-                            ...resJSON['data']['IdentityCardSubmission'],
-                            Base: ""
-                        }
-                    })
-
-                    response = resJSON['data']
-                })
-
-            alert(`Update User ${response["message"]}`)
-        }
+                        .then(res => {
+                            if (res.status === 200) {
+                                return res.json()
+                            }
+                        })
+                        .then(resJSON => {
+                            setState({
+                                ...state,
+                                isUserFileChanged: false
+                            })
+                            setUserFile({
+                                ...userFile,
+                                StudentIdentityCardSubmission: {
+                                    ...resJSON['data']['StudentIdentityCardSubmission'],
+                                    Base: ""
+                                },
+                                IdentityCardSubmission: {
+                                    ...resJSON['data']['IdentityCardSubmission'],
+                                    Base: ""
+                                }
+                            })
+                            console.log(resJSON)
+                            alert(`Update User ${resJSON["message"]}`)
+                        })
+                } else {
+                    alert(`Update User ${resJSON["message"]}`)
+                }
+            })
     }
 
 

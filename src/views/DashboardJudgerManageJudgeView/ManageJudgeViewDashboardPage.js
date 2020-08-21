@@ -1,4 +1,4 @@
-import React, {useMemo, useState} from 'react'
+import React, {Fragment, useMemo, useState} from 'react'
 import {CardContent, FormControl, Typography} from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
@@ -30,9 +30,9 @@ const useStyles = makeStyles((theme) => ({
             }
         }
     },
-    cardHeader : {
-        backgroundColor : theme.palette.primary.main,
-        color : "#FFFFFF"
+    cardHeader: {
+        backgroundColor: theme.palette.primary.main,
+        color: "#FFFFFF"
     }
 
 }));
@@ -47,12 +47,12 @@ const ManageJudgeViewDashboardPage = props => {
     };
     const [checked, setChecked] = React.useState(true);
     const [apiData, setApiData] = useState({
-        Competitions : []
+        Competitions: []
     })
     useMemo(() => {
-        fetch(ENDPOINT.TEAM + `check/${tid}`, {method : "GET"})
+        fetch(ENDPOINT.TEAM + `check/${tid}`, {method: "GET"})
             .then(res => {
-                if (res.status === 200 ){
+                if (res.status === 200) {
                     return res.json()
                 }
             })
@@ -60,7 +60,8 @@ const ManageJudgeViewDashboardPage = props => {
                 setApiData(resJSON.data)
             })
 
-        return () => {}
+        return () => {
+        }
     }, [])
 
     return (
@@ -73,41 +74,66 @@ const ManageJudgeViewDashboardPage = props => {
                         className={classes.cardHeader}
                     />
 
-                    {apiData.Competitions.map((v,i) => {
+                    {apiData.Competitions.map((v, i) => {
                         return (
                             v.Status ?
                                 <CardContent>
                                     <Grid container spacing={2}>
                                         <Grid item md={12} xs={12}>
-                                            <Typography variant={"body2"} className={classes.label}>Competition</Typography>
-                                            <Typography variant={"h6"}>{`${v.CompetitionDetail.CompetitionGroup.Name}`}</Typography>
+                                            <Typography variant={"body2"}
+                                                        className={classes.label}>Competition</Typography>
+                                            <Typography
+                                                variant={"h6"}>{`${v.CompetitionDetail.CompetitionGroup.Name}`}</Typography>
                                             <Typography variant={"h6"}>{`${v.CompetitionDetail.Name}`}</Typography>
                                         </Grid>
                                         <Grid item md={12} xs={12}>
-                                            <Typography variant={"body2"} className={classes.label}>Title of Innovation</Typography>
-                                            <Typography variant={"h6"}>{v.Submission.Title}</Typography>
+                                            <Typography variant={"body2"} className={classes.label}>Title of
+                                                Innovation</Typography>
+                                            <Typography variant={"h6"}>{v.Submission.Title || "Not Available"}</Typography>
                                         </Grid>
                                         <Grid item md={12} xs={12}>
                                             <Typography variant={"body2"} className={classes.label}>URL Link of
                                                 Innovation</Typography>
-                                            <Typography variant={"h6"}>{v.Submission.MediaURL}</Typography>
+                                            <Typography variant={"h6"}>{v.Submission.MediaURL || "Not Available"}</Typography>
                                         </Grid>
 
 
                                         <Grid item md={12} xs={12}>
-                                            <Typography variant={'body2'} style={{marginTop: 10}}>Submission File</Typography>
+                                            <Typography variant={'body2'} style={{marginTop: 10}}>Submission
+                                                File</Typography>
                                         </Grid>
 
-                                        <Grid item md={2} xs={12}>
-                                            <Button variant={"contained"} color="secondary" fullWidth>
-                                                Download
-                                            </Button>
-                                        </Grid>
-                                        <Grid item md={2} xs={12}>
-                                            <Button variant={"contained"} color='primary' fullWidth>
-                                                View
-                                            </Button>
-                                        </Grid>
+
+                                        {v.Submission.ID !== 0 ?
+
+                                            <Fragment>
+                                                <Grid item md={2} xs={12}>
+                                                    <Button fullWidth variant="contained" component="span"
+                                                            color={"secondary"}
+                                                            onClick={() => {
+                                                                window.open(ENDPOINT.SUBMISSION + v.Submission.AssignmentSubmissionID + "/download", '_blank')
+                                                            }}>
+                                                        Download
+                                                    </Button>
+                                                </Grid>
+
+
+                                                <Grid item md={2} xs={12}>
+                                                    <Button variant={"contained"} color='primary' fullWidth
+                                                            onClick={() => {
+                                                                window.open(ENDPOINT.SUBMISSION + v.Submission.AssignmentSubmissionID + "/stream", '_blank')
+                                                            }}>
+                                                        View
+                                                    </Button>
+                                                </Grid>
+                                            </Fragment>
+
+
+                                            :
+                                            <Grid item md={12} xs={12}>
+                                                <Typography variant={'h6'} style={{marginTop: 10}}>Not yet Uploaded</Typography>
+                                            </Grid>
+                                        }
 
 
                                         <Grid item md={12} xs={12} style={{marginTop: theme.spacing(3)}}>
@@ -115,9 +141,7 @@ const ManageJudgeViewDashboardPage = props => {
                                         </Grid>
                                     </Grid>
                                 </CardContent>
-                            :null
-
-
+                                : null
                         )
                     })}
                 </Card>
