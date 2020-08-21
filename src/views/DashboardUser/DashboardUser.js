@@ -135,7 +135,7 @@ const DashboardUser = props => {
     //Function
     const save = () => {
         const token = localStorage.getItem(STORAGE_KEY.JWT);
-        let response;
+        let response = {};
 
         fetch(ENDPOINT.USER, {
             method: 'PUT',
