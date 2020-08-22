@@ -89,12 +89,14 @@ const ManageJudgeViewDashboardPage = props => {
                                         <Grid item md={12} xs={12}>
                                             <Typography variant={"body2"} className={classes.label}>Title of
                                                 Innovation</Typography>
-                                            <Typography variant={"h6"}>{v.Submission.Title || "Not Available"}</Typography>
+                                            <Typography
+                                                variant={"h6"}>{v.Submission.Title || "Not Available"}</Typography>
                                         </Grid>
                                         <Grid item md={12} xs={12}>
                                             <Typography variant={"body2"} className={classes.label}>URL Link of
                                                 Innovation</Typography>
-                                            <Typography variant={"h6"}>{v.Submission.MediaURL || "Not Available"}</Typography>
+                                            <Typography
+                                                variant={"h6"}>{v.Submission.MediaURL || "Not Available"}</Typography>
                                         </Grid>
 
 
@@ -131,7 +133,8 @@ const ManageJudgeViewDashboardPage = props => {
 
                                             :
                                             <Grid item md={12} xs={12}>
-                                                <Typography variant={'h6'} style={{marginTop: 10}}>Not yet Uploaded</Typography>
+                                                <Typography variant={'h6'} style={{marginTop: 10}}>Not yet
+                                                    Uploaded</Typography>
                                             </Grid>
                                         }
 
