@@ -74,43 +74,47 @@ const DashboardLayout = props => {
 
     return (
         <DashboardDrawer>
-            <Grid container justify={"flex-start"} alignItems={"flex-start"}
-                  style={{minHeight: `calc(100vh - ${height.footer}px - 64px)`}}
-                  className={classes.content}>
-                <Grid ref={getBreadcrumbsHeight} item md={12}>
-                    <Breadcrumbs aria-label="breadcrumb" className={classes.breadcrumbsSpacing}>
+            <Grid container>
+                <Grid container item md={12} xs={12} sm={12} justify={"flex-start"} alignItems={"flex-start"}
+                      style={{minHeight: `calc(100vh - ${height.footer}px - 64px)`}}
+                      className={classes.content}>
+                    <Grid ref={getBreadcrumbsHeight} item md={12}>
+                        <Breadcrumbs aria-label="breadcrumb" className={classes.breadcrumbsSpacing}>
 
-                        {breadcrumbsLocation.map((v, i) => {
-                            return (
-                                i < breadcrumbsLocation.length - 1 ?
-                                    <Link color="inherit"
-                                          to={"/" + breadcrumbsLocation.slice(0, i + 1).join("/")}
-                                    >
-                                        {v.charAt(0).toUpperCase() + v.slice(1)}
-                                    </Link>
-                                    :
-                                    <Typography
-                                        color="textPrimary">{v.charAt(0).toUpperCase() + v.slice(1)}</Typography>
-                            )
-                        })}
-                    </Breadcrumbs>
+                            {breadcrumbsLocation.map((v, i) => {
+                                return (
+                                    i < breadcrumbsLocation.length - 1 ?
+                                        <Link color="inherit"
+                                              to={"/" + breadcrumbsLocation.slice(0, i + 1).join("/")}
+                                        >
+                                            {v.charAt(0).toUpperCase() + v.slice(1)}
+                                        </Link>
+                                        :
+                                        <Typography
+                                            color="textPrimary">{v.charAt(0).toUpperCase() + v.slice(1)}</Typography>
+                                )
+                            })}
+                        </Breadcrumbs>
+                    </Grid>
+                    <Grid
+                        className={classes.contentContainer}
+                        style={{minHeight: `calc(100vh - ${height.footer}px - ${height.breadcrumbs}px - 64px)`}}
+                        item container md={12}
+                        alignContent={"flex-start"}
+                        alignItems={"flex-start"}
+                        justify={"flex-start"}>
+                        <Suspense fallback={<LinearProgress/>}>
+                            {renderRoutes(route.routes)}
+                        </Suspense>
+                    </Grid>
                 </Grid>
-                <Grid
-                    className={classes.contentContainer}
-                    style={{minHeight: `calc(100vh - ${height.footer}px - ${height.breadcrumbs}px - 64px)`}}
-                    item container md={12}
-                    alignContent={"flex-start"}
-                    alignItems={"flex-start"}
-                    justify={"flex-start"}>
-                    <Suspense fallback={<LinearProgress/>}>
-                        {renderRoutes(route.routes)}
-                    </Suspense>
+                <Grid item md={12} xs={12} sm={12} ref={getFooterHeight} name={"footer"} container className={classes.footer} justify={"center"}
+                      alignItems={"center"} >
+                    <Typography variant={"subtitle2"}> Ini Footer </Typography>
                 </Grid>
+
             </Grid>
-            <Grid ref={getFooterHeight} name={"footer"} container className={classes.footer} justify={"center"}
-                  alignItems={"center"}>
-                <Typography variant={"subtitle2"}> Ini Footer </Typography>
-            </Grid>
+
         </DashboardDrawer>
     )
 }

@@ -9,6 +9,8 @@ import theme from "../../theme";
 import {Link} from 'react-router-dom';
 import {Scrollable} from "../../components";
 import {ENDPOINT} from "../../configs/api";
+import Page, {Document} from "react-pdf";
+import TextField from "@material-ui/core/TextField";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -33,6 +35,10 @@ const useStyles = makeStyles((theme) => ({
     cardHeader: {
         backgroundColor: theme.palette.primary.main,
         color: "#FFFFFF"
+    },
+    iFrame: {
+        width: "100%",
+        height: "75vh"
     }
 
 }));
@@ -66,13 +72,14 @@ const ManageJudgeViewDashboardPage = props => {
 
     return (
 
-        <Grid container style={{width: '100%'}}>
+        <Grid container style={{width: '98%'}}>
             <Scrollable>
                 <Card style={{width: '100%'}}>
                     <CardHeader
                         title={'Submission'}
                         className={classes.cardHeader}
                     />
+
 
                     {apiData.Competitions.map((v, i) => {
                         return (
@@ -92,6 +99,7 @@ const ManageJudgeViewDashboardPage = props => {
                                             <Typography
                                                 variant={"h6"}>{v.Submission.Title || "Not Available"}</Typography>
                                         </Grid>
+
                                         <Grid item md={12} xs={12}>
                                             <Typography variant={"body2"} className={classes.label}>URL Link of
                                                 Innovation</Typography>
@@ -99,36 +107,48 @@ const ManageJudgeViewDashboardPage = props => {
                                                 variant={"h6"}>{v.Submission.MediaURL || "Not Available"}</Typography>
                                         </Grid>
 
-
-                                        <Grid item md={12} xs={12}>
-                                            <Typography variant={'body2'} style={{marginTop: 10}}>Submission
-                                                File</Typography>
-                                        </Grid>
-
-
                                         {v.Submission.ID !== 0 ?
-
-                                            <Fragment>
-                                                <Grid item md={2} xs={12}>
-                                                    <Button fullWidth variant="contained" component="span"
-                                                            color={"secondary"}
-                                                            onClick={() => {
-                                                                window.open(ENDPOINT.SUBMISSION + v.Submission.AssignmentSubmissionID + "/download", '_blank')
-                                                            }}>
-                                                        Download
-                                                    </Button>
+                                            <Grid item container md={12} xs={12} sm={12} justify={"center"}>
+                                                <Grid item md={12} xs={12}>
+                                                    <Typography gutterBottom={true} variant={'body2'} style={{marginTop: 10}}>Submission File</Typography >
                                                 </Grid>
 
-
-                                                <Grid item md={2} xs={12}>
-                                                    <Button variant={"contained"} color='primary' fullWidth
-                                                            onClick={() => {
-                                                                window.open(ENDPOINT.SUBMISSION + v.Submission.AssignmentSubmissionID + "/stream", '_blank')
-                                                            }}>
-                                                        View
-                                                    </Button>
+                                                <Grid item md={11} xs={12} sm={12} style={{padding : 32}}>
+                                                    <iframe className={classes.iFrame}
+                                                            src={ENDPOINT.SUBMISSION + v.Submission.AssignmentSubmissionID + "/stream"}/>
                                                 </Grid>
-                                            </Fragment>
+
+                                                <Grid item container spacing={2} md={12} sm={12} xs={12}
+                                                      justify={"center"} alignItems={"center"}
+                                                      style={{width: "99%"}}>
+                                                    <Grid item md={3} sm={12} xs={12}>
+                                                        <Button fullWidth variant="contained"
+                                                                style={{height: 56}}
+                                                                color={"secondary"}>
+                                                            Download
+                                                        </Button>
+                                                    </Grid>
+                                                    <Grid item md={3} sm={12} xs={12}>
+                                                        <TextField
+                                                            // onChange={handleFormChange}
+                                                            // value={formState.Address}
+                                                            label="Nilai"
+                                                            placeholder="Masukkan Nilai"
+                                                            fullWidth
+                                                            variant="filled"
+                                                            name="Grade"
+                                                        />
+                                                    </Grid>
+                                                    <Grid item md={3} sm={12} xs={12}>
+                                                        <Button fullWidth variant="contained"
+                                                                style={{height: 56}}
+                                                                color={"Primary"}>
+                                                            Simpan Nilai
+                                                        </Button>
+                                                    </Grid>
+                                                </Grid>
+
+                                            </Grid>
 
 
                                             :
