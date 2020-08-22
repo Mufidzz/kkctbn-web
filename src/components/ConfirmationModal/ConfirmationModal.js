@@ -9,6 +9,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const useStyles = makeStyles((theme) => ({
     paper: {width: 300, padding: 4},
@@ -67,7 +68,7 @@ const ConfirmationModal = props => {
             {children}
             <Dialog
                 open={open}
-                onClose={handleClose}>
+                onClose={displayAction ? handleClose : null}>
                 {body}
             </Dialog>
         </div>

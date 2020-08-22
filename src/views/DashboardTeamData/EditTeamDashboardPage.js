@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState} from 'react'
+import React, {Fragment, useEffect, useMemo, useState} from 'react'
 import {CardContent, Typography} from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
@@ -17,7 +17,7 @@ import {ENDPOINT} from "../../configs/api";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import SaveIcon from '@material-ui/icons/Save';
 import FileInputComponent from "react-file-input-previews-base64";
-import {PrivatePage} from "../../components";
+import {ConfirmationModal, PrivatePage} from "../../components";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -186,9 +186,6 @@ const EditTeamDashboardPage = props => {
             ...teamFileDataStruct
         }
     })
-
-
-
     const [teamCompetition, setTeamCompetition] = useState([
         teamCompetitionStruct,
         teamCompetitionStruct,
@@ -198,6 +195,9 @@ const EditTeamDashboardPage = props => {
         },
     ])
     const [competitionList, setCompetitionList] = useState([])
+    const [modalOpen, setModalOpen] = useState(false)
+    const [modalAction, setModalAction] = useState(true)
+    const [modalBody, setModalBody] = useState("")
 
     //Use
     useMemo(() => {
@@ -362,6 +362,22 @@ const EditTeamDashboardPage = props => {
     }
 
     const save = () => {
+        setModalBody(
+            <Fragment>
+                <Grid container justify={"center"}>
+                    <Grid item container justify={"center"} md={12} sm={12} xs={12}
+                          style={{paddingTop: 10, paddingBottom: 10}}>
+                        <CircularProgress color="primary"/>
+                    </Grid>
+                    <Grid item container justify={"center"} md={12} sm={12} xs={12}>
+                        <Typography>Loading</Typography>
+                    </Grid>
+                </Grid>
+            </Fragment>
+        )
+        setModalAction(false)
+        setModalOpen(true)
+
         const json = {
             ...formState,
             Competitions: [
@@ -385,7 +401,19 @@ const EditTeamDashboardPage = props => {
                 }
             })
             .then(resJSON => {
-                // console.log(resJSON)
+                setModalBody(
+                    <Fragment>
+                        <Grid container justify={"center"}>
+                            <Grid item container justify={"center"} md={12} sm={12} xs={12}
+                                  style={{paddingTop: 10, paddingBottom: 10}}>
+                                <CircularProgress color="primary"/>
+                            </Grid>
+                            <Grid item container justify={"center"} md={12} sm={12} xs={12}>
+                                <Typography>Updating Member File Data</Typography>
+                            </Grid>
+                        </Grid>
+                    </Fragment>
+                )
 
                 memberFileData.map((v, i) => {
                     if (v.isUserFileChanged) {
@@ -402,7 +430,19 @@ const EditTeamDashboardPage = props => {
                                 }
                             })
                             .then(resJSON => {
-
+                                setModalBody(
+                                    <Fragment>
+                                        <Grid container justify={"center"}>
+                                            <Grid item container justify={"center"} md={12} sm={12} xs={12}
+                                                  style={{paddingTop: 10, paddingBottom: 10}}>
+                                                <CircularProgress color="primary"/>
+                                            </Grid>
+                                            <Grid item container justify={"center"} md={12} sm={12} xs={12}>
+                                                <Typography>Updating Team Administration Data</Typography>
+                                            </Grid>
+                                        </Grid>
+                                    </Fragment>
+                                )
                             })
                     }
                 })
@@ -421,11 +461,11 @@ const EditTeamDashboardPage = props => {
                             }
                         })
                         .then(resJSON => {
-                            console.log("TASRSLT", resJSON)
+
                         })
                 }
-                alert(`Update Status ${resJSON['message']}`)
-
+                setModalAction(true)
+                setModalBody(`Update Status ${resJSON['message']}`)
             })
 
     }
@@ -935,6 +975,8 @@ const EditTeamDashboardPage = props => {
                     </Card>
                 </Grid>
             </Grid>
+            <ConfirmationModal displayAction={modalAction} textBody={modalBody} open={modalOpen}
+                               setOpen={setModalOpen}/>
         </PrivatePage>
     )
 }

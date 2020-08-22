@@ -1,4 +1,4 @@
-import React, {useMemo, useState} from 'react'
+import React, {Fragment, useMemo, useState} from 'react'
 import {CardContent, Typography} from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
@@ -11,7 +11,7 @@ import {STORAGE_KEY} from "../../configs/local_storage";
 import {ENDPOINT} from "../../configs/api";
 import FileInputComponent from 'react-file-input-previews-base64'
 import CircularProgress from "@material-ui/core/CircularProgress";
-import {PrivatePage} from "../../components";
+import {ConfirmationModal, PrivatePage} from "../../components";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -78,9 +78,9 @@ const DashboardUser = props => {
         StudentID: "",
         Phone: "",
         Address: "",
-        College : {
-            NPSN : 0,
-            Name : ""
+        College: {
+            NPSN: 0,
+            Name: ""
         },
     })
 
@@ -98,6 +98,9 @@ const DashboardUser = props => {
             }
         }
     )
+    const [modalOpen, setModalOpen] = useState(false)
+    const [modalAction, setModalAction] = useState(true)
+    const [modalBody, setModalBody] = useState("")
 
     //Use
     useMemo(() => {
@@ -132,9 +135,26 @@ const DashboardUser = props => {
         })
     }
 
-
     //Function
-    const save = () => {
+    const save = async () => {
+
+        setModalBody(
+            <Fragment>
+                <Grid container justify={"center"}>
+                    <Grid item container justify={"center"} md={12} sm={12} xs={12}
+                          style={{paddingTop: 10, paddingBottom: 10}}>
+                        <CircularProgress color="primary"/>
+                    </Grid>
+                    <Grid item container justify={"center"} md={12} sm={12} xs={12}>
+                        <Typography>Loading</Typography>
+                    </Grid>
+                </Grid>
+            </Fragment>
+        )
+        setModalAction(false)
+        setModalOpen(true)
+
+
         const token = localStorage.getItem(STORAGE_KEY.JWT);
         let response = {};
 
@@ -189,11 +209,12 @@ const DashboardUser = props => {
                                     Base: ""
                                 }
                             })
-                            console.log(resJSON)
-                            alert(`Update User ${resJSON["message"]}`)
+                            setModalAction(true)
+                            setModalBody(`Update User ${resJSON["message"]}`)
                         })
                 } else {
-                    alert(`Update User ${resJSON["message"]}`)
+                    setModalAction(true)
+                    setModalBody(`Update User ${resJSON["message"]}`)
                 }
             })
     }
@@ -202,240 +223,243 @@ const DashboardUser = props => {
     return (
         <PrivatePage whitelistKey={["ROLE_USER"]}>
 
-        <Grid container>
-            <Card style={{width: "100%"}}>
-                <CardHeader
-                    title={'Data Pribadi'}
-                    className={classes.cardHeader}
-                />
-                <CardContent>
-                    <Grid container spacing={2}>
-                        <Grid item md={6} sm={12} xs={12} style={{marginTop: 20}}>
-                            <TextField
-                                onChange={handleFormChange}
-                                value={formState.FullName}
-                                className={classes.margin}
-                                label="Nama lengkap sesuai KTP"
-                                required
-                                variant="filled"
-                                placeholder={"Entry your full name."}
-                                fullWidth
-                                helperText="ex : Joni Irawan"
-                                name="FullName"
-                            />
-                        </Grid>
+            <Grid container>
+                <Card style={{width: "100%"}}>
+                    <CardHeader
+                        title={'Data Pribadi'}
+                        className={classes.cardHeader}
+                    />
+                    <CardContent>
+                        <Grid container spacing={2}>
+                            <Grid item md={6} sm={12} xs={12} style={{marginTop: 20}}>
+                                <TextField
+                                    onChange={handleFormChange}
+                                    value={formState.FullName}
+                                    className={classes.margin}
+                                    label="Nama lengkap sesuai KTP"
+                                    required
+                                    variant="filled"
+                                    placeholder={"Entry your full name."}
+                                    fullWidth
+                                    helperText="ex : Joni Irawan"
+                                    name="FullName"
+                                />
+                            </Grid>
 
-                        <Grid item md={6} sm={12} xs={12} style={{marginTop: 20}}>
-                            <TextField
-                                onChange={handleFormChange}
-                                disabled
-                                value={formState.Email}
-                                className={classes.margin}
-                                label="Alamat Email"
-                                required
-                                variant="filled"
-                                placeholder={"Entry your email address."} fullWidth
-                                helperText="Email tidak bisa diganti"
-                            />
-                        </Grid>
+                            <Grid item md={6} sm={12} xs={12} style={{marginTop: 20}}>
+                                <TextField
+                                    onChange={handleFormChange}
+                                    disabled
+                                    value={formState.Email}
+                                    className={classes.margin}
+                                    label="Alamat Email"
+                                    required
+                                    variant="filled"
+                                    placeholder={"Entry your email address."} fullWidth
+                                    helperText="Email tidak bisa diganti"
+                                />
+                            </Grid>
 
-                        <Grid item md={12} sm={12} xs={12} style={{marginTop: 20}}>
-                            <TextField
-                                value={`${formState.College.NPSN} - ${formState.College.Name}`}
-                                className={classes.margin}
-                                label="College"
-                                disabled
-                                fullWidth
-                                variant="filled"
-                            />
-                        </Grid>
+                            <Grid item md={12} sm={12} xs={12} style={{marginTop: 20}}>
+                                <TextField
+                                    value={`${formState.College.NPSN} - ${formState.College.Name}`}
+                                    className={classes.margin}
+                                    label="College"
+                                    disabled
+                                    fullWidth
+                                    variant="filled"
+                                />
+                            </Grid>
 
-                        <Grid item md={12} sm={12} xs={12} style={{marginTop: 20}}>
-                            <TextField
-                                onChange={handleFormChange}
-                                value={formState.StudentID}
-                                className={classes.margin}
-                                label="Nomor ID Mahasiswa"
-                                required
-                                variant="filled"
-                                placeholder={"Entry your student id number"} fullWidth
-                                helperText="Nomor ID mahasiswa setiap kampus memiliki karakteristiknya masing-masing"
-                                name="StudentID"
-                            />
-                        </Grid>
+                            <Grid item md={12} sm={12} xs={12} style={{marginTop: 20}}>
+                                <TextField
+                                    onChange={handleFormChange}
+                                    value={formState.StudentID}
+                                    className={classes.margin}
+                                    label="Nomor ID Mahasiswa"
+                                    required
+                                    variant="filled"
+                                    placeholder={"Entry your student id number"} fullWidth
+                                    helperText="Nomor ID mahasiswa setiap kampus memiliki karakteristiknya masing-masing"
+                                    name="StudentID"
+                                />
+                            </Grid>
 
-                        <Grid item md={12} sm={12} xs={12} style={{marginTop: 20}}>
-                            <TextField
-                                onChange={handleFormChange}
-                                value={formState.Phone}
-                                className={classes.margin}
-                                label="Nomor HP"
-                                required
-                                variant="filled"
-                                placeholder={"Entry your phone number"} fullWidth
-                                helperText="ex : 08123456..."
-                                name="Phone"
-                            />
-                        </Grid>
+                            <Grid item md={12} sm={12} xs={12} style={{marginTop: 20}}>
+                                <TextField
+                                    onChange={handleFormChange}
+                                    value={formState.Phone}
+                                    className={classes.margin}
+                                    label="Nomor HP"
+                                    required
+                                    variant="filled"
+                                    placeholder={"Entry your phone number"} fullWidth
+                                    helperText="ex : 08123456..."
+                                    name="Phone"
+                                />
+                            </Grid>
 
-                        <Grid item md={12} sm={12} xs={12} style={{marginTop: 20}}>
-                            <TextField
-                                onChange={handleFormChange}
-                                value={formState.Address}
-                                label="Alamat Lengkap"
-                                placeholder="Entry complete addresss"
-                                multiline
-                                fullWidth
-                                helperText="ex : Jalan Raya Tlogomas No. 246 Tlogomas, Babatan, Tegalgondo, Kec. Lowokwaru, Kota Malang, Jawa Timur 65144"
-                                variant="filled"
-                                name="Address"
-                            />
-                        </Grid>
+                            <Grid item md={12} sm={12} xs={12} style={{marginTop: 20}}>
+                                <TextField
+                                    onChange={handleFormChange}
+                                    value={formState.Address}
+                                    label="Alamat Lengkap"
+                                    placeholder="Entry complete addresss"
+                                    multiline
+                                    fullWidth
+                                    helperText="ex : Jalan Raya Tlogomas No. 246 Tlogomas, Babatan, Tegalgondo, Kec. Lowokwaru, Kota Malang, Jawa Timur 65144"
+                                    variant="filled"
+                                    name="Address"
+                                />
+                            </Grid>
 
 
-                        <Grid item md={12} sm={12} xs={12} style={{marginTop: 10}}>
-                            <Typography variant={'body2'} style={{marginBottom: 10}}>
-                                Kartu Tanda Mahasiswa* (pdf file)
-                            </Typography>
-                        </Grid>
+                            <Grid item md={12} sm={12} xs={12} style={{marginTop: 10}}>
+                                <Typography variant={'body2'} style={{marginBottom: 10}}>
+                                    Kartu Tanda Mahasiswa* (pdf file)
+                                </Typography>
+                            </Grid>
 
-                        <Grid item md={2}>
-                            <FileInputComponent
-                                parentStyle={{margin: "0 !important"}}
-                                labelText={"Current : -"}
-                                labelStyle={{display: "none"}}
-                                buttonComponent={
-                                    <Button fullWidth variant="contained" component="span"
-                                            className={classes.containedOrange}>
-                                        {userFile.StudentIdentityCardSubmission.OriginFileName !== "" ? "Upload ulang" : "Upload"}
-                                    </Button>
+                            <Grid item md={2}>
+                                <FileInputComponent
+                                    parentStyle={{margin: "0 !important"}}
+                                    labelText={"Current : -"}
+                                    labelStyle={{display: "none"}}
+                                    buttonComponent={
+                                        <Button fullWidth variant="contained" component="span"
+                                                className={classes.containedOrange}>
+                                            {userFile.StudentIdentityCardSubmission.OriginFileName !== "" ? "Upload ulang" : "Upload"}
+                                        </Button>
+                                    }
+                                    multiple={false}
+                                    imagePreview={false}
+                                    callbackFunction={(fileMeta) => {
+                                        setUserFile({
+                                            ...userFile,
+                                            StudentIdentityCardSubmission: {
+                                                ...userFile.StudentIdentityCardSubmission,
+                                                OriginFileName: fileMeta['name'],
+                                                Base: fileMeta['base64']
+                                            }
+                                        })
+                                        setState(({
+                                            ...state,
+                                            isUserFileChanged: true
+                                        }))
+                                    }}
+                                    accept="application/pdf"
+                                />
+                            </Grid>
+
+                            <Grid item md={2}>
+                                <Button fullWidth variant="contained" component="span" className={classes.containedTeal}
+                                        onClick={() => {
+                                            window.open(ENDPOINT.SUBMISSION + userFile.StudentIdentityCardSubmission.ID + "/download", '_blank')
+                                        }}>
+                                    Download
+                                </Button>
+                            </Grid>
+
+                            <Grid item md={12} sm={12} xs={12} style={{marginTop: 10}}>
+                                <Typography variant={'caption'} style={{marginBottom: 10}}>
+                                    Current
+                                    : {userFile.StudentIdentityCardSubmission.OriginFileName !== "" ? userFile.StudentIdentityCardSubmission.OriginFileName : '-'}
+                                </Typography>
+                            </Grid>
+
+
+                            <Grid item md={12} sm={12} xs={12}>
+                                <Typography variant={'body2'}>
+                                    Kartu Tanda Penduduk* (pdf file)
+                                </Typography>
+                            </Grid>
+
+                            <Grid item md={2}>
+
+                                <FileInputComponent
+                                    parentStyle={{margin: "0 !important"}}
+                                    labelText={"Current : -"}
+                                    labelStyle={{display: "none"}}
+                                    buttonComponent={
+                                        <Button fullWidth variant="contained" component="span"
+                                                className={classes.containedOrange}>
+                                            {userFile.IdentityCardSubmission.OriginFileName !== "" ? "Upload ulang" : "Upload"}
+
+                                        </Button>
+                                    }
+                                    multiple={false}
+                                    imagePreview={false}
+                                    callbackFunction={(fileMeta) => {
+                                        setUserFile({
+                                            ...userFile,
+                                            IdentityCardSubmission: {
+                                                ...userFile.IdentityCardSubmission,
+                                                OriginFileName: fileMeta['name'],
+                                                Base: fileMeta['base64']
+                                            }
+                                        })
+                                        setState(({
+                                            ...state,
+                                            isUserFileChanged: true
+                                        }))
+                                    }}
+                                    accept="application/pdf"
+                                />
+                            </Grid>
+
+                            <Grid item md={2}>
+                                <Button fullWidth variant="contained" component="span" className={classes.containedTeal}
+                                        onClick={() => {
+                                            window.open(ENDPOINT.SUBMISSION + userFile.IdentityCardSubmission.ID + "/download", '_blank')
+                                        }}>
+                                    Download
+                                </Button>
+                            </Grid>
+                            <Grid item md={12} sm={12} xs={12}>
+                                <Typography variant={'caption'}>
+                                    Current
+                                    : {userFile.IdentityCardSubmission.OriginFileName !== "" ? userFile.IdentityCardSubmission.OriginFileName : '-'}
+                                </Typography>
+                            </Grid>
+
+                            <Grid item md={12}>
+                                <hr style={{marginTop: 25, maxWidth: '100%'}}/>
+                            </Grid>
+
+                            <Grid item container md={12} sm={12} xs={12} style={{textAlign: "right", marginTop: 25}}
+                                  justify={"flex-end"}>
+
+                                {state.request ?
+                                    <Grid item md={6} sm={12} xs={12}>
+                                        <CircularProgress/>
+                                        <Typography variant={"caption"}>
+                                            {state.requestState}
+                                        </Typography>
+                                    </Grid>
+
+
+                                    :
+                                    <Grid item md={6} sm={12} xs={12}>
+                                        <Button
+                                            fullWidth
+                                            variant="contained"
+                                            onClick={save}
+                                            className={classes.saveButton}
+                                            startIcon={<SaveIcon/>}
+                                        >
+                                            Simpan
+                                        </Button>
+                                    </Grid>
                                 }
-                                multiple={false}
-                                imagePreview={false}
-                                callbackFunction={(fileMeta) => {
-                                    setUserFile({
-                                        ...userFile,
-                                        StudentIdentityCardSubmission: {
-                                            ...userFile.StudentIdentityCardSubmission,
-                                            OriginFileName: fileMeta['name'],
-                                            Base: fileMeta['base64']
-                                        }
-                                    })
-                                    setState(({
-                                        ...state,
-                                        isUserFileChanged: true
-                                    }))
-                                }}
-                                accept="application/pdf"
-                            />
+                            </Grid>
                         </Grid>
 
-                        <Grid item md={2}>
-                            <Button fullWidth variant="contained" component="span" className={classes.containedTeal}
-                                    onClick={() => {
-                                        window.open(ENDPOINT.SUBMISSION + userFile.StudentIdentityCardSubmission.ID + "/download", '_blank')
-                                    }}>
-                                Download
-                            </Button>
-                        </Grid>
+                    </CardContent>
+                </Card>
+            </Grid>
+            <ConfirmationModal displayAction={modalAction} textBody={modalBody} open={modalOpen}
+                               setOpen={setModalOpen}/>
 
-                        <Grid item md={12} sm={12} xs={12} style={{marginTop: 10}}>
-                            <Typography variant={'caption'} style={{marginBottom: 10}}>
-                                Current
-                                : {userFile.StudentIdentityCardSubmission.OriginFileName !== "" ? userFile.StudentIdentityCardSubmission.OriginFileName : '-'}
-                            </Typography>
-                        </Grid>
-
-
-                        <Grid item md={12} sm={12} xs={12}>
-                            <Typography variant={'body2'}>
-                                Kartu Tanda Penduduk* (pdf file)
-                            </Typography>
-                        </Grid>
-
-                        <Grid item md={2}>
-
-                            <FileInputComponent
-                                parentStyle={{margin: "0 !important"}}
-                                labelText={"Current : -"}
-                                labelStyle={{display: "none"}}
-                                buttonComponent={
-                                    <Button fullWidth variant="contained" component="span"
-                                            className={classes.containedOrange}>
-                                        {userFile.IdentityCardSubmission.OriginFileName !== "" ? "Upload ulang" : "Upload"}
-
-                                    </Button>
-                                }
-                                multiple={false}
-                                imagePreview={false}
-                                callbackFunction={(fileMeta) => {
-                                    setUserFile({
-                                        ...userFile,
-                                        IdentityCardSubmission: {
-                                            ...userFile.IdentityCardSubmission,
-                                            OriginFileName: fileMeta['name'],
-                                            Base: fileMeta['base64']
-                                        }
-                                    })
-                                    setState(({
-                                        ...state,
-                                        isUserFileChanged: true
-                                    }))
-                                }}
-                                accept="application/pdf"
-                            />
-                        </Grid>
-
-                        <Grid item md={2}>
-                            <Button fullWidth variant="contained" component="span" className={classes.containedTeal}
-                                    onClick={() => {
-                                        window.open(ENDPOINT.SUBMISSION + userFile.IdentityCardSubmission.ID + "/download", '_blank')
-                                    }}>
-                                Download
-                            </Button>
-                        </Grid>
-                        <Grid item md={12} sm={12} xs={12}>
-                            <Typography variant={'caption'}>
-                                Current
-                                : {userFile.IdentityCardSubmission.OriginFileName !== "" ? userFile.IdentityCardSubmission.OriginFileName : '-'}
-                            </Typography>
-                        </Grid>
-
-                        <Grid item md={12}>
-                            <hr style={{marginTop: 25, maxWidth: '100%'}}/>
-                        </Grid>
-
-                        <Grid item container md={12} sm={12} xs={12} style={{textAlign: "right", marginTop: 25}}
-                              justify={"flex-end"}>
-
-                            {state.request ?
-                                <Grid item md={6} sm={12} xs={12}>
-                                    <CircularProgress/>
-                                    <Typography variant={"caption"}>
-                                        {state.requestState}
-                                    </Typography>
-                                </Grid>
-
-
-                                :
-                                <Grid item md={6} sm={12} xs={12}>
-                                    <Button
-                                        fullWidth
-                                        variant="contained"
-                                        onClick={save}
-                                        className={classes.saveButton}
-                                        startIcon={<SaveIcon/>}
-                                    >
-                                        Simpan
-                                    </Button>
-                                </Grid>
-                            }
-                        </Grid>
-                    </Grid>
-
-                </CardContent>
-            </Card>
-        </Grid>
         </PrivatePage>
     )
 }
