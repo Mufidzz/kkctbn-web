@@ -188,8 +188,7 @@ const SubmissionTeamDashboardPage = props => {
                         </Grid>
 
                         <Grid item md={12} sm={12} xs={12}>
-                            <Typography variant={'body2'} style={{marginTop: 10}}>Submission File* (pdf/jpg/png/obj)
-                                10MB Max</Typography>
+                            <Typography variant={'body2'} style={{marginTop: 10}}>Proposal File* (pdf) 10MB Max</Typography>
                         </Grid>
 
                         <Grid item md={2} sm={6} xs={6}>
@@ -215,7 +214,7 @@ const SubmissionTeamDashboardPage = props => {
                                         }
                                     })
                                 }}
-                                accept="application/pdf, image/*, @file/obj"
+                                accept="application/pdf"
                             />
                         </Grid>
 
@@ -230,8 +229,7 @@ const SubmissionTeamDashboardPage = props => {
 
                         <Grid item md={12} sm={12} xs={12} style={{marginTop: 10}}>
                             <Typography variant={'caption'} style={{marginBottom: 10}}>
-                                Current
-                                : {formState.Assignment.OriginFileName !== "" ? formState.Assignment.OriginFileName : '-'}
+                                Current : {formState.Assignment.OriginFileName !== "" ? formState.Assignment.OriginFileName : '-'}
                             </Typography>
                         </Grid>
 

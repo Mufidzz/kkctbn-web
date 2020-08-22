@@ -22,7 +22,7 @@ const LandingPage = () => {
             <Element name={"landing"}>
                 <Landing/>
             </Element>
-            <Sponsor/>
+            {/*<Sponsor/>*/}
             <Element name={"about"}>
                 <About/>
             </Element>

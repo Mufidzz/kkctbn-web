@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useMemo, useState} from 'react'
 import {CardContent, Typography} from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
@@ -14,6 +14,8 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import {Scrollable} from "../../components";
+import {Link} from "react-router-dom";
+import {ENDPOINT} from "../../configs/api";
 
 
 const StyledTableCell = withStyles((theme) => ({
@@ -39,16 +41,7 @@ function createData(title, action) {
 }
 
 
-const rows = [
-        createData('All participants included are expected to open the guide',
-            'Desain Kapal Rumah Sakit',
-        ),
-        createData('Ayam Kalkulus',
-            'Desain Kapal Rumah Sakit',
-        ),
 
-    ]
-;
 
 const useStyles = makeStyles((theme) => ({
     table: {
@@ -57,6 +50,15 @@ const useStyles = makeStyles((theme) => ({
     header: {
         marginTop: theme.spacing(2),
         marginBottom: theme.spacing(4),
+    },
+    viewButton : {
+        width: 200,
+        backgroundColor : theme.palette.primary.main,
+        color : "#FFFFFF",
+        "&:hover" : {
+            backgroundColor : theme.palette.primary.dark,
+            color : "#FFFFFF",
+        }
     }
 }));
 
@@ -64,11 +66,55 @@ const useStyles = makeStyles((theme) => ({
 const InformationDashboardPage = props => {
     const classes = useStyles();
 
+    const [informationData, setInformationData] = useState([])
+
+
+    const rows = [
+            createData('Title',
+                <Button className={classes.viewButton}> View </Button>,
+            ),
+        ]
+    ;
+
+    useMemo(() => {
+        fetch(ENDPOINT.NEWS+"-/information", {method: "GET"})
+            .then(res => {
+                if (res.status === 200) {
+                    return res.json()
+                }
+            })
+            .then(resJSON => {
+                let arr = []
+
+                resJSON['data'].map((v,i) => {
+                    arr.push(
+                        createData(
+                            v.Title,
+                            <Button className={classes.viewButton}> View </Button>
+                        )
+                    )
+                })
+
+                setInformationData(arr)
+            })
+    },[])
 
     return (
         <Grid container style={{width: "100%"}}>
             <Scrollable>
-                <Grid item md={12} container>
+                <Grid item md={12} container spacing={2}>
+                    <Grid item md={3}>
+                        <Button component={Link} to={"/dashboard/user"} fullWidth style={{minHeight: 60, marginBottom: 20}} variant={'contained'} color={'primary'}
+                                size={'large'} startIcon={<CloudDownloadIcon/>}>
+                            Lengkapi Profil
+                        </Button>
+                    </Grid>
+                    <Grid item md={3}>
+                        <Button component={Link} to={"/dashboard/team"} fullWidth style={{minHeight: 60, marginBottom: 20}} variant={'contained'} color={'primary'}
+                                size={'large'} startIcon={<CloudDownloadIcon/>}>
+                            Buat Tim
+                        </Button>
+                    </Grid>
                     <Grid item md={3}>
                         <Button fullWidth style={{minHeight: 60, marginBottom: 20}} variant={'contained'} color={'primary'}
                                 size={'large'} startIcon={<CloudDownloadIcon/>}>
@@ -92,7 +138,7 @@ const InformationDashboardPage = props => {
                                             </TableRow>
                                         </TableHead>
                                         <TableBody>
-                                            {rows.map((row) => (
+                                            {informationData.map((row) => (
                                                 <StyledTableRow key={row.title}>
                                                     <StyledTableCell component="th" scope="row">
                                                         {row.title}

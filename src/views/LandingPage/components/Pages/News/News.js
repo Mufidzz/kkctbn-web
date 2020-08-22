@@ -1,10 +1,13 @@
-import React, {Fragment} from 'react'
+import React, {Fragment, useEffect, useMemo, useState} from 'react'
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import NewsCard from "./components/NewsCard";
 import GridList from "@material-ui/core/GridList";
 import {GridListTile, useMediaQuery} from "@material-ui/core";
+import {ENDPOINT} from "../../../../../configs/api";
+import {mysqlToDate, mysqlToDateString} from "../../../../../utils/mysqlDate";
+import LinesEllipsis from 'react-lines-ellipsis'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -46,6 +49,23 @@ const News = props => {
     const classes = useStyles();
     const isMobile = useMediaQuery(theme => theme.breakpoints.down('sm'))
 
+    const [newsData, setNewsData] = useState([])
+
+
+    useMemo(() => {
+
+        fetch(ENDPOINT.NEWS, {method: "GET"})
+            .then(res => {
+                if (res.status === 200) {
+                    return res.json()
+                }
+            })
+            .then(resJSON => {
+                setNewsData(resJSON['data'])
+            })
+
+    }, [])
+
     return (
         <Fragment>
 
@@ -61,28 +81,20 @@ const News = props => {
 
                     <GridList cellHeight={"auto"} cols={isMobile ? 1 : 3}
                               style={{flexWrap: "noWrap", transform: 'translateZ(0)'}}>
-                        {[1, 2, 3].map((v, i) => {
+                        {newsData.map((v, i) => {
                             return (
                                 <GridListTile item>
                                     <NewsCard title={
                                         <Typography variant="body1" style={{color: "#FFFFFF"}}>
-                                            <b>Desain Kapal Kesehatan</b>
+                                            <b>{v.Title}</b>
                                         </Typography>}
-                                              image={"https://blog.static.mamikos.com/wp-content/uploads/2020/02/UMM-Mamikos.jpg"}>
+                                              image={`${ENDPOINT.SUBMISSION}${v.NewsImageID}/stream`}>
 
-                                        {isMobile ? null :
-                                            <Fragment>
-                                                <Typography variant="subtitle2" align={"justify"}>
-                                                    Lorem Ipsum has been the industry's standard dummy text ever since
-                                                    the 1500s, when an unknown Lorem Ipsum has been the industry's
-                                                    standard dummy text ever since the 1500s, when an unknown...
-                                                </Typography>
-                                                <br/>
-                                            </Fragment>
-                                        }
+
+
 
                                         <Typography variant="subtitle2" align={"right"}>
-                                            Diposting oleh Admin, 13 Agustus 2020
+                                            Diposting oleh Admin, {mysqlToDateString(v.CreatedAt)}
                                         </Typography>
                                     </NewsCard>
                                 </GridListTile>

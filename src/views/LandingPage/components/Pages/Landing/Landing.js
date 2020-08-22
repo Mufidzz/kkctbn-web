@@ -54,7 +54,7 @@ const Landing = props => {
 
     //Function
     const calculateTimeLeft = () => {
-        let difference = +new Date(2020, 7, 19, 23,59,58) - +new Date();
+        let difference = +new Date(2020, 7, 27, 23,59,58) - +new Date();
         let timeLeft = {};
 
         if (difference > 0) {

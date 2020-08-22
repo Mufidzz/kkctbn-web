@@ -28,12 +28,21 @@ const NewsCard = props => {
         <Card className={classes.card}>
             <CardActionArea>
                 <CardContent style={{padding : 0}}>
-                    <img width={"100%"} src={image} alt={"Card Image"}/>
+                    <div style={{
+                        height : 300,
+                        backgroundColor: "#CCCCCC",
+                        background : `url(${image})`,
+                        backgroundPosition: "center",
+                        backgroundRepeat: "no-repeat",
+                        backgroundSize: "cover"
+                    }}>
+
+                    </div>
+
                 </CardContent>
                 <CardContent className={classes.cardTitle}>
                     {title}
                 </CardContent>
-
                 <CardContent className={classes.cardContent}>
                     {children}
                 </CardContent>

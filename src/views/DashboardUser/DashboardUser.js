@@ -360,7 +360,6 @@ const DashboardUser = props => {
                                     <Button fullWidth variant="contained" component="span"
                                             className={classes.containedOrange}>
                                         {userFile.IdentityCardSubmission.OriginFileName !== "" ? "Reupload" : "Upload"}
-
                                     </Button>
                                 }
                                 multiple={false}

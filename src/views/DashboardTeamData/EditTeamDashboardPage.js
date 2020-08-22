@@ -166,7 +166,8 @@ const EditTeamDashboardPage = props => {
     const [selectedMemberIndex, setSelectedMemberIndex] = useState(0);
     const [formState, setFormState] = useState({
         Name: "",
-        LecturerName: ""
+        LecturerName: "",
+        LecturerNIDN : ""
     })
     const [memberData, setMemberData] = useState([
         memberStruct
@@ -332,7 +333,7 @@ const EditTeamDashboardPage = props => {
 
     //Function
     const addMember = () => {
-        if (memberData.length < 3) {
+        if (memberData.length < 2  ) {
             setMemberData([
                 ...memberData,
                 memberStruct
@@ -422,8 +423,6 @@ const EditTeamDashboardPage = props => {
                             console.log("TASRSLT", resJSON)
                         })
                 }
-
-
                 alert(`Update Status ${resJSON['message']}`)
 
             })
@@ -472,6 +471,21 @@ const EditTeamDashboardPage = props => {
                                         placeholder={"Entry your team name."}
                                         fullWidth
                                         helperText="ex : Panda Terbang"
+                                    />
+                                </Grid>
+
+                                <Grid item md={12}>
+
+                                    <TextField
+                                        value={formState.LecturerNIDN}
+                                        onChange={handleTeamFormChange}
+                                        name="LecturerNIDN"
+                                        className={classes.margin}
+                                        label="Supervisory Lecturer NIDN"
+                                        required
+                                        variant="filled"
+                                        placeholder={"Entry your supervisory lecturer nidn."} fullWidth
+                                        helperText="ex : 2222...."
                                     />
                                 </Grid>
 
@@ -583,7 +597,7 @@ const EditTeamDashboardPage = props => {
                                                 size={'large'} style={{height: '100%'}}><RemoveIcon/></Button>
                                         </Grid>
                                         <Grid item md={6}>
-                                            <Button disabled={memberData.length >= 3} fullWidth
+                                            <Button disabled={memberData.length >= 2} fullWidth
                                                     className={classes.containedLightBlue} variant={'contained'}
                                                     size={'large'} style={{height: '100%'}}
                                                     onClick={addMember}><AddIcon/></Button>
