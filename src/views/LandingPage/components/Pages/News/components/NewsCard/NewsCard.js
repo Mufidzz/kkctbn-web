@@ -5,6 +5,7 @@ import Card from "@material-ui/core/Card";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import PropTypes from "prop-types";
 import CompetitionCard from "../../../Competition/components/CompetitionCard";
+import {Link} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     card: {
@@ -21,11 +22,11 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const NewsCard = props => {
-    const {image, title, children} = props;
+    const {image, title, children, nid} = props;
     const classes = useStyles();
 
     return (
-        <Card className={classes.card}>
+        <Card className={classes.card} component={Link} to={`news/${nid}`}>
             <CardActionArea>
                 <CardContent style={{padding : 0}}>
                     <div style={{

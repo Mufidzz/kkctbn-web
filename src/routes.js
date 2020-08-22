@@ -13,6 +13,11 @@ const routes = [
         component : lazy(() => import("./views/AuthorizationPage"))
     },
     {
+        path: "/news/:nid",
+        exact: true,
+        component : lazy(() => import("./views/NewsPage"))
+    },
+    {
         path: "/verify/:id/:vt",
         exact: true,
         component : lazy(() => import("./views/VerificationPage"))

@@ -84,15 +84,13 @@ const News = props => {
                         {newsData.map((v, i) => {
                             return (
                                 <GridListTile item>
-                                    <NewsCard title={
+                                    <NewsCard
+                                        nid={v.ID}
+                                        title={
                                         <Typography variant="body1" style={{color: "#FFFFFF"}}>
                                             <b>{v.Title}</b>
                                         </Typography>}
                                               image={`${ENDPOINT.SUBMISSION}${v.NewsImageID}/stream`}>
-
-
-
-
                                         <Typography variant="subtitle2" align={"right"}>
                                             Diposting oleh Admin, {mysqlToDateString(v.CreatedAt)}
                                         </Typography>
