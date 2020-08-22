@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
     root : {
         paddingTop: theme.spacing(1),
         paddingLeft: theme.spacing(2),
+        backgroundColor: "#CF2424"
     },
     list: {
         width: 250,

@@ -48,12 +48,12 @@ const rows = [
             'Jl. Ikan Tongkol, No. 9231 Malang',
             <Link to={''} style={{textDecoration: 'none'}}>
                 <Button variant={'contained'} color={'primary'}>
-                    Open File
+                    Buka File
                 </Button>
             </Link>,
             <Link to={''} style={{textDecoration: 'none'}}>
                 <Button variant={'contained'} color={'primary'}>
-                    Open File
+                    Buka File
                 </Button>
             </Link>
         ),
@@ -64,12 +64,12 @@ const rows = [
             'Jl. Ikan Tongkol, No. 9231 Malang',
             <Link to={''} style={{textDecoration: 'none'}}>
                 <Button variant={'contained'} color={'primary'}>
-                    Open File
+                    Buka File
                 </Button>
             </Link>,
             <Link to={''} style={{textDecoration: 'none'}}>
                 <Button variant={'contained'} color={'primary'}>
-                    Open File
+                    Buka File
                 </Button>
             </Link>
         ),
@@ -136,7 +136,7 @@ const ManageTeamsViewDashboardPage = props => {
                                         onClick={() => {
                                             window.open(ENDPOINT.SUBMISSION + v.Submission.StudentIdentityCardSubmission.ID + "/stream", '_blank')
                                         }}>
-                                    Open File
+                                    Buka File
                                 </Button>
                             </Link>,
                             <Link to={''} style={{textDecoration: 'none'}}>
@@ -144,7 +144,7 @@ const ManageTeamsViewDashboardPage = props => {
                                         onClick={() => {
                                             window.open(ENDPOINT.SUBMISSION + v.Submission.IdentityCardSubmission.ID + "/stream", '_blank')
                                         }}>
-                                    Open File
+                                    Buka File
                                 </Button>
                             </Link>
                         )
@@ -175,7 +175,7 @@ const ManageTeamsViewDashboardPage = props => {
 
 
                                 <Typography variant={"body2"} className={classes.label}>
-                                    Type of Competition
+                                    Tipe Kompetisi
                                 </Typography>
                             </Grid>
                             <Grid item md={12}>
@@ -197,7 +197,7 @@ const ManageTeamsViewDashboardPage = props => {
                             </Grid>
                             <Grid item md={12}>
                                 <Typography variant={"body2"} className={classes.label}>
-                                    Team Leader Name
+                                    Nama Pemimpin Tim
                                 </Typography>
                             </Grid>
                             <Grid item md={8}>
@@ -207,7 +207,7 @@ const ManageTeamsViewDashboardPage = props => {
                             </Grid>
                             <Grid item md={12}>
                                 <Typography variant={"body2"} className={classes.label}>
-                                    Supervisory Lecturer Name
+                                    Nama Dosen Pengawas
                                 </Typography>
                             </Grid>
                             <Grid item md={8}>
@@ -220,7 +220,7 @@ const ManageTeamsViewDashboardPage = props => {
                                         onClick={() => {
                                             window.open(ENDPOINT.SUBMISSION + teamData.Submission.StudentMandateLetter.ID + "/stream", '_blank')
                                         }}>
-                                    Student Mandate
+                                    Amanat Mahasiswa
                                 </Button>
                             </Grid>
                             <Grid item md={2} style={{textAlign: 'right'}}>
@@ -228,7 +228,7 @@ const ManageTeamsViewDashboardPage = props => {
                                         onClick={() => {
                                             window.open(ENDPOINT.SUBMISSION + teamData.Submission.LecturerMandateLetter.ID + "/stream", '_blank')
                                         }}>
-                                    Lecturer Mandate
+                                    Amanat Dosen
                                 </Button>
                             </Grid>
                             <Grid item md={12} style={{marginTop: 25}}>
@@ -237,12 +237,12 @@ const ManageTeamsViewDashboardPage = props => {
                                         <TableHead>
                                             <TableRow>
                                                 <StyledTableCell>Full Name</StyledTableCell>
-                                                <StyledTableCell align="right">Email Address</StyledTableCell>
-                                                <StyledTableCell align="right">Student ID Number</StyledTableCell>
-                                                <StyledTableCell align="right">Phone Number</StyledTableCell>
-                                                <StyledTableCell align="right">Complete Address</StyledTableCell>
-                                                <StyledTableCell align="right">Student ID Card</StyledTableCell>
-                                                <StyledTableCell align="right">Identity Card</StyledTableCell>
+                                                <StyledTableCell align="right">Alamat Email</StyledTableCell>
+                                                <StyledTableCell align="right">Nomor ID Mahasiswa</StyledTableCell>
+                                                <StyledTableCell align="right">Nomor Telepon</StyledTableCell>
+                                                <StyledTableCell align="right">Alamat Lengkap</StyledTableCell>
+                                                <StyledTableCell align="right">Kartu Tanda Mahasiswa</StyledTableCell>
+                                                <StyledTableCell align="right">Kartu Tanda Penduduk</StyledTableCell>
                                             </TableRow>
                                         </TableHead>
                                         <TableBody>
