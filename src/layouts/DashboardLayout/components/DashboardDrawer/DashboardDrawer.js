@@ -31,6 +31,7 @@ import mainLogo from 'assets/images/logo-wh.png'
 import {AccountCircle} from "@material-ui/icons";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
+import {PrivateComponent} from "../../../../components";
 
 
 const drawerWidth = 240;
@@ -99,7 +100,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-
 const DashboardDrawer = props => {
     const classes = useStyles();
     const {children, window} = props;
@@ -165,7 +165,10 @@ const DashboardDrawer = props => {
                     color={"transparent"}
                     style={{boxShadow: "none"}}
                 >
-                    <Toolbar style={ElevationTrigger ? {backgroundColor: "#CF2424", color: "#FFFFFF"} : {backgroundColor: "inherit"}}>
+                    <Toolbar style={ElevationTrigger ? {
+                        backgroundColor: "#CF2424",
+                        color: "#FFFFFF"
+                    } : {backgroundColor: "inherit"}}>
                         <IconButton
                             color="white"
                             aria-label="open drawer"
@@ -193,7 +196,7 @@ const DashboardDrawer = props => {
                                     onClick={handleMenu}
                                     color="inherit"
                                 >
-                                    <AccountCircle />
+                                    <AccountCircle/>
                                 </IconButton>
                                 <Menu
                                     id="menu-appbar"
@@ -235,51 +238,70 @@ const DashboardDrawer = props => {
                 >
                     <div className={classes.toolbar} style={{backgroundColor: "#D72C2C"}}>
                         {open ?
-                        <Link to={"/"}>
-                            <img  src={mainLogo} alt={"KKCTBN LOGO"} />
-                        </Link>
-                             : null}
+                            <Link to={"/"}>
+                                <img src={mainLogo} alt={"KKCTBN LOGO"}/>
+                            </Link>
+                            : null}
                         <IconButton onClick={handleDrawerClose} style={{color: "#FFFFFF"}}>
                             {open ? theme.direction === 'rtl' ? <ChevronRightIcon/> : <ChevronLeftIcon/> : null}
                         </IconButton>
                     </div>
                     <Divider/>
                     <List>
-                            <ListItem  button key={'User'} component={Link} to={'/dashboard/user'}>
+                        <PrivateComponent whitelistKey={["ROLE_USER"]}>
+                            <ListItem button key={'User'} component={Link} to={'/dashboard/user'}>
                                 <ListItemIcon><AccountCircleIcon/></ListItemIcon>
                                 <ListItemText primary={'User'}/>
                             </ListItem>
+                        </PrivateComponent>
+                        <PrivateComponent whitelistKey={["ROLE_USER"]}>
                             <ListItem button key={'Team'} component={Link} to={'/dashboard/team'}>
                                 <ListItemIcon><PeopleIcon/></ListItemIcon>
                                 <ListItemText primary={'Team'}/>
                             </ListItem>
-                        <ListItem button key={'Manage News'} component={Link} to={'/dashboard/manage/news'}>
-                            <ListItemIcon><AnnouncementIcon/></ListItemIcon>
-                            <ListItemText primary={'Manage News'}/>
-                        </ListItem>
-                        <ListItem button key={'Manage Users'} component={Link} to={'/dashboard/manage/users'}>
-                            <ListItemIcon><AssignmentIndIcon/></ListItemIcon>
-                            <ListItemText primary={'Manage Users'}/>
-                        </ListItem>
-                        <ListItem button key={'Manage Teams'} component={Link} to={'/dashboard/manage/teams'}>
-                            <ListItemIcon><GroupWorkIcon/></ListItemIcon>
-                            <ListItemText primary={'Manage Teams'}/>
-                        </ListItem>
-                        <ListItem button key={'Manage Accounts'} component={Link} to={'/dashboard/manage/accounts'}>
-                            <ListItemIcon><HowToRegIcon/></ListItemIcon>
-                            <ListItemText primary={'Manage Accounts'}/>
-                        </ListItem>
-                        <ListItem button key={'Judger'} component={Link} to={'/dashboard/manage/judge'}>
-                            <ListItemIcon><AssignmentIcon/></ListItemIcon>
-                            <ListItemText primary={'Judger'}/>
-                        </ListItem>
+                        </PrivateComponent>
+                        <PrivateComponent whitelistKey={["ROLE_ADMIN"]}>
+                            <ListItem button key={'Manage News'} component={Link} to={'/dashboard/manage/news'}>
+                                <ListItemIcon><AnnouncementIcon/></ListItemIcon>
+                                <ListItemText primary={'Manage News'}/>
+                            </ListItem>
+                        </PrivateComponent>
+                        <PrivateComponent whitelistKey={["ROLE_ADMIN"]}>
+                            <ListItem button key={'Manage Users'} component={Link} to={'/dashboard/manage/users'}>
+                                <ListItemIcon><AssignmentIndIcon/></ListItemIcon>
+                                <ListItemText primary={'Manage Users'}/>
+                            </ListItem>
+                        </PrivateComponent>
+
+                        <PrivateComponent whitelistKey={["ROLE_ADMIN"]}>
+                            <ListItem button key={'Manage Teams'} component={Link} to={'/dashboard/manage/teams'}>
+                                <ListItemIcon><GroupWorkIcon/></ListItemIcon>
+                                <ListItemText primary={'Manage Teams'}/>
+                            </ListItem>
+                        </PrivateComponent>
+
+                        <PrivateComponent whitelistKey={["ROLE_ADMIN"]}>
+                            <ListItem button key={'Manage Accounts'} component={Link} to={'/dashboard/manage/accounts'}>
+                                <ListItemIcon><HowToRegIcon/></ListItemIcon>
+                                <ListItemText primary={'Manage Accounts'}/>
+                            </ListItem>
+                        </PrivateComponent>
+
+                        <PrivateComponent whitelistKey={["ROLE_JUDGE"]}>
+                            <ListItem button key={'Judger'} component={Link} to={'/dashboard/manage/judge'}>
+                                <ListItemIcon><AssignmentIcon/></ListItemIcon>
+                                <ListItemText primary={'Judger'}/>
+                            </ListItem>
+                        </PrivateComponent>
+
+
                     </List>
                     <Divider/>
                     <List>
-                            <ListItem button key={'Information'} component={Link} to={'/dashboard/information'}>
-                                <ListItemIcon><NotificationsNoneIcon/></ListItemIcon>
-                                <ListItemText primary={'Information'}/>
-                            </ListItem>
+                        <ListItem button key={'Information'} component={Link} to={'/dashboard/information'}>
+                            <ListItemIcon><NotificationsNoneIcon/></ListItemIcon>
+                            <ListItemText primary={'Information'}/>
+                        </ListItem>
                     </List>
                 </Drawer>
 

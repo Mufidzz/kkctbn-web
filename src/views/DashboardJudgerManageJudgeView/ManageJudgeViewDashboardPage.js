@@ -11,6 +11,7 @@ import {Scrollable} from "../../components";
 import {ENDPOINT} from "../../configs/api";
 import Page, {Document} from "react-pdf";
 import TextField from "@material-ui/core/TextField";
+import PrivatePage from "../../components/PrivatePage";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -71,7 +72,7 @@ const ManageJudgeViewDashboardPage = props => {
     }, [])
 
     return (
-
+        <PrivatePage whitelistKey={["ROLE_JUDGE"]}>
         <Grid container style={{width: '98%'}}>
             <Scrollable>
                 <Card style={{width: '100%'}}>
@@ -170,6 +171,7 @@ const ManageJudgeViewDashboardPage = props => {
                 </Card>
             </Scrollable>
         </Grid>
+        </PrivatePage>
     )
 }
 

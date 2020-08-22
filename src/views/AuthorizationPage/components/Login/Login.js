@@ -92,12 +92,7 @@ const Login = props => {
                 localStorage.setItem(STORAGE_KEY.USER_DATA, JSON.stringify(apiData.User))
                 localStorage.setItem(STORAGE_KEY.JWT, apiData.Token)
             }
-
-            if (FullName === "" || Phone === "" || CollegeID === 0) {
-                history.replace("/dashboard/user")
-            } else {
-                history.replace("/dashboard/team")
-            }
+            history.replace("/dashboard/information")
         }
 
         return () => null

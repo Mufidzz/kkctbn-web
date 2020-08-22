@@ -110,7 +110,7 @@ const DashboardLayout = props => {
                 </Grid>
                 <Grid item md={12} xs={12} sm={12} ref={getFooterHeight} name={"footer"} container className={classes.footer} justify={"center"}
                       alignItems={"center"} >
-                    <Typography variant={"subtitle2"}> Ini Footer </Typography>
+                    <Typography variant={"subtitle2"}> Copyright © 2020 All rights reserved </Typography>
                 </Grid>
 
             </Grid>

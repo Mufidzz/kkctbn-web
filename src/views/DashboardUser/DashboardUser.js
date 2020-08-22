@@ -11,6 +11,7 @@ import {STORAGE_KEY} from "../../configs/local_storage";
 import {ENDPOINT} from "../../configs/api";
 import FileInputComponent from 'react-file-input-previews-base64'
 import CircularProgress from "@material-ui/core/CircularProgress";
+import {PrivatePage} from "../../components";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -199,6 +200,8 @@ const DashboardUser = props => {
 
 
     return (
+        <PrivatePage whitelistKey={["ROLE_USER"]}>
+
         <Grid container>
             <Card style={{width: "100%"}}>
                 <CardHeader
@@ -433,6 +436,7 @@ const DashboardUser = props => {
                 </CardContent>
             </Card>
         </Grid>
+        </PrivatePage>
     )
 }
 

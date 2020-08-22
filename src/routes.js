@@ -10,7 +10,7 @@ const routes = [
     {
         path: "/news",
         exact: true,
-        component : lazy(() => import("./views/News"))
+        component : lazy(() => import("./views/NewsPage"))
     },
     {
         path: "/auth",

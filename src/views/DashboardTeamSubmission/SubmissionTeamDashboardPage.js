@@ -10,6 +10,7 @@ import CardHeader from "@material-ui/core/CardHeader";
 import FileInputComponent from "react-file-input-previews-base64";
 import {ENDPOINT} from "../../configs/api";
 import {STORAGE_KEY} from "../../configs/local_storage";
+import {PrivatePage} from "../../components";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -148,6 +149,8 @@ const SubmissionTeamDashboardPage = props => {
     }
 
     return (
+        <PrivatePage whitelistKey={["ROLE_USER"]}>
+
         <Grid container>
             <Card style={{width: '100%'}}>
                 <CardHeader
@@ -246,6 +249,7 @@ const SubmissionTeamDashboardPage = props => {
                 </CardContent>
             </Card>
         </Grid>
+        </PrivatePage>
     )
 }
 

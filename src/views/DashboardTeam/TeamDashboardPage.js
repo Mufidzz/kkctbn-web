@@ -18,6 +18,7 @@ import {Link} from "react-router-dom";
 import Scrollable from "../../components/Scrollable";
 import {ENDPOINT} from "../../configs/api";
 import {STORAGE_KEY} from "../../configs/local_storage";
+import {PrivatePage} from "../../components";
 
 
 const StyledTableCell = withStyles((theme) => ({
@@ -119,45 +120,51 @@ const TeamDashboardPage = props => {
     }, [])
 
     return (
-        <Grid container style={{width: "100%"}}>
-            <Scrollable>
-                <Card style={{width: '100%'}}>
-                    <CardContent>
-                        <Grid item md={12} sm={12} xs={12}>
-                            <Typography variant={"h5"}>Managemen Tim</Typography>
-                        </Grid>
-                        <Grid item md={4} sm={12} xs={12} style={{marginTop: 20}}>
-                            <Link to={'/dashboard/team/edit'} style={{textDecoration: 'none'}}>
-                                <Button fullWidth variant={'contained'}
-                                        color={'primary'}>{state.TeamFound ? "Edit Team" : "Buat Tim Baru"}  </Button>
-                            </Link>
-                        </Grid>
-                        <Grid item md={12} sm={12} xs={12} style={{marginTop: 25}}>
-                            <TableContainer component={Paper}>
-                                <Table className={classes.table} aria-label="customized table">
-                                    <TableHead>
-                                        <TableRow>
-                                            <StyledTableCell align="left">Tipe Kompetisi</StyledTableCell>
-                                            <StyledTableCell align="right">Status</StyledTableCell>
-                                            <StyledTableCell align="right">Aksi</StyledTableCell>
-                                        </TableRow>
-                                    </TableHead>
-                                    <TableBody>
-                                        {competitionRow.map((row) => (
-                                            <StyledTableRow key={row.name}>
-                                                <StyledTableCell align="left">{row.competitionType}</StyledTableCell>
-                                                <StyledTableCell align="right">{row.status}</StyledTableCell>
-                                                <StyledTableCell align="right">{row.submission}</StyledTableCell>
-                                            </StyledTableRow>
-                                        ))}
-                                    </TableBody>
-                                </Table>
-                            </TableContainer>
-                        </Grid>
-                    </CardContent>
-                </Card>
-            </Scrollable>
-        </Grid>
+
+        <PrivatePage whitelistKey={["ROLE_USER"]}>
+            <Grid container style={{width: "100%"}}>
+                <Scrollable>
+                    <Card style={{width: '100%'}}>
+                        <CardContent>
+                            <Grid item md={12} sm={12} xs={12}>
+                                <Typography variant={"h5"}>Managemen Tim</Typography>
+                            </Grid>
+                            <Grid item md={4} sm={12} xs={12} style={{marginTop: 20}}>
+                                <Link to={'/dashboard/team/edit'} style={{textDecoration: 'none'}}>
+                                    <Button fullWidth variant={'contained'}
+                                            color={'primary'}>{state.TeamFound ? "Edit Team" : "Buat Tim Baru"}  </Button>
+                                </Link>
+                            </Grid>
+                            <Grid item md={12} sm={12} xs={12} style={{marginTop: 25}}>
+                                <TableContainer component={Paper}>
+                                    <Table className={classes.table} aria-label="customized table">
+                                        <TableHead>
+                                            <TableRow>
+                                                <StyledTableCell align="left">Tipe Kompetisi</StyledTableCell>
+                                                <StyledTableCell align="right">Status</StyledTableCell>
+                                                <StyledTableCell align="right">Aksi</StyledTableCell>
+                                            </TableRow>
+                                        </TableHead>
+                                        <TableBody>
+                                            {competitionRow.map((row) => (
+                                                <StyledTableRow key={row.name}>
+                                                    <StyledTableCell
+                                                        align="left">{row.competitionType}</StyledTableCell>
+                                                    <StyledTableCell align="right">{row.status}</StyledTableCell>
+                                                    <StyledTableCell align="right">{row.submission}</StyledTableCell>
+                                                </StyledTableRow>
+                                            ))}
+                                        </TableBody>
+                                    </Table>
+                                </TableContainer>
+                            </Grid>
+                        </CardContent>
+                    </Card>
+                </Scrollable>
+            </Grid>
+        </PrivatePage>
+
+
     )
 }
 

@@ -21,6 +21,7 @@ import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
 import {Scrollable} from "../../components";
 import {ENDPOINT} from "../../configs/api";
+import PrivatePage from "../../components/PrivatePage";
 
 const tableIcons = {
     Add: forwardRef((props, ref) => <AddBox {...props} ref={ref}/>),
@@ -131,6 +132,7 @@ const ManageRegistrationsDashboardPage = props => {
 
 
     return (
+        <PrivatePage whitelistKey={["ROLE_JUDGE"]}>
         <Grid container style={{width: '100%'}}>
             <Scrollable>
                 <Grid item md={12}>
@@ -143,6 +145,7 @@ const ManageRegistrationsDashboardPage = props => {
                 </Grid>
             </Scrollable>
         </Grid>
+        </PrivatePage>
     )
 }
 

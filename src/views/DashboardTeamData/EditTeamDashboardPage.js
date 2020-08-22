@@ -17,6 +17,7 @@ import {ENDPOINT} from "../../configs/api";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import SaveIcon from '@material-ui/icons/Save';
 import FileInputComponent from "react-file-input-previews-base64";
+import {PrivatePage} from "../../components";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -443,7 +444,9 @@ const EditTeamDashboardPage = props => {
 
     return (
         // state.loading ? <CircularProgress/> :
-            <Grid container>
+        <PrivatePage whitelistKey={["ROLE_USER"]}>
+
+        <Grid container>
                 <Grid item md={12}>
 
                     <Card style={{width: '100%'}}>
@@ -932,6 +935,7 @@ const EditTeamDashboardPage = props => {
                     </Card>
                 </Grid>
             </Grid>
+        </PrivatePage>
     )
 }
 

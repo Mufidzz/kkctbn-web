@@ -15,6 +15,7 @@ import TableCell from "@material-ui/core/TableCell";
 import Link from "@material-ui/core/Link";
 import {Scrollable} from "../../components";
 import {ENDPOINT} from "../../configs/api";
+import PrivatePage from "../../components/PrivatePage";
 
 
 const StyledTableCell = withStyles((theme) => ({
@@ -163,6 +164,7 @@ const ManageTeamsViewDashboardPage = props => {
 
 
     return (
+        <PrivatePage whitelistKey={["ROLE_ADMIN"]}>
         <Grid container style={{width: '100%'}}>
             <Scrollable>
                 <Card style={{width: '100%'}}>
@@ -270,6 +272,7 @@ const ManageTeamsViewDashboardPage = props => {
                 </Card>
             </Scrollable>
         </Grid>
+        </PrivatePage>
     )
 }
 

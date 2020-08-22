@@ -21,6 +21,7 @@ import ViewColumn from '@material-ui/icons/ViewColumn';
 import {Scrollable} from "../../components";
 import {ENDPOINT} from "../../configs/api";
 import {Link} from "react-router-dom";
+import PrivatePage from "../../components/PrivatePage";
 
 const tableIcons = {
     Add: forwardRef((props, ref) => {
@@ -133,18 +134,21 @@ const ManageAccountsDashboardPage = () => {
 
 
     return (
-        <Grid container style={{width: '100%'}}>
-            <Scrollable>
-                <Grid item md={12}>
-                    <MaterialTable
-                        icons={tableIcons}
-                        title="Manage Accounts"
-                        columns={state.columns}
-                        data={state.data}
-                    />
-                </Grid>
-            </Scrollable>
-        </Grid>
+        <PrivatePage whitelistKey={["ROLE_ADMIN"]}>
+            <Grid container style={{width: '100%'}}>
+                <Scrollable>
+                    <Grid item md={12}>
+                        <MaterialTable
+                            icons={tableIcons}
+                            title="Manage Accounts"
+                            columns={state.columns}
+                            data={state.data}
+                        />
+                    </Grid>
+                </Scrollable>
+            </Grid>
+        </PrivatePage>
+
     )
 }
 
