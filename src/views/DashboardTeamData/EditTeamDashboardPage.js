@@ -209,17 +209,17 @@ const EditTeamDashboardPage = props => {
             })
             .then(resJSON => {
                 if (resJSON["data"] !== null) {
-                    const {LecturerName, Name, Competitions, Members} = resJSON["data"]
+                    const {LecturerName,LecturerNIDN, Name, Competitions, Members} = resJSON["data"]
 
                     setFormState({
                         ...formState,
                         LecturerName: LecturerName,
+                        LecturerNIDN: LecturerNIDN,
                         Name: Name
                     })
 
                     setTeamCompetition([...Competitions])
                     setMemberData([...Members])
-
 
                     Members.map((v, i) => {
                         mFA.push(memberFileDataStruct)

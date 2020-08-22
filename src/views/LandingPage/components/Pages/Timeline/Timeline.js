@@ -32,7 +32,7 @@ const Timeline = props => {
                 <Grid container className={classes.root} justify={"center"} style={{color: "#FFFFFF"}}>
                     <Grid item container md={10} justify={"center"} alignContent={"flex-start"}>
                         <Typography variant="h3" align={"center"}>
-                            <b>Timeline {isMobile ? <br/> : null}  of {isMobile ? <br/> : null} Competition</b>
+                            <b>Linimasa {isMobile ? <br/> : null}  dari {isMobile ? <br/> : null} Kompetisi</b>
                         </Typography>
                     </Grid>
                     <Grid item container md={8} justify={"center"} alignContent={"flex-start"}>

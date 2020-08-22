@@ -59,11 +59,11 @@ const ManageRegistrationsDashboardPage = props => {
 
     const [state, setState] = React.useState({
         columns: [
-            {title: 'Team Name', field: 'teamName'},
-            {title: 'Campus Name', field: 'campusName'},
-            {title: 'Type of Competition', field: 'typeCompetition'},
-            {title: 'Documents', field: 'documents'},
-            {title: 'Delete', field: 'delete'}
+            {title: 'Nama Tim', field: 'teamName'},
+            {title: 'Nama Kampus', field: 'campusName'},
+            {title: 'Tipe Kompetisi', field: 'typeCompetition'},
+            {title: 'Dokumen', field: 'documents'},
+            {title: 'Hapus', field: 'delete'}
         ],
         data: [
             // {
@@ -113,10 +113,10 @@ const ManageRegistrationsDashboardPage = props => {
                         </ul>,
                         documents:
                             <Link to={'/dashboard/manage/teams/view/' + v['ID']} style={{textDecoration: 'none'}}>
-                                <Button variant={'contained'} color={'secondary'}>View Documents</Button>
+                                <Button variant={'contained'} color={'secondary'}>Lihat Dokumen</Button>
                             </Link>
                         ,
-                        delete: <Button disabled variant={'contained'} color={'primary'}>Delete Team</Button>
+                        delete: <Button disabled variant={'contained'} color={'primary'}>Hapus Tim</Button>
                     })
                 })
 

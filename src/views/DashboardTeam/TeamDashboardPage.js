@@ -124,12 +124,12 @@ const TeamDashboardPage = props => {
                 <Card style={{width: '100%'}}>
                     <CardContent>
                         <Grid item md={12} sm={12} xs={12}>
-                            <Typography variant={"h5"}>Team Management</Typography>
+                            <Typography variant={"h5"}>Managemen Tim</Typography>
                         </Grid>
                         <Grid item md={4} sm={12} xs={12} style={{marginTop: 20}}>
                             <Link to={'/dashboard/team/edit'} style={{textDecoration: 'none'}}>
                                 <Button fullWidth variant={'contained'}
-                                        color={'primary'}>{state.TeamFound ? "Edit Team" : "Create a new team"}  </Button>
+                                        color={'primary'}>{state.TeamFound ? "Edit Team" : "Buat Tim Baru"}  </Button>
                             </Link>
                         </Grid>
                         <Grid item md={12} sm={12} xs={12} style={{marginTop: 25}}>
@@ -137,9 +137,9 @@ const TeamDashboardPage = props => {
                                 <Table className={classes.table} aria-label="customized table">
                                     <TableHead>
                                         <TableRow>
-                                            <StyledTableCell align="left">Type of Competition</StyledTableCell>
+                                            <StyledTableCell align="left">Tipe Kompetisi</StyledTableCell>
                                             <StyledTableCell align="right">Status</StyledTableCell>
-                                            <StyledTableCell align="right">Action</StyledTableCell>
+                                            <StyledTableCell align="right">Aksi</StyledTableCell>
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>

@@ -26,7 +26,7 @@ const RichTextEditor = props => {
         })
     }
 
-    const html = '<p>Gunakan <strong>Shift + Enter</strong> Jika ingin line spacing kecil</p>';
+    const html = '<p>Gunakan <strong>Shift + Enter</strong> Jika ingin spasi baris kecil</p>';
     const {editorState, setEditorState} = props;
 
     useEffect(() => {

@@ -118,7 +118,7 @@ const InformationDashboardPage = props => {
                     <Grid item md={3}>
                         <Button fullWidth style={{minHeight: 60, marginBottom: 20}} variant={'contained'} color={'primary'}
                                 size={'large'} startIcon={<CloudDownloadIcon/>}>
-                            Download Guide Book
+                            Download Buku Panduan
                         </Button>
                     </Grid>
                 </Grid>
@@ -126,15 +126,15 @@ const InformationDashboardPage = props => {
                     <Card style={{width: "100%"}}>
                         <CardContent>
                             <Grid item md={12}>
-                                <Typography variant={"h5"}>Information</Typography>
+                                <Typography variant={"h5"}>Informasi</Typography>
                             </Grid>
                             <Grid item md={12} style={{marginTop: 25}}>
                                 <TableContainer component={Paper}>
                                     <Table className={classes.table} aria-label="customized table">
                                         <TableHead>
                                             <TableRow>
-                                                <StyledTableCell>Main Title of Information</StyledTableCell>
-                                                <StyledTableCell align="right">Content</StyledTableCell>
+                                                <StyledTableCell>Judul Utama Informasi</StyledTableCell>
+                                                <StyledTableCell align="right">Isi</StyledTableCell>
                                             </TableRow>
                                         </TableHead>
                                         <TableBody>

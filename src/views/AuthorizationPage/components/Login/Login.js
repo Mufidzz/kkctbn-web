@@ -158,9 +158,9 @@ const Login = props => {
                               style={{height: "100%"}}>
                             <Grid item md={12} sm={12} xs={12} container>
                                 <OverlapTypography
-                                    overlay={<Typography className={classes.overlayText} variant={"h2"}><b>Sign
-                                        in, <br/>KKCTBN 2020</b></Typography>}>
-                                    <Typography className={classes.mainText} variant={"h2"}><b>Sign in</b></Typography>
+                                    overlay={<Typography className={classes.overlayText} variant={"h2"}><b>Masuk,
+                                        <br/>KKCTBN 2020</b></Typography>}>
+                                    <Typography className={classes.mainText} variant={"h2"}><b>Masuk</b></Typography>
                                 </OverlapTypography>
                                 <TextField
                                     onChange={handleFormChange}
@@ -194,7 +194,7 @@ const Login = props => {
                                     fullWidth
                                     variant="contained"
                                     className={clsx(classes.button, classes.submit)}>
-                                    Sign In
+                                    Masuk
                                 </Button>
                             </Grid>
                         </Grid>
@@ -219,16 +219,16 @@ const Login = props => {
                                 }
 
                                 <Grid item>
-                                    <Typography variant={"h4"} align={"center"}><b>Welcome Back,
-                                        Gladiator </b></Typography>
-                                    <Typography variant={"h6"} align={"center"}>To access your dashboard please login
-                                        with your account</Typography>
+                                    <Typography variant={"h4"} align={"center"}><b>Selamat Datang Kembali, Petarung
+                                    </b></Typography>
+                                    <Typography variant={"h6"} align={"center"}>Untuk mengakses dashboard anda mohon
+                                        masuk dengan menggunakan akun anda</Typography>
                                 </Grid>
 
                                 <Grid item md={12} xs={11} sm={11}>
                                     <Button fullWidth variant="outlined"
                                             onClick={() => mover("register")}
-                                            className={clsx(classes.button, classes.register)}>Register</Button>
+                                            className={clsx(classes.button, classes.register)}>Daftar</Button>
                                 </Grid>
                             </Grid>
                         </Card>

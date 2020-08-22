@@ -134,17 +134,17 @@ const Register = props => {
 
 
                                 <Grid item md={12} sm={12} xs={12}>
-                                    <Typography variant={"h4"} align={"center"}><b>Create an Account</b></Typography>
+                                    <Typography variant={"h4"} align={"center"}><b>Buat sebuah Akun</b></Typography>
                                     {isMobile ? <Typography variant={"h6"} align={"center"}>or</Typography> :
-                                        <Typography variant={"h6"} align={"center"}>To join with us and get your
-                                            dashboard,
-                                            please fill all needed information</Typography>}
+                                        <Typography variant={"h6"} align={"center"}>Untuk bergabung dengan kami dan
+                                            mendapatkan dashboard Anda,
+                                            mohon isi semua informasi yang dibutuhkan</Typography>}
                                 </Grid>
 
                                 <Grid item md={12} sm={10} xs={10}>
                                     <Button fullWidth variant="outlined"
                                             onClick={() => mover("login")}
-                                            className={clsx(classes.button, classes.register)}>Sign In</Button>
+                                            className={clsx(classes.button, classes.register)}>Masuk</Button>
                                 </Grid>
                             </Grid>
                         </Card>
@@ -159,10 +159,9 @@ const Register = props => {
                               style={{height: "100%"}}>
                             <Grid item md={12}>
                                 <OverlapTypography
-                                    overlay={<Typography className={classes.overlayText} variant={"h2"}><b>Sign
-                                        up, <br/>KKCTBN 2020</b></Typography>}>
-                                    <Typography className={classes.mainText} variant={"h2"}><b>Create
-                                        Account</b></Typography>
+                                    overlay={<Typography className={classes.overlayText} variant={"h2"}><b>Daftar,
+                                        <br/>KKCTBN 2020</b></Typography>}>
+                                    <Typography className={classes.mainText} variant={"h2"}><b>Buat Akun</b></Typography>
                                 </OverlapTypography>
                                 <TextField
                                     onChange={handleFormChange}
@@ -196,7 +195,7 @@ const Register = props => {
                                     name="RetypePassword"
                                     required
                                     fullWidth
-                                    label="Retype Password"
+                                    label="Masukkan ulang Password"
                                     type="password"
                                     id="password"
                                 />
@@ -207,7 +206,7 @@ const Register = props => {
                                     fullWidth
                                     variant="contained"
                                     className={clsx(classes.button, classes.submit)}>
-                                    Sign up
+                                    Daftar
                                 </Button>
                             </Grid>
                         </Grid>

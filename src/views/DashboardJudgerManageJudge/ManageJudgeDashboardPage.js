@@ -55,27 +55,27 @@ const ManageRegistrationsDashboardPage = props => {
 
     const [state, setState] = React.useState({
         columns: [
-            {title: 'Team Name', field: 'teamName'},
-            {title: 'Campus Name', field: 'campusName'},
-            {title: 'Type of Competition', field: 'typeCompetition'},
+            {title: 'Nama Tim', field: 'teamName'},
+            {title: 'Nama Kampus', field: 'campusName'},
+            {title: 'Tipe Kompetisi', field: 'typeCompetition'},
             {title: 'Status', field: 'statusSubmission'},
-            {title: 'Submission', field: 'submission'},
+            {title: 'Pengajuan', field: 'submission'},
         ],
         data: [
             {
                 teamName: 'GaranganAI',
                 campusName: 'Universitas Muhammadiyah Malang',
                 typeCompetition: 'Desain Kapal',
-                statusSubmission: <Button variant={'outlined'} style={{color: 'red'}}>Not Uploaded Yet</Button>,
+                statusSubmission: <Button variant={'outlined'} style={{color: 'red'}}>Belum Diupload</Button>,
             },
             {
                 teamName: 'GaranganAI',
                 campusName: 'Universitas Muhammadiyah Malang',
                 typeCompetition: 'Desain Kapal',
-                statusSubmission: <Button variant={'outlined'} style={{color: 'green'}}>Already Uploaded</Button>,
+                statusSubmission: <Button variant={'outlined'} style={{color: 'green'}}>Sudah Diupload</Button>,
                 submission:
                     <Link to={'/dashboard/manage/judge/view'} style={{textDecoration: 'none'}}>
-                        <Button variant={'contained'} color={'secondary'}>View Submission</Button>
+                        <Button variant={'contained'} color={'secondary'}>Lihat Pengajuan</Button>
                     </Link>
             },
         ],
@@ -114,7 +114,7 @@ const ManageRegistrationsDashboardPage = props => {
                                     })
                                 }
                             </ul>,
-                        statusSubmission: <Button variant={'outlined'} style={{color: 'green'}}>Already Uploaded</Button>,
+                        statusSubmission: <Button variant={'outlined'} style={{color: 'green'}}>Sudah Diupload</Button>,
                         submission:
                             <Link to={'/dashboard/manage/judge/view/' + v['ID']} style={{textDecoration: 'none'}}>
                                 <Button variant={'contained'} color={'secondary'}>View Submission</Button>
