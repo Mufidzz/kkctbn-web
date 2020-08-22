@@ -12,7 +12,7 @@ import {ENDPOINT} from "../../configs/api";
 import {useHistory} from "react-router-dom"
 import FileInputComponent from 'react-file-input-previews-base64'
 import CircularProgress from "@material-ui/core/CircularProgress";
-import {PrivatePage} from "../../components";
+import {ConfirmationModal, PrivatePage} from "../../components";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -72,7 +72,8 @@ const DashboardUserChangePassword = props => {
         NewPassword : "",
         NewPasswordConfirmation : ""
     })
-
+    const [modalOpen, setModalOpen] = useState(false)
+    const [modalBody, setModalBody] = useState("")
 
     //Use
     //Handle
@@ -109,17 +110,18 @@ const DashboardUserChangePassword = props => {
                     }
                 })
                 .then(resJSON => {
-                    alert(`Result : ${resJSON["message"]}`)
+                    setModalBody(`Change Password ${resJSON["message"]||"Failed"}`)
+                    setModalOpen(true)
+                    // alert(`Result : ${resJSON["message"]}`)
                 })
         }
 
-        localStorage.clear();
-        history.replace("/auth")
+        // localStorage.clear();
+        // history.replace("/auth")
     }
 
 
     return (
-        <PrivatePage whitelistKey={["ROLE_USER"]}>
 
         <Grid container>
             <Card style={{width: "100%"}}>
@@ -189,8 +191,9 @@ const DashboardUserChangePassword = props => {
 
                 </CardContent>
             </Card>
+            <ConfirmationModal textBody={modalBody} open={modalOpen} setOpen={setModalOpen}/>
+
         </Grid>
-        </PrivatePage>
     )
 }
 

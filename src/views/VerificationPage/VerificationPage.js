@@ -1,8 +1,8 @@
-import React, {useMemo, useState} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import Page from "../../components/Page";
 import {Typography} from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
-import {OverlapTypography} from "../../components";
+import {ConfirmationModal, OverlapTypography} from "../../components";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import clsx from "clsx";
@@ -75,7 +75,9 @@ const VerificationPage = props => {
         Name: "",
         Website: ""
     })
-
+    const [modalOpen, setModalOpen] = useState(false)
+    const [modalBody, setModalBody] = useState("")
+    const [isSuccess, setSuccess] = useState(false)
 
     useMemo(() => {
         fetch(ENDPOINT.COLLEGE, {method: "GET"})
@@ -89,6 +91,14 @@ const VerificationPage = props => {
                 setCollegeList(resJSON['data'])
             })
     }, [])
+
+    useEffect(() => {
+        if (isSuccess && !modalOpen) {
+            history.replace("/auth")
+        }
+
+    },[isSuccess, modalOpen])
+
 
     const handleSetCollege = (e, v) => {
         console.log(v)
@@ -112,9 +122,11 @@ const VerificationPage = props => {
                 })
                 .then(resJSON => {
                     console.log(resJSON)
-                    alert(`Verify Status : ${resJSON['message']}`);
+                    setModalBody(`Verification Status : ${resJSON['message']}`)
+                    setModalOpen(true)
+
                     if (resJSON.message === "Registration Verification Success") {
-                        history.replace("/auth")
+                        setSuccess(true)
                     }
                 })
         }
@@ -212,6 +224,7 @@ const VerificationPage = props => {
                     </Grid>
                 </Grid>
             </Grid>
+            <ConfirmationModal textBody={modalBody} open={modalOpen} setOpen={setModalOpen}/>
         </Page>
     )
 }
