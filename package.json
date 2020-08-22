@@ -24,6 +24,7 @@
     "jsonwebtoken": "^8.5.1",
     "jwt-decode": "^2.2.0",
     "material-table": "^1.68.1",
+    "material-ui-confirm": "^2.1.1",
     "node-sass": "^4.14.1",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",

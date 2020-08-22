@@ -12,6 +12,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import ThemeProvider from "@material-ui/styles/ThemeProvider";
 import theme from "./theme";
 import packageJson from '../package.json';
+import {ConfirmProvider} from "material-ui-confirm";
 
 global.appVersion = packageJson.version;
 
@@ -93,7 +94,7 @@ const App = () => {
 
 
     useEffect(() => {
-        if(!state.loading) {
+        if (!state.loading) {
             if (!state.isLatestVersion) {
                 state.refreshCacheAndReload()
             }

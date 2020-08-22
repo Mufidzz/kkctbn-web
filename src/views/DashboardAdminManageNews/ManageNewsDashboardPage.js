@@ -13,6 +13,7 @@ import {STORAGE_KEY} from "../../configs/local_storage";
 import draftToHtml from 'draftjs-to-html';
 import {ENDPOINT} from "../../configs/api";
 import PrivatePage from "../../components/PrivatePage";
+import {ConfirmationModal} from "../../components";
 
 const useStyles = makeStyles((theme) => ({
 
@@ -43,6 +44,9 @@ const ManageNewsDashboardPage = props => {
         }
     ]
 
+    const [modalOpen, setModalOpen] = useState(false)
+    const [modalBody, setModalBody] = useState("")
+
 
     const save = () => {
         const data = {
@@ -65,7 +69,8 @@ const ManageNewsDashboardPage = props => {
                 }
             })
             .then(resJSON => {
-                alert("Update News Status : " + resJSON['message'])
+                setModalBody("Update News Status : " + resJSON['message'])
+                setModalOpen(true)
             })
 
         setFormState(formStateStruct)
@@ -160,6 +165,8 @@ const ManageNewsDashboardPage = props => {
                 </Grid>
 
             </div>
+            <ConfirmationModal textBody={modalBody} open={modalOpen} setOpen={setModalOpen}/>
+
         </PrivatePage>
 
     )

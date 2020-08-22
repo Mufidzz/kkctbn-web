@@ -1,4 +1,4 @@
-import React, {forwardRef, useMemo} from 'react'
+import React, {forwardRef, useMemo, useState} from 'react'
 import Grid from "@material-ui/core/Grid";
 import {makeStyles} from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
@@ -18,7 +18,7 @@ import Remove from '@material-ui/icons/Remove';
 import SaveAlt from '@material-ui/icons/SaveAlt';
 import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
-import {Scrollable} from "../../components";
+import {ConfirmationModal, Scrollable} from "../../components";
 import {ENDPOINT} from "../../configs/api";
 import {Link} from "react-router-dom";
 import PrivatePage from "../../components/PrivatePage";
@@ -107,6 +107,22 @@ const ManageAccountsDashboardPage = () => {
         ],
     });
 
+    const [modalOpen, setModalOpen] = useState(false)
+    const [modalBody, setModalBody] = useState("")
+
+    const showModal = (text) => {
+        setModalBody(text)
+        setModalOpen(true)
+    }
+
+    const resendActivation = () => {
+        showModal(`Aktivasi Ulang Telah Terkirim`)
+    }
+    const sendPasswordChange = () => {
+        showModal(`Konfirmasi Ganti Password Sudah Terkirim`)
+    }
+
+
     useMemo(() => {
         fetch(ENDPOINT.USER, {method: "GET"})
             .then(res => {
@@ -120,8 +136,8 @@ const ManageAccountsDashboardPage = () => {
                     data.push({
                         emailAddress: v['Email'],
                         status: v['VerifiedDate'] != null ? "Diverifikasi" : "Butuh Verifikasi",
-                        resendActivation: <Button variant={"contained"} color={'primary'}>Kirim Ulang Aktivasi</Button>,
-                        resetPassword: <Button variant={"contained"} color={'primary'}>Ganti Password</Button>
+                        resendActivation: <Button onClick={resendActivation} variant={"contained"} color={'primary'}>Kirim Ulang Aktivasi</Button>,
+                        resetPassword: <Button onClick={sendPasswordChange} variant={"contained"} color={'primary'}>Ganti Password</Button>
                     })
                 })
 
@@ -131,6 +147,8 @@ const ManageAccountsDashboardPage = () => {
                 })
             })
     }, [])
+
+
 
 
     return (
@@ -147,8 +165,8 @@ const ManageAccountsDashboardPage = () => {
                     </Grid>
                 </Scrollable>
             </Grid>
+            <ConfirmationModal textBody={modalBody} open={modalOpen} setOpen={setModalOpen}/>
         </PrivatePage>
-
     )
 }
 

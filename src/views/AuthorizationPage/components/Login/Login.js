@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import {makeStyles} from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import mainLogo from '../../../../assets/images/logo-wh-bg.png';
-import {OverlapTypography} from "../../../../components";
+import {ConfirmationModal, OverlapTypography} from "../../../../components";
 import {Typography} from "@material-ui/core";
 import clsx from "clsx";
 import {animated} from "react-spring";
@@ -81,6 +81,8 @@ const Login = props => {
         },
         Token: ""
     })
+    const [modalOpen, setModalOpen] = useState(false)
+    const [modalBody, setModalBody] = useState("")
 
     //Use
     useEffect(() => {
@@ -97,6 +99,7 @@ const Login = props => {
 
         return () => null
     }, [apiData])
+
 
     useMemo(() => {
         const Token = localStorage.getItem(STORAGE_KEY.JWT)
@@ -116,6 +119,9 @@ const Login = props => {
             [e.target.name]: e.target.value
         })
     }
+
+
+
 
     //Function
     const login = () => {
@@ -137,7 +143,8 @@ const Login = props => {
                     })
 
                 } else {
-                    alert(`Login Failed due to ${resJSON["message"]}`)
+                    setModalBody(`Login Failed due to ${resJSON["message"]}`)
+                    setModalOpen(true)
                 }
             })
     }
@@ -183,9 +190,7 @@ const Login = props => {
                             </Grid>
                             <Grid item md={8} sm={10} xs={10}>
                                 <Button
-
                                     onClick={login}
-
                                     fullWidth
                                     variant="contained"
                                     className={clsx(classes.button, classes.submit)}>
@@ -230,6 +235,7 @@ const Login = props => {
                     </Grid>
                 </Grid>
             </Grid>
+            <ConfirmationModal textBody={modalBody} open={modalOpen} setOpen={setModalOpen}/>
         </animated.div>
     )
 }

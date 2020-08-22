@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import {makeStyles} from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import mainLogo from '../../../../assets/images/logo-wh-bg.png';
-import {OverlapTypography} from "../../../../components";
+import {ConfirmationModal, OverlapTypography} from "../../../../components";
 import {Typography} from "@material-ui/core";
 import clsx from "clsx";
 import {animated} from 'react-spring'
@@ -82,8 +82,18 @@ const Register = props => {
     const [apiData, setApiData] = useState({
         Message: ""
     })
+    const [modalOpen, setModalOpen] = useState(false)
+    const [modalBody, setModalBody] = useState("")
+    const [isSuccess, setSuccess] = useState(false)
 
     //Use
+
+    useEffect(() => {
+        if (isSuccess && !modalOpen) {
+            mover("login")
+        }
+    }, [isSuccess, modalOpen])
+
     //Handle
     const handleFormChange = e => {
         setFormState({
@@ -105,14 +115,16 @@ const Register = props => {
                 }
             })
             .then(resJSON => {
-                alert(`Register ${resJSON["message"]|"Success"}`)
-                mover("login")
+                setModalBody(`Register ${resJSON['message']||"Success"}`)
+                setModalOpen(true)
+                setSuccess(true)
             })
     }
 
 
     return (
         <animated.div {...rest}>
+
             <Grid container justify={"flex-end"} direction={"row-reverse"}>
                 <Grid item container md={11} sm={12} xs={12} justify={"space-between"}>
                     <Grid item container md={6} sm={12} xs={12} justify={"flex-end"} alignContent={"flex-end"}
@@ -213,6 +225,8 @@ const Register = props => {
                     </Grid>
                 </Grid>
             </Grid>
+            <ConfirmationModal textBody={modalBody} open={modalOpen} setOpen={setModalOpen}/>
+
         </animated.div>
     )
 }
