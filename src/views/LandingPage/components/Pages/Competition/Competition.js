@@ -54,7 +54,7 @@ const Competition = props => {
                     <Grid item container md={11} justify={"center"} className={classes.title}>
                         <Typography variant="h3" fontWeight align='center'
                                     style={{color: "#CF2424"}}>
-                            <b>Competition</b>
+                            <b>Kompetisi</b>
                         </Typography>
                     </Grid>
 

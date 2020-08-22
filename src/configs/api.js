@@ -1,5 +1,5 @@
-const URL = "http://localhost:4444"
-// const URL = "https://api.ofcode.dev/kkctbn"
+//const URL = "http://localhost:4444"
+const URL = "https://api.ofcode.dev/kkctbn"
 export const ENDPOINT = {
     USER : `${URL}/user/`,
     USER_SUBMISSION : `${URL}/user-submission/`,

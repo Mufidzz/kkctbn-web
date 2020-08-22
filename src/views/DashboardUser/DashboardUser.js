@@ -194,7 +194,7 @@ const DashboardUser = props => {
         <Grid container>
             <Card style={{width: "100%"}}>
                 <CardHeader
-                    title={'Personal Data'}
+                    title={'Data Pribadi'}
                     className={classes.cardHeader}
                 />
                 <CardContent>
@@ -204,7 +204,7 @@ const DashboardUser = props => {
                                 onChange={handleFormChange}
                                 value={formState.FullName}
                                 className={classes.margin}
-                                label="Full name according to ID card"
+                                label="Nama lengkap sesuai KTP"
                                 required
                                 variant="filled"
                                 placeholder={"Entry your full name."}
@@ -220,11 +220,11 @@ const DashboardUser = props => {
                                 disabled
                                 value={formState.Email}
                                 className={classes.margin}
-                                label="Email Address"
+                                label="Alamat Email"
                                 required
                                 variant="filled"
                                 placeholder={"Entry your email address."} fullWidth
-                                helperText="Email Cannot be changed"
+                                helperText="Email tidak bisa diganti"
                             />
                         </Grid>
 
@@ -233,11 +233,11 @@ const DashboardUser = props => {
                                 onChange={handleFormChange}
                                 value={formState.StudentID}
                                 className={classes.margin}
-                                label="Student ID Number"
+                                label="Nomor ID Mahasiswa"
                                 required
                                 variant="filled"
                                 placeholder={"Entry your student id number"} fullWidth
-                                helperText="The student ID number of each campus has its own characteristics"
+                                helperText="Nomor ID mahasiswa setiap kampus memiliki karakteristiknya masing-masing"
                                 name="StudentID"
                             />
                         </Grid>
@@ -247,7 +247,7 @@ const DashboardUser = props => {
                                 onChange={handleFormChange}
                                 value={formState.Phone}
                                 className={classes.margin}
-                                label="Phone Number"
+                                label="Nomor HP"
                                 required
                                 variant="filled"
                                 placeholder={"Entry your phone number"} fullWidth
@@ -260,7 +260,7 @@ const DashboardUser = props => {
                             <TextField
                                 onChange={handleFormChange}
                                 value={formState.Address}
-                                label="Complete Address"
+                                label="Alamat Lengkap"
                                 placeholder="Entry complete addresss"
                                 multiline
                                 fullWidth
@@ -273,7 +273,7 @@ const DashboardUser = props => {
 
                         <Grid item md={12} sm={12} xs={12} style={{marginTop: 10}}>
                             <Typography variant={'body2'} style={{marginBottom: 10}}>
-                                Student ID Card* (pdf file)
+                                Kartu Tanda Mahasiswa* (pdf file)
                             </Typography>
                         </Grid>
 
@@ -285,7 +285,7 @@ const DashboardUser = props => {
                                 buttonComponent={
                                     <Button fullWidth variant="contained" component="span"
                                             className={classes.containedOrange}>
-                                        {userFile.StudentIdentityCardSubmission.OriginFileName !== "" ? "Reupload" : "Upload"}
+                                        {userFile.StudentIdentityCardSubmission.OriginFileName !== "" ? "Upload ulang" : "Upload"}
                                     </Button>
                                 }
                                 multiple={false}
@@ -319,7 +319,7 @@ const DashboardUser = props => {
 
                         <Grid item md={12} sm={12} xs={12} style={{marginTop: 10}}>
                             <Typography variant={'caption'} style={{marginBottom: 10}}>
-                                Current
+                                Seperti
                                 : {userFile.StudentIdentityCardSubmission.OriginFileName !== "" ? userFile.StudentIdentityCardSubmission.OriginFileName : '-'}
                             </Typography>
                         </Grid>
@@ -327,7 +327,7 @@ const DashboardUser = props => {
 
                         <Grid item md={12} sm={12} xs={12}>
                             <Typography variant={'body2'}>
-                                Identity Card* (pdf file)
+                                Kartu Tanda Penduduk* (pdf file)
                             </Typography>
                         </Grid>
 
@@ -340,7 +340,7 @@ const DashboardUser = props => {
                                 buttonComponent={
                                     <Button fullWidth variant="contained" component="span"
                                             className={classes.containedOrange}>
-                                        {userFile.IdentityCardSubmission.OriginFileName !== "" ? "Reupload" : "Upload"}
+                                        {userFile.IdentityCardSubmission.OriginFileName !== "" ? "Upload ulang" : "Upload"}
 
                                     </Button>
                                 }
@@ -374,7 +374,7 @@ const DashboardUser = props => {
                         </Grid>
                         <Grid item md={12} sm={12} xs={12}>
                             <Typography variant={'caption'}>
-                                Current
+                                Seperti
                                 : {userFile.IdentityCardSubmission.OriginFileName !== "" ? userFile.IdentityCardSubmission.OriginFileName : '-'}
                             </Typography>
                         </Grid>
@@ -404,7 +404,7 @@ const DashboardUser = props => {
                                         className={classes.saveButton}
                                         startIcon={<SaveIcon/>}
                                     >
-                                        Save
+                                        Simpan
                                     </Button>
                                 </Grid>
                             }

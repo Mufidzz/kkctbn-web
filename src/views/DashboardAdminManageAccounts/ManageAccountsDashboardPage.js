@@ -94,14 +94,14 @@ const ManageAccountsDashboardPage = () => {
         columns: [
             {title: 'Email', field: 'emailAddress'},
             {title: 'Status', field: 'status'},
-            {title: 'Resend Activation', field: 'resendActivation'},
-            {title: 'Reset Password', field: 'resetPassword'},
+            {title: 'Kirim Ulang Aktivasi', field: 'resendActivation'},
+            {title: 'Ganti Password', field: 'resetPassword'},
         ],
         data: [
             {
                 emailAddress: 'ZeryaBetül@gmail.com',
-                resendActivation: <Button variant={"contained"} color={'primary'}>Resend Activation</Button>,
-                resetPassword: <Button variant={"contained"} color={'primary'}>Reset Password</Button>
+                resendActivation: <Button variant={"contained"} color={'primary'}>Kirim Ulang Aktivasi</Button>,
+                resetPassword: <Button variant={"contained"} color={'primary'}>Ganti Password</Button>
             },
         ],
     });
@@ -118,9 +118,9 @@ const ManageAccountsDashboardPage = () => {
                 resJSON['data'].map((v,i) => {
                     data.push({
                         emailAddress: v['Email'],
-                        status: v['VerifiedDate'] != null ? "Verified" : "Need Verification",
-                        resendActivation: <Button variant={"contained"} color={'primary'}>Resend Activation</Button>,
-                        resetPassword: <Button variant={"contained"} color={'primary'}>Reset Password</Button>
+                        status: v['VerifiedDate'] != null ? "Diverifikasi" : "Butuh Verifikasi",
+                        resendActivation: <Button variant={"contained"} color={'primary'}>Kirim Ulang Aktivasi</Button>,
+                        resetPassword: <Button variant={"contained"} color={'primary'}>Ganti Password</Button>
                     })
                 })
 

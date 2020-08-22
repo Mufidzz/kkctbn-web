@@ -148,14 +148,14 @@ const ManageUsersDashboardPage = props => {
 
     const [state, setState] = React.useState({
         columns: [
-            {title: 'Full Name', field: 'fullName'},
-            {title: 'Email Address', field: 'emailAddress'},
-            {title: 'Student ID Number', field: 'studentIdNumber'},
-            {title: 'Phone Number', field: 'phoneNumber'},
-            {title: 'Complete Address', field: 'completeAddress'},
-            {title: 'Student ID Card', field: 'studentIdCard'},
-            {title: 'Identity Card', field: 'identityCard'},
-            {title: 'Delete User', field: 'deleteUser'}
+            {title: 'Nama Lengkap', field: 'fullName'},
+            {title: 'Alamat Email', field: 'emailAddress'},
+            {title: 'Nomor ID Mahasiswa', field: 'studentIdNumber'},
+            {title: 'Nomor Telepon', field: 'phoneNumber'},
+            {title: 'Alamat Lengkap', field: 'completeAddress'},
+            {title: 'Kartu Tanda Mahasiswa', field: 'studentIdCard'},
+            {title: 'Kartu Tanda Penduduk', field: 'identityCard'},
+            {title: 'Hapus Pengguna', field: 'deleteUser'}
         ],
         data: [
             {
@@ -195,16 +195,16 @@ const ManageUsersDashboardPage = props => {
                                     onClick={() => {
                                         window.open(ENDPOINT.SUBMISSION + v['Submission']['StudentIdentityCardSubmission'].ID + "/stream", '_blank')
                                     }}>
-                                Open File
+                                Buka File
                             </Button>,
                         identityCard:
                             <Button disabled={v['Submission']['IdentityCardSubmission'].ID === 0} fullWidth variant="contained" component="span" color={'secondary'}
                                     onClick={() => {
                                         window.open(ENDPOINT.SUBMISSION + v['Submission']['IdentityCardSubmission'].ID + "/stream", '_blank')
                                     }}>
-                                Open File
+                                Buka File
                             </Button>,
-                        deleteUser: <Button disabled variant={'contained'} color={'primary'}>Delete User</Button>,
+                        deleteUser: <Button disabled variant={'contained'} color={'primary'}>Hapus Pengguna</Button>,
                     })
                 })
 

@@ -8,6 +8,11 @@ const routes = [
         component : lazy(() => import("./views/LandingPage"))
     },
     {
+        path: "/news",
+        exact: true,
+        component : lazy(() => import("./views/News"))
+    },
+    {
         path: "/auth",
         exact: true,
         component : lazy(() => import("./views/AuthorizationPage"))

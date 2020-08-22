@@ -46,7 +46,7 @@ const LandingAppBar = props => {
         <Fragment>
             <ElevationScroll trigger={ElevationTrigger}>
                 <AppBar className={ElevationTrigger ? classes.rootElevated : classes.root}
-                        color={ElevationTrigger ? "#FFFFFF" : "transparent"}>
+                        color={ElevationTrigger ? "#CF2424" : "primary"}>
                     <Toolbar>
                         <Grid container justify={"space-evenly"}>
                             <Grid item container justify={"space-evenly"} alignContent={"center"} alignItems={"center"}
