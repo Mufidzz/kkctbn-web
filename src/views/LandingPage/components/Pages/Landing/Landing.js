@@ -30,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: 70
     },
     roundedButton: {
+        zIndex: 99,
         background: "rgba(215, 44, 44, 0.76)",
         borderRadius: 9999999999,
         color: "#FFFFFF",
