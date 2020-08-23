@@ -3,13 +3,14 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import {makeStyles} from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
-import { render } from "react-dom";
 import clsx from "clsx";
 import mainImage from "assets/images/main-image.jpg"
 import mainLogoWhite from "assets/images/logo-wh.png"
 import {useMediaQuery} from "@material-ui/core";
-import Particles from "./particles";
 import {Link} from "react-router-dom";
+import Particles from "react-particles-js";
+import Particles2 from "./Particles2";
+import {Page} from "../../../../../components";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -33,30 +34,29 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: 9999999999,
         color: "#FFFFFF",
         marginTop: theme.spacing(2),
-        "&:hover" : {
+        "&:hover": {
             background: "rgba(215, 44, 44, 1)",
         },
-        [theme.breakpoints.down('sm')] : {
+        [theme.breakpoints.down('sm')]: {
             height: 40
         }
     },
-    escapeTop : {
-        marginTop : 60 + theme.spacing(3)
+    escapeTop: {
+        marginTop: 60 + theme.spacing(3)
     },
-    counter : {
-        fontSize : "8rem",
-        color:"rgba(255,255,255,0.4) !important",
-        [theme.breakpoints.down('sm')] : {
-            fontSize : "5rem",
+    counter: {
+        fontSize: "8rem",
+        color: "rgba(255,255,255,0.4) !important",
+        [theme.breakpoints.down('sm')]: {
+            fontSize: "5rem",
         }
     },
-    particle: {
-    		position: 'relative'
-    },
-    title: {
-    		position: 'absolute',
-    		left: 15,
-    		bottom: 200
+    wrapper: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%'
     }
 }))
 
@@ -64,7 +64,7 @@ const Landing = props => {
 
     //Function
     const calculateTimeLeft = () => {
-        let difference = +new Date(2020, 7, 27, 23,59,58) - +new Date();
+        let difference = +new Date(2020, 7, 27, 23, 59, 58) - +new Date();
         let timeLeft = {};
 
         if (difference > 0) {
@@ -95,31 +95,31 @@ const Landing = props => {
     }, [timeLeft])
 
 
-
     return (
-    
-        <Fragment>
-
+        <fragment>
             <Grid container className={clsx(classes.root)} justify={"center"}>
-            	 
-                <Grid item container md={11} sm={11} xs={11} justify={"center"} className={isMobile ? null : classes.escapeTop}>
-									<Particles className={classes.particle}/>
-                    <Typography variant={"h1"} className={classes.counter} align={"right"} style={{position: "absolute", bottom: 10, right: 15}}>
+
+                <Grid item container md={11} sm={11} xs={11} justify={"center"}
+                      className={isMobile ? null : classes.escapeTop}>
+                    <Typography variant={"h1"} className={classes.counter} align={"right"}
+                                style={{position: "absolute", bottom: 10, right: 15}}>
                         <b>
-                            {timeLeft.days|0}D {isMobile? <br/> : ""} {timeLeft.hours|0}H
+                            {timeLeft.days | 0}D {isMobile ? <br/> : ""} {timeLeft.hours | 0}H
                             <br/>
-                            {timeLeft.minutes|0}M {isMobile? <br/> : ""} {timeLeft.seconds|0}S
+                            {timeLeft.minutes | 0}M {isMobile ? <br/> : ""} {timeLeft.seconds | 0}S
                         </b>
                     </Typography>
 
+
                     {
                         isMobile ?
-                        <img height={"100px"} src={mainLogoWhite} alt={"Logo KKCTBN"} />
-                        : null
+                            <img height={"100px"} src={mainLogoWhite} alt={"Logo KKCTBN"}/>
+                            : null
                     }
-                    <Grid item container direction={"row"} md={12} sm={12} xs={12} alignItems={"flex-start"} className={classes.title}>
+                    <Grid item container direction={"row"} md={12} sm={12} xs={12} alignItems={"flex-start"}>
 
-                        <Grid item container md={12} sm={10} justify={"flex-start"} style={isMobile ? {marginBottom : 20} : null}>
+                        <Grid item container md={12} sm={10} justify={"flex-start"}
+                              style={isMobile ? {marginBottom: 20} : null}>
                             <Grid item md={12}>
                                 <Typography variant={isMobile ? "h3" : "h1"}>
                                     <b>Selamat Datang</b>
@@ -132,10 +132,12 @@ const Landing = props => {
                             </Grid>
                         </Grid>
 
-                        <Grid item md={12} style={isMobile ? {marginBottom : 20} : null}>
+
+                        <Grid item md={12} style={isMobile ? {marginBottom: 20} : null}>
                             <Grid item md={6} sm={12}>
                                 <Typography variant="caption" align={isMobile ? "center" : "left"}>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque erat sapien,
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque erat
+                                    sapien,
                                     hendrerit
                                     vitae urna et, iaculis tincidunt justo.
                                 </Typography>
@@ -149,11 +151,10 @@ const Landing = props => {
                             </Grid>
                         </Grid>
                     </Grid>
-                    
                 </Grid>
-                
             </Grid>
-        </Fragment>
+            <Particles2/>
+        </fragment>
     )
 }
 

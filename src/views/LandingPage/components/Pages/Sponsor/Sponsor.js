@@ -19,9 +19,9 @@ const Sponsor = props => {
         <Fragment>
             <Grid className={classes.root} container justify={"center"}>
                 <Grid item container md={10} justify={"space-evenly"}>
-                    <img src={telkomselLogo} height={125} alt={"Sponsor Logo"}/>
-                    <img src={telkomselLogo} height={125} alt={"Sponsor Logo"}/>
-                    <img src={telkomselLogo} height={125} alt={"Sponsor Logo"}/>
+                    <img src={telkomselLogo} height={125} alt={"GuideBook Logo"}/>
+                    <img src={telkomselLogo} height={125} alt={"GuideBook Logo"}/>
+                    <img src={telkomselLogo} height={125} alt={"GuideBook Logo"}/>
                 </Grid>
             </Grid>
         </Fragment>

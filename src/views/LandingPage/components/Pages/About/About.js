@@ -5,6 +5,7 @@ import clsx from "clsx";
 import colorLogo from 'assets/images/logo-color.png';
 import {OverlapTypography} from "../../../../../components";
 import {Typography, useMediaQuery} from "@material-ui/core";
+import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -57,6 +58,7 @@ const About = props => {
                             <Typography variant={"h4"}>Apa Itu</Typography>
                             <Typography className={classes.mainText} variant={"h2"}><b>KKCTBN</b></Typography>
                             <Typography variant={"h6"} align={isMobile ? "justify" : "left"}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic</Typography>
+                            {/*<Button variant='contained' className={classes.btn} color={"primary"} size={"large"}>Download Guide Book</Button>*/}
                         </OverlapTypography>
                     </Grid>
                 </Grid>

@@ -51,20 +51,20 @@ const News = props => {
 
     const [newsData, setNewsData] = useState([])
 
-
-    useMemo(() => {
-
-        fetch(ENDPOINT.NEWS, {method: "GET"})
-            .then(res => {
-                if (res.status === 200) {
-                    return res.json()
-                }
-            })
-            .then(resJSON => {
-                setNewsData(resJSON['data'])
-            })
-
-    }, [])
+    //
+    // useMemo(() => {
+    //
+    //     fetch(ENDPOINT.NEWS, {method: "GET"})
+    //         .then(res => {
+    //             if (res.status === 200) {
+    //                 return res.json()
+    //             }
+    //         })
+    //         .then(resJSON => {
+    //             setNewsData(resJSON['data'])
+    //         })
+    //
+    // }, [])
 
     return (
         <Fragment>

@@ -6,6 +6,7 @@ import MobileAppBar from "./components/MobileAppBar/MobileAppBar";
 import {useMediaQuery} from "@material-ui/core";
 import LandingAppBar from "./components/LandingAppBar";
 import GuideBook from "./components/Pages/GuideBook";
+import Particles2 from "./components/Pages/Landing/Particles2";
 
 
 const LandingPage = () => {
@@ -17,7 +18,6 @@ const LandingPage = () => {
               description="Kompetisi Kapal Cepat Tak Berawak Nasional (KKCTBN) 2020 merupakan salah satu upaya meningkatkan kualitas SDM yang mumpuni di bidang rancang bangun kapal melalui jalur akademis. Daya kreasi mahasiswa dalam kontes tersebut tidak hanya mencakup desain badan kapal yang baik dari segi performance dan manuver, tetapi juga mencakup perencanaan sistem penggerak, sistem navigasi yang handal, dengan memperhatikan keselarasan faktor teknis lainnya (engine matching).">
             {isMobile ? <MobileAppBar/>
                 : <LandingAppBar/>}
-
 
             <Element name={"landing"}>
                 <Landing/>
