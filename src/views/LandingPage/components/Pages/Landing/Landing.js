@@ -7,10 +7,7 @@ import clsx from "clsx";
 import mainImage from "assets/images/main-image.jpg"
 import mainLogoWhite from "assets/images/logo-wh.png"
 import {useMediaQuery} from "@material-ui/core";
-import {Link} from "react-router-dom";
-import Particles from "react-particles-js";
-import Particles2 from "./Particles2";
-import {Page} from "../../../../../components";
+import Particles from "./components/Particles";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -154,7 +151,7 @@ const Landing = props => {
                     </Grid>
                 </Grid>
             </Grid>
-            <Particles2/>
+            <Particles/>
         </fragment>
     )
 }

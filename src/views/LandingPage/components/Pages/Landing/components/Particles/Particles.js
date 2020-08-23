@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-const Particles2 = () => {
+const Particle = () => {
     const classes = useStyles();
     return (
         <Particles
@@ -43,4 +43,4 @@ const Particles2 = () => {
     );
 }
 
-export default Particles2;
+export default Particle;

@@ -6,8 +6,6 @@ import MobileAppBar from "./components/MobileAppBar/MobileAppBar";
 import {useMediaQuery} from "@material-ui/core";
 import LandingAppBar from "./components/LandingAppBar";
 import GuideBook from "./components/Pages/GuideBook";
-import Particles2 from "./components/Pages/Landing/Particles2";
-
 
 const LandingPage = () => {
     const isMobile = useMediaQuery(theme => theme.breakpoints.down('sm'))
