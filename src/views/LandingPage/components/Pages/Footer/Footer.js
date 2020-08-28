@@ -1,7 +1,7 @@
 import React, {Fragment} from 'react'
 import {makeStyles} from "@material-ui/core/styles";
 import logo_umm from '../../../../../assets/images/umm-logo-color.png';
-import logo_ristekbrin from '../../../../../assets/images/ristekbrin-logo-color.png';
+import logo_ristekbrin from '../../../../../assets/images/kemendikbud-logo-color.png';
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
@@ -29,11 +29,11 @@ const Footer = props => {
         <Fragment>
             <Grid className={classes.root} container justify={"center"} alignContent={"center"} alignItems={"center"}>
                 <Grid item container md={10} spacing={3} justify={"center"} alignContent={"center"} alignItems={"center"}>
-                    <Grid item md={6} sm={6} xs={6} container justify={"center"}>
-                        <img src={logo_ristekbrin} width={isMobile ? "40%" : 'auto'} alt={"Ristekbrin Logo"}/>
+                    <Grid item md={6} sm={6} xs={6} container justify={"flex-end"}>
+                        <img src={logo_ristekbrin} width={isMobile ? "50%" : '40%'} alt={"Ristekbrin Logo"}/>
                     </Grid>
-                    <Grid item md={6} sm={6} xs={6} container justify={"center"}>
-                        <img src={logo_umm} width={isMobile ? "100%" : 'auto'} alt={"UMM Logo"}/>
+                    <Grid item md={6} sm={6} xs={6} container justify={"flex-start"}>
+                        <img src={logo_umm} width={isMobile ? "37.5%" : '27.5%'} alt={"UMM Logo"}/>
                     </Grid>
                 </Grid>
             </Grid>

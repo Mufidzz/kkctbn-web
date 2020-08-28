@@ -105,20 +105,25 @@ const Register = props => {
     //Function
 
     const register = () => {
-        fetch(ENDPOINT.USER, {
-            method: "POST",
-            body: JSON.stringify(formState)
-        })
-            .then(res => {
-                if (res.status === 200) {
-                    return res.json()
-                }
+        if(formState.Password === formState.RetypePassword) {
+            fetch(ENDPOINT.USER, {
+                method: "POST",
+                body: JSON.stringify(formState)
             })
-            .then(resJSON => {
-                setModalBody(`Register ${resJSON['message']||"Success"}`)
-                setModalOpen(true)
-                setSuccess(true)
-            })
+                .then(res => {
+                    if (res.status === 200) {
+                        return res.json()
+                    }
+                })
+                .then(resJSON => {
+                    setModalBody(`Register Status : ${resJSON['message']||"Success"}`)
+                    setModalOpen(true)
+                    setSuccess(true)
+                })
+        } else {
+            setModalBody(`Password Not Match`)
+            setModalOpen(true)
+        }
     }
 
 

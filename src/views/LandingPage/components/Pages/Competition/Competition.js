@@ -8,21 +8,21 @@ import {useMediaQuery} from "@material-ui/core";
 // import ReactCardFlip from "react-card-flip";
 
 const catCompetition = [
-    "Lomba Desain Inovasi Desain Kapal Kesehatan",
-    "Lomba Lomba Pembuatan dan Performance Prototype1",
-    "Lomba Poster"
+    "Lomba Desain Inovasi Kapal Kesehatan",
+    "Lomba Poster",
+    "Lomba Pembuatan dan Performa Prototipe",
 ]
 
 const expCompetition = [
     "Desain Kapal Kesehatan",
+    "INOVASI TEKNOLOGI KEMARITIMAN DALAM PENANGANAN COVID 19",
     "ASV - ERC - FERC",
-    "INOVASI TEKNOLOGI KEMARITIMAN DALAM PENANGANAN COVID 19"
 ]
 
 const expCompetitionFlipped = [
     "Penjelasan 1",
+    "Penjelasan 3",
     "Penjelasan 2",
-    "Penjelasan 3"
 ]
 
 const useStyles = makeStyles((theme) => ({

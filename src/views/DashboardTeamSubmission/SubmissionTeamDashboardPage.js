@@ -225,14 +225,20 @@ const SubmissionTeamDashboardPage = props => {
                                     multiple={false}
                                     imagePreview={false}
                                     callbackFunction={(fileMeta) => {
-                                        setFormState({
-                                            ...formState,
-                                            Assignment: {
-                                                ...formState.Assignment,
-                                                OriginFileName: fileMeta['name'],
-                                                Base: fileMeta['base64']
-                                            }
-                                        })
+                                        if (fileMeta['size'] > 10240) {
+                                            setModalBody(`Ukuran File Terlalu Besar`)
+                                            setModalAction(true)
+                                            setModalOpen(true)
+                                        } else {
+                                            setFormState({
+                                                ...formState,
+                                                Assignment: {
+                                                    ...formState.Assignment,
+                                                    OriginFileName: fileMeta['name'],
+                                                    Base: fileMeta['base64']
+                                                }
+                                            })
+                                        }
                                     }}
                                     accept="application/pdf"
                                 />

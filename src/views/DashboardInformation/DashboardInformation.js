@@ -13,9 +13,10 @@ import Paper from "@material-ui/core/Paper";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
-import {Scrollable} from "../../components";
+import {PrivateComponent, Scrollable} from "../../components";
 import {Link} from "react-router-dom";
 import {ENDPOINT} from "../../configs/api";
+import {STORAGE_KEY} from "../../configs/local_storage";
 
 
 const StyledTableCell = withStyles((theme) => ({
@@ -41,8 +42,6 @@ function createData(title, action) {
 }
 
 
-
-
 const useStyles = makeStyles((theme) => ({
     table: {
         minWidth: 700,
@@ -51,13 +50,13 @@ const useStyles = makeStyles((theme) => ({
         marginTop: theme.spacing(2),
         marginBottom: theme.spacing(4),
     },
-    viewButton : {
+    viewButton: {
         width: 200,
-        backgroundColor : theme.palette.primary.main,
-        color : "#FFFFFF",
-        "&:hover" : {
-            backgroundColor : theme.palette.primary.dark,
-            color : "#FFFFFF",
+        backgroundColor: theme.palette.primary.main,
+        color: "#FFFFFF",
+        "&:hover": {
+            backgroundColor: theme.palette.primary.dark,
+            color: "#FFFFFF",
         }
     }
 }));
@@ -67,7 +66,18 @@ const InformationDashboardPage = props => {
     const classes = useStyles();
 
     const [informationData, setInformationData] = useState([])
+    const [userData, setUserData] = useState({
+        FullName: "",
+        Address: "",
+        Phone: "",
+    });
 
+    const [isTeamFound, setTeamFound] = useState(false)
+
+
+    const checkUserData = () => {
+        return userData.FullName === "" || userData.Address === "" || userData.Phone === "";
+    }
 
     const rows = [
             createData('Title',
@@ -77,7 +87,25 @@ const InformationDashboardPage = props => {
     ;
 
     useMemo(() => {
-        fetch(ENDPOINT.NEWS+"-/information", {method: "GET"})
+        const tempUserdata = JSON.parse(localStorage.getItem(STORAGE_KEY.USER_DATA))
+        setUserData(tempUserdata)
+
+        console.log(userData)
+
+        fetch(ENDPOINT.TEAM + "check", {method: "GET", headers: {"Token": localStorage.getItem(STORAGE_KEY.JWT)}})
+            .then(res => {
+                if (res.status === 200) {
+                    return res.json()
+                }
+            })
+            .then(resJSON => {
+                if (resJSON["data"] !== null) {
+                    setTeamFound(true)
+                }
+            })
+
+
+        fetch(ENDPOINT.NEWS + "-/information", {method: "GET"})
             .then(res => {
                 if (res.status === 200) {
                     return res.json()
@@ -86,7 +114,7 @@ const InformationDashboardPage = props => {
             .then(resJSON => {
                 let arr = []
 
-                resJSON['data'].map((v,i) => {
+                resJSON['data'].map((v, i) => {
                     arr.push(
                         createData(
                             v.Title,
@@ -97,30 +125,54 @@ const InformationDashboardPage = props => {
 
                 setInformationData(arr)
             })
-    },[])
+    }, [])
 
     return (
         <Grid container style={{width: "100%"}}>
             <Scrollable>
                 <Grid item md={12} container spacing={2}>
+
                     <Grid item md={3}>
-                        <Button component={Link} to={"/dashboard/user"} fullWidth style={{minHeight: 60, marginBottom: 20}} variant={'contained'} color={'primary'}
-                                size={'large'} startIcon={<CloudDownloadIcon/>}>
-                            Lengkapi Profil
-                        </Button>
-                    </Grid>
-                    <Grid item md={3}>
-                        <Button component={Link} to={"/dashboard/team"} fullWidth style={{minHeight: 60, marginBottom: 20}} variant={'contained'} color={'primary'}
-                                size={'large'} startIcon={<CloudDownloadIcon/>}>
-                            Buat Tim
-                        </Button>
-                    </Grid>
-                    <Grid item md={3}>
-                        <Button fullWidth style={{minHeight: 60, marginBottom: 20}} variant={'contained'} color={'primary'}
+                        <Button fullWidth style={{minHeight: 60, marginBottom: 20}} variant={'contained'}
+                                color={'primary'}
                                 size={'large'} startIcon={<CloudDownloadIcon/>}>
                             Download Buku Panduan
                         </Button>
                     </Grid>
+
+                    {checkUserData() ?
+                        <Grid item md={3}>
+                            <PrivateComponent whitelistKey={['ROLE_USER']}>
+                                <Button component={Link} to={"/dashboard/user"} fullWidth
+                                        style={{minHeight: 60, marginBottom: 20}} variant={'contained'}
+                                        color={'primary'}
+                                        size={'large'} startIcon={<CloudDownloadIcon/>}>
+                                    Lengkapi Profil
+                                </Button>
+                            </PrivateComponent>
+                        </Grid>
+                        :
+                        null
+                    }
+
+
+                    {
+                        !isTeamFound ?
+                            <Grid item md={3}>
+                                <PrivateComponent whitelistKey={['ROLE_USER']}>
+                                    <Button component={Link} to={"/dashboard/team"} fullWidth
+                                            style={{minHeight: 60, marginBottom: 20}} variant={'contained'}
+                                            color={'primary'}
+                                            size={'large'} startIcon={<CloudDownloadIcon/>}>
+                                        Buat Tim
+                                    </Button>
+                                </PrivateComponent>
+                            </Grid>
+                            :
+                            null
+                    }
+
+
                 </Grid>
                 <Grid item md={12} container>
                     <Card style={{width: "100%"}}>

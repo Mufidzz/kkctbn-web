@@ -316,7 +316,7 @@ const DashboardUser = props => {
 
                             <Grid item md={12} sm={12} xs={12} style={{marginTop: 10}}>
                                 <Typography variant={'body2'} style={{marginBottom: 10}}>
-                                    Kartu Tanda Mahasiswa* (pdf file)
+                                    Kartu Tanda Mahasiswa* (gambar, pdf file) [2MB Max]
                                 </Typography>
                             </Grid>
 
@@ -334,20 +334,27 @@ const DashboardUser = props => {
                                     multiple={false}
                                     imagePreview={false}
                                     callbackFunction={(fileMeta) => {
-                                        setUserFile({
-                                            ...userFile,
-                                            StudentIdentityCardSubmission: {
-                                                ...userFile.StudentIdentityCardSubmission,
-                                                OriginFileName: fileMeta['name'],
-                                                Base: fileMeta['base64']
-                                            }
-                                        })
-                                        setState(({
-                                            ...state,
-                                            isUserFileChanged: true
-                                        }))
+
+                                        if (fileMeta['size'] > 2048) {
+                                            setModalBody("Ukuran File Terlalu Besar")
+                                            setModalAction(true)
+                                            setModalOpen(true)
+                                        } else {
+                                            setUserFile({
+                                                ...userFile,
+                                                StudentIdentityCardSubmission: {
+                                                    ...userFile.StudentIdentityCardSubmission,
+                                                    OriginFileName: fileMeta['name'],
+                                                    Base: fileMeta['base64']
+                                                }
+                                            })
+                                            setState(({
+                                                ...state,
+                                                isUserFileChanged: true
+                                            }))
+                                        }
                                     }}
-                                    accept="application/pdf"
+                                    accept="application/pdf, image/*"
                                 />
                             </Grid>
 
@@ -370,7 +377,7 @@ const DashboardUser = props => {
 
                             <Grid item md={12} sm={12} xs={12}>
                                 <Typography variant={'body2'}>
-                                    Kartu Tanda Penduduk* (pdf file)
+                                    Kartu Tanda Penduduk* (gamber, pdf file) [2MB Max]
                                 </Typography>
                             </Grid>
 
@@ -390,20 +397,26 @@ const DashboardUser = props => {
                                     multiple={false}
                                     imagePreview={false}
                                     callbackFunction={(fileMeta) => {
-                                        setUserFile({
-                                            ...userFile,
-                                            IdentityCardSubmission: {
-                                                ...userFile.IdentityCardSubmission,
-                                                OriginFileName: fileMeta['name'],
-                                                Base: fileMeta['base64']
-                                            }
-                                        })
-                                        setState(({
-                                            ...state,
-                                            isUserFileChanged: true
-                                        }))
+                                        if (fileMeta['size'] > 2048) {
+                                            setModalBody("Ukuran File Terlalu Besar")
+                                            setModalAction(true)
+                                            setModalOpen(true)
+                                        } else {
+                                            setUserFile({
+                                                ...userFile,
+                                                IdentityCardSubmission: {
+                                                    ...userFile.IdentityCardSubmission,
+                                                    OriginFileName: fileMeta['name'],
+                                                    Base: fileMeta['base64']
+                                                }
+                                            })
+                                            setState(({
+                                                ...state,
+                                                isUserFileChanged: true
+                                            }))
+                                        }
                                     }}
-                                    accept="application/pdf"
+                                    accept="application/pdf, image/*"
                                 />
                             </Grid>
 

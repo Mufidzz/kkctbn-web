@@ -68,7 +68,7 @@ const Contact = props => {
                                             <img src={envelopeDraw} alt={"Envelope Icon"}/>
                                         </Grid>
                                         <Grid item container md={12} justify={"center"}>
-                                            <Typography variant={"caption"}><b>emailkkctbn@email.com</b></Typography>
+                                            <Typography variant={"caption"}><b>kkctbn2020@umm.ac.id</b></Typography>
                                         </Grid>
                                     </Grid>
                                     <Grid item container md={6}justify={"center"} spacing={1}>
@@ -76,7 +76,7 @@ const Contact = props => {
                                             <img src={phoneDraw} alt={"Phone Icon"}/>
                                         </Grid>
                                         <Grid item container md={12} justify={"center"} >
-                                            <Typography variant={"caption"}><b>+62 822 3333 4444</b></Typography>
+                                            <Typography variant={"caption"}><b>(0341) 551149</b></Typography>
                                         </Grid>
                                     </Grid>
                                 </Grid>

@@ -37,7 +37,10 @@ const Timeline = props => {
                     </Grid>
                     <Grid item container md={8} justify={"center"} alignContent={"flex-start"}>
                         <Typography variant={"body1"} align={"center"} style={{fontWeight: 100}}>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer
+                            Linimasa Penyelenggaraan KKCTBN 2020 terdiri dari 2 Babak
+                        </Typography>
+                        <Typography variant={"body1"} align={"center"} style={{fontWeight: 100}}>
+                            yaitu Babak Penyisihan dan Babak Final
                         </Typography>
                     </Grid>
                     <Grid item container md={8} justify={"space-evenly"} className={classes.card}>

@@ -80,16 +80,16 @@ const App = () => {
     }, [])
 
     const realReturn = (
-        <Suspense fallback={<LinearProgress/>}>
-            <ThemeProvider theme={theme}>
-                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+        <ThemeProvider theme={theme}>
+            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                <Suspense fallback={<LinearProgress color={"primary"}/>}>
                     <Router history={history}>
                         <CssBaseline/>
                         {renderRoutes(routes)}
                     </Router>
-                </MuiPickersUtilsProvider>
-            </ThemeProvider>
-        </Suspense>
+                </Suspense>
+            </MuiPickersUtilsProvider>
+        </ThemeProvider>
     )
 
 

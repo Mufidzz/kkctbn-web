@@ -722,7 +722,7 @@ const EditTeamDashboardPage = props => {
 
                                 <Grid item md={12} style={{marginTop: 10}}>
                                     <Typography variant={'body2'} style={{marginBottom: 10}}>
-                                        Student ID Card* (pdf file)
+                                        Student ID Card* (image, pdf file) [2MB Max]
                                     </Typography>
 
                                 </Grid>
@@ -741,20 +741,27 @@ const EditTeamDashboardPage = props => {
                                         multiple={false}
                                         imagePreview={false}
                                         callbackFunction={(fileMeta) => {
-                                            let mFDA = memberFileData
-                                            mFDA[selectedMemberIndex] = {
-                                                ...mFDA[selectedMemberIndex],
-                                                isUserFileChanged: true,
-                                                StudentIdentityCardSubmission: {
-                                                    ...mFDA[selectedMemberIndex].StudentIdentityCardSubmission,
-                                                    OriginFileName: fileMeta['name'],
-                                                    Base: fileMeta['base64']
+                                            if (fileMeta['size'] > 2048) {
+                                                setModalBody("Ukuran File Terlalu Besar")
+                                                setModalAction(true)
+                                                setModalOpen(true)
+                                            } else {
+                                                let mFDA = memberFileData
+                                                mFDA[selectedMemberIndex] = {
+                                                    ...mFDA[selectedMemberIndex],
+                                                    isUserFileChanged: true,
+                                                    StudentIdentityCardSubmission: {
+                                                        ...mFDA[selectedMemberIndex].StudentIdentityCardSubmission,
+                                                        OriginFileName: fileMeta['name'],
+                                                        Base: fileMeta['base64']
+                                                    }
                                                 }
+
+                                                setMemberFileData([...mFDA])
                                             }
 
-                                            setMemberFileData([...mFDA])
                                         }}
-                                        accept="application/pdf"
+                                        accept="image/*, application/pdf"
                                     />
                                 </Grid>
 
@@ -775,7 +782,7 @@ const EditTeamDashboardPage = props => {
 
                                 <Grid item md={12} style={{marginTop: 10}}>
                                     <Typography variant={'body2'} style={{marginBottom: 10}}>
-                                        Identity Card* (pdf file)
+                                        Identity Card* (pdf file) [2MB Max]
                                     </Typography>
 
                                 </Grid>
@@ -794,20 +801,26 @@ const EditTeamDashboardPage = props => {
                                         multiple={false}
                                         imagePreview={false}
                                         callbackFunction={(fileMeta) => {
-                                            let mFDA = memberFileData
-                                            mFDA[selectedMemberIndex] = {
-                                                ...mFDA[selectedMemberIndex],
-                                                isUserFileChanged: true,
-                                                IdentityCardSubmission: {
-                                                    ...mFDA[selectedMemberIndex].IdentityCardSubmission,
-                                                    OriginFileName: fileMeta['name'],
-                                                    Base: fileMeta['base64']
+                                            if (fileMeta['size'] > 2048) {
+                                                setModalBody("Ukuran File Terlalu Besar")
+                                                setModalAction(true)
+                                                setModalOpen(true)
+                                            } else {
+                                                let mFDA = memberFileData
+                                                mFDA[selectedMemberIndex] = {
+                                                    ...mFDA[selectedMemberIndex],
+                                                    isUserFileChanged: true,
+                                                    IdentityCardSubmission: {
+                                                        ...mFDA[selectedMemberIndex].IdentityCardSubmission,
+                                                        OriginFileName: fileMeta['name'],
+                                                        Base: fileMeta['base64']
+                                                    }
                                                 }
-                                            }
 
-                                            setMemberFileData([...mFDA])
+                                                setMemberFileData([...mFDA])
+                                            }
                                         }}
-                                        accept="application/pdf"
+                                        accept="image/*, application/pdf"
                                     />
                                 </Grid>
 
@@ -839,7 +852,7 @@ const EditTeamDashboardPage = props => {
 
                                 <Grid item md={12} style={{marginTop: 10}}>
                                     <Typography variant={'body2'} style={{marginBottom: 10}}>
-                                        Student Mandate Letter* (pdf file)
+                                        Student Mandate Letter* (pdf file) [2MB Max]
                                     </Typography>
 
                                 </Grid>
@@ -858,15 +871,22 @@ const EditTeamDashboardPage = props => {
                                         multiple={false}
                                         imagePreview={false}
                                         callbackFunction={(fileMeta) => {
-                                            setTeamAdministrationData({
-                                                ...teamAdministrationData,
-                                                isChanged: true,
-                                                StudentMandateLetter: {
-                                                    ...teamAdministrationData.StudentMandateLetter,
-                                                    OriginFileName: fileMeta['name'],
-                                                    Base: fileMeta['base64']
-                                                }
-                                            })
+                                            if (fileMeta['size'] > 2048) {
+                                                setModalBody("Ukuran File Terlalu Besar")
+                                                setModalAction(true)
+                                                setModalOpen(true)
+                                            } else {
+                                                setTeamAdministrationData({
+                                                    ...teamAdministrationData,
+                                                    isChanged: true,
+                                                    StudentMandateLetter: {
+                                                        ...teamAdministrationData.StudentMandateLetter,
+                                                        OriginFileName: fileMeta['name'],
+                                                        Base: fileMeta['base64']
+                                                    }
+                                                })
+                                            }
+
                                         }}
                                         accept="application/pdf"
                                     />
@@ -892,9 +912,8 @@ const EditTeamDashboardPage = props => {
 
                                 <Grid item md={12} style={{marginTop: 10}}>
                                     <Typography variant={'body2'} style={{marginBottom: 10}}>
-                                        Lecturer Mandate Letter* (pdf file)
+                                        Lecturer Mandate Letter* (pdf file) [2MB Max]
                                     </Typography>
-
                                 </Grid>
 
                                 <Grid item md={2}>
@@ -911,15 +930,22 @@ const EditTeamDashboardPage = props => {
                                         multiple={false}
                                         imagePreview={false}
                                         callbackFunction={(fileMeta) => {
-                                            setTeamAdministrationData({
-                                                ...teamAdministrationData,
-                                                isChanged: true,
-                                                LecturerMandateLetter: {
-                                                    ...teamAdministrationData.LecturerMandateLetter,
-                                                    OriginFileName: fileMeta['name'],
-                                                    Base: fileMeta['base64']
-                                                }
-                                            })
+                                            if (fileMeta['size'] > 2048) {
+                                                setModalBody("Ukuran File Terlalu Besar")
+                                                setModalAction(true)
+                                                setModalOpen(true)
+                                            } else {
+                                                setTeamAdministrationData({
+                                                    ...teamAdministrationData,
+                                                    isChanged: true,
+                                                    LecturerMandateLetter: {
+                                                        ...teamAdministrationData.LecturerMandateLetter,
+                                                        OriginFileName: fileMeta['name'],
+                                                        Base: fileMeta['base64']
+                                                    }
+                                                })
+                                            }
+
                                         }}
                                         accept="application/pdf"
                                     />

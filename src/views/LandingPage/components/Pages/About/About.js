@@ -56,7 +56,10 @@ const About = props => {
                         <OverlapTypography overlay={<Typography className={classes.overlayText} variant={"h2"}><b>Kontes Kapal Cepat <br/>Tak Berawak <br/> Nasional</b></Typography>}>
                             <Typography variant={"h4"}>Apa Itu</Typography>
                             <Typography className={classes.mainText} variant={"h2"}><b>KKCTBN</b></Typography>
-                            <Typography variant={"h6"} align={isMobile ? "justify" : "left"}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic</Typography>
+                            <Typography variant={"body1"} align={isMobile ? "justify" : "left"}>
+                                Penyelenggaraan Kontes Kapal Cepat Tak Berawak Nasional (KKCTBN) 2019 merupakan salah satu upaya meningkatkan kualitas SDM yang mumpuni di bidang rancang bangun kapal melalui jalur akademis. Daya kreasi mahasiswa dalam kontes tersebut tidak hanya mencakup desain badan kapal yang baik dari segi performance dan manuver, tetapi juga mencakup perencanaan sistem penggerak, sistem navigasi yang handal, dengan memperhatikan keselarasan faktor teknis lainnya (engine matching). Dengan demikian kreatifitas dalam kontes yang dimaksud akan melibatkan beberapa disiplin ilmu teknik yang terkait.
+
+                            </Typography>
                         </OverlapTypography>
                     </Grid>
                 </Grid>

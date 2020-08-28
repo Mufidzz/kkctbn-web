@@ -10,6 +10,7 @@ import {ConfirmationModal, Scrollable} from "../../components";
 import {ENDPOINT} from "../../configs/api";
 import TextField from "@material-ui/core/TextField";
 import PrivatePage from "../../components/PrivatePage";
+import {STORAGE_KEY} from "../../configs/local_storage";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -72,6 +73,28 @@ const ManageJudgeViewDashboardPage = props => {
         }
     }, [])
 
+    const saveGrade = (id, i) => {
+        fetch(ENDPOINT.TEAM_SUBMISSION + id, {
+                method: "PUT",
+                headers: {
+                    "Token" : localStorage.getItem(STORAGE_KEY.JWT)
+                },
+                body: JSON.stringify({
+                    Grade : parseInt(apiData.Competitions[i].Submission.Grade)
+                })
+            })
+                .then(res => {
+                    if (res.status === 200) {
+                        return res.json()
+                    }
+                })
+                .then(resJSON => {
+                    console.log(resJSON)
+                    setModalBody(`Change Grade Status : ${resJSON['message']||"Unknown"}`)
+                    setModalOpen(true)
+                })
+    }
+
     return (
         <PrivatePage whitelistKey={["ROLE_JUDGE"]}>
             <Grid container style={{width: '98%'}}>
@@ -133,8 +156,22 @@ const ManageJudgeViewDashboardPage = props => {
                                                         </Grid>
                                                         <Grid item md={3} sm={12} xs={12}>
                                                             <TextField
-                                                                // onChange={handleFormChange}
-                                                                // value={formState.Address}
+                                                                onChange={(e) => {
+                                                                    let tC = apiData.Competitions
+                                                                    tC[i] = {
+                                                                        ...tC[i],
+                                                                        Submission : {
+                                                                            ...tC[i].Submission,
+                                                                            Grade : e.target.value
+                                                                        }
+                                                                    }
+
+                                                                    setApiData({
+                                                                        ...apiData,
+                                                                        Competitions: [...tC]
+                                                                    })
+                                                                }}
+                                                                value={v.Submission.Grade}
                                                                 label="Nilai"
                                                                 placeholder="Masukkan Nilai"
                                                                 fullWidth
@@ -144,10 +181,7 @@ const ManageJudgeViewDashboardPage = props => {
                                                         </Grid>
                                                         <Grid item md={3} sm={12} xs={12}>
                                                             <Button fullWidth variant="contained"
-                                                                    onClick={() => {
-                                                                        setModalBody(`Nilai Tersimpan`)
-                                                                        setModalOpen(true)
-                                                                    }}
+                                                                    onClick={() => saveGrade(v.Submission.ID, i)}
                                                                     style={{height: 56}}
                                                                     color={"Primary"}>
                                                                 Simpan Nilai

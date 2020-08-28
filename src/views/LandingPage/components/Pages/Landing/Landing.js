@@ -122,9 +122,7 @@ const Landing = props => {
                         <Grid item md={12} style={isMobile ? {marginBottom : 20} : null}>
                             <Grid item md={6} sm={12}>
                                 <Typography variant="caption" align={isMobile ? "center" : "left"}>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque erat sapien,
-                                    hendrerit
-                                    vitae urna et, iaculis tincidunt justo.
+                                    Kontes Kapal Cepat Tak Berawak Nasional 2020 akan mengangkat tema yaitu “Teknologi Kapal Cepat untuk Menjaga Kedaulatan NKRI di Era Revolusi Industri 4.0”
                                 </Typography>
                             </Grid>
                         </Grid>

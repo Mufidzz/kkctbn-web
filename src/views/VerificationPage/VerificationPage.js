@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState} from "react";
+import React, {Fragment, useEffect, useMemo, useState} from "react";
 import Page from "../../components/Page";
 import {Typography} from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
@@ -14,6 +14,7 @@ import {makeStyles} from "@material-ui/core/styles";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import {ENDPOINT} from "../../configs/api";
 import theme from "../../theme";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -78,6 +79,7 @@ const VerificationPage = props => {
     const [modalOpen, setModalOpen] = useState(false)
     const [modalBody, setModalBody] = useState("")
     const [isSuccess, setSuccess] = useState(false)
+    const [isLoading, setIsLoading] = useState(true)
 
     useMemo(() => {
         fetch(ENDPOINT.COLLEGE, {method: "GET"})
@@ -89,6 +91,7 @@ const VerificationPage = props => {
             .then(resJSON => {
                 console.log(resJSON)
                 setCollegeList(resJSON['data'])
+                setIsLoading(false)
             })
     }, [])
 
@@ -97,7 +100,7 @@ const VerificationPage = props => {
             history.replace("/auth")
         }
 
-    },[isSuccess, modalOpen])
+    }, [isSuccess, modalOpen])
 
 
     const handleSetCollege = (e, v) => {
@@ -113,10 +116,10 @@ const VerificationPage = props => {
     const {id, vt} = props.match.params
 
     const verify = () => {
-        if(selectedCollege.ID !== 0) {
-            fetch(ENDPOINT.USER +  `${id}/verify/${vt}/${selectedCollege.ID}`, {method: "GET"})
+        if (selectedCollege.ID !== 0) {
+            fetch(ENDPOINT.USER + `${id}/verify/${vt}/${selectedCollege.ID}`, {method: "GET"})
                 .then(res => {
-                    if (res.status >= 200){
+                    if (res.status >= 200) {
                         return res.json()
                     }
                 })
@@ -149,18 +152,37 @@ const VerificationPage = props => {
                                     <Typography className={classes.mainText}
                                                 variant={"h2"}><b>Verification</b></Typography>
                                 </OverlapTypography>
-                                <Autocomplete
-                                    disableClearable
-                                    fullWidth
-                                    options={collegeList}
-                                    getOptionLabel={(option) => option.Name}
-                                    onChange={(e, v) => handleSetCollege(e, v)}
-                                    renderInput={(params) =>
-                                        <TextField {...params} fullWidth
-                                                   label="College Name"
-                                                   variant="filled"/>
-                                    }
-                                />
+
+
+
+                                {
+                                    isLoading ?
+                                        <Fragment>
+                                            <Grid item md={12} xs={12} sm={12} container justify={'center'}>
+                                                <CircularProgress/>
+
+                                            </Grid>
+                                            <Grid item md={12} xs={12} sm={12} container justify={'center'}>
+                                                <Typography variant={"h6"}>Loding College Data, Please Wait</Typography>
+                                            </Grid>
+                                        </Fragment>
+
+                                        :
+                                        <Autocomplete
+                                            disableClearable
+                                            fullWidth
+                                            options={collegeList}
+                                            getOptionLabel={(option) => option.Name}
+                                            onChange={(e, v) => handleSetCollege(e, v)}
+                                            renderInput={(params) =>
+                                                <TextField {...params} fullWidth
+                                                           label="College Name"
+                                                           variant="filled"/>
+                                            }
+                                        />
+                                }
+
+
                             </Grid>
 
                             {selectedCollege.ID !== 0 ?
