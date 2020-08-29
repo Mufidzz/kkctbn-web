@@ -21,6 +21,95 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
+const timelineLdi = [
+    {
+        Date : "28 Agustus 2020",
+        Title : "Sosislisasi KKCTBN 2020",
+    },
+    {
+        Date : "29 Agustus 2020",
+        Title : "Workshop",
+    },
+    {
+        Date : "29 Agustus - 10 September 2020",
+        Title : "Pendaftaran Indentitas dan Konsep Desain",
+    },
+    {
+        Date : "1 Oktober 2020",
+        Title : "Batas akhir upload Desain",
+    },
+    {
+        Date : "14-16 Oktober 2020",
+        Title : "Seleksi Finalis 5 Besar Lomba Desain",
+    },
+    {
+        Date : "19 Oktober 2020",
+        Title : "Pengumuman Finalis 5 Besar Lomba Desain ",
+    },
+    {
+        Date : "29-31 Oktober 2020",
+        Title : "Pelaksanaan Final Lomba Desain",
+    },
+    {
+        Date : "31 Oktober 2020",
+        Title : "Pengumuman Juara Lomba Desain",
+    },
+];
+
+const timelineLpost = [
+    {
+        Date : "13 Oktober 2020",
+        Title : "Batas akhir upload poster",
+    },
+    {
+        Date : "31 Oktober 2020",
+        Title : "Pengumuman Juara Lomba Desain",
+    },
+];
+
+const timelineLperf = [
+    {
+        Date : "1 September 2020",
+        Title : "Sosislisasi KKCTBN 2020",
+    },
+    {
+        Date : "2 September 2020",
+        Title : "Workshop ",
+    },
+    {
+        Date : "29 Agustus - 10 September 2020",
+        Title : "Pembukaan Pendaftaran Kontes FERC, ERC, ASV",
+    },
+    {
+        Date : "11-12 September 2020",
+        Title : "Seleksi 10 Besar Kontes FERC, ERC, ASV ",
+    },
+    {
+        Date : "14 September 2020",
+        Title : "Pengumuman Seleksi 10 Besar Kontes FERC, ERC, ASV",
+    },
+    {
+        Date : "15 September – 14 Oktober 2020",
+        Title : "Pembuatan Kapal dan video Kontes FERC, ERC, ASV",
+    },
+    {
+        Date : "14-16 Oktober 2020",
+        Title : "Seleksi Finalis 5 Besar Kontes FERC, ERC, ASV",
+    },
+    {
+        Date : "19 Oktober 2020",
+        Title : "Pengumuman Finalis 5 Besar Kontes FERC, ERC, ASV",
+    },
+    {
+        Date : "29-31 Oktober 2020",
+        Title : "Pelaksanaan Final Kontes FERC, ERC, ASV",
+    },
+    {
+        Date : "31 Oktober 2020",
+        Title : "Pengumuman JuaraKontes FERC, ERC, ASV",
+    },
+];
+
 const Timeline = props => {
     //Variable
     const classes = useStyles();
@@ -43,12 +132,15 @@ const Timeline = props => {
                             yaitu Babak Penyisihan dan Babak Final
                         </Typography>
                     </Grid>
-                    <Grid item container md={8} justify={"space-evenly"} className={classes.card}>
-                        <Grid item md={5} style={isMobile ? {marginBottom : "12px"} : null}>
-                            <TimelineCard/>
+                    <Grid item container md={10} justify={"space-evenly"} spacing={1} className={classes.card}>
+                        <Grid item md={4} style={isMobile ? {marginBottom : "12px"} : null}>
+                            <TimelineCard data={timelineLdi} title={"Lomba Desain Inovasi"}/>
                         </Grid>
-                        <Grid item md={5}>
-                            <TimelineCard/>
+                        <Grid item md={4}>
+                            <TimelineCard data={timelineLperf} title={"Lomba Performance"}/>
+                        </Grid>
+                        <Grid item md={4}>
+                            <TimelineCard data={timelineLpost} title={"Lomba Poster"}/>
                         </Grid>
                     </Grid>
                 </Grid>

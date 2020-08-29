@@ -62,7 +62,7 @@ const Contact = props => {
                             </CardActionArea>
 
                             <CardContent>
-                                <Grid item container md={12}>
+                                <Grid item container md={12} alignItems={"flex-start"} >
                                     <Grid item container md={6} justify={"center"} spacing={1} style={isMobile ? {marginBottom : "12px", marginTop :"12px"} : null}>
                                         <Grid item container md={12} justify={"center"}>
                                             <img src={envelopeDraw} alt={"Envelope Icon"}/>
@@ -71,12 +71,27 @@ const Contact = props => {
                                             <Typography variant={"caption"}><b>kkctbn2020@umm.ac.id</b></Typography>
                                         </Grid>
                                     </Grid>
-                                    <Grid item container md={6}justify={"center"} spacing={1}>
+                                    <Grid item container md={6} justify={"center"} spacing={1}>
                                         <Grid item container md={12} justify={"center"} >
                                             <img src={phoneDraw} alt={"Phone Icon"}/>
                                         </Grid>
-                                        <Grid item container md={12} justify={"center"} >
-                                            <Typography variant={"caption"}><b>(0341) 551149</b></Typography>
+                                        <Grid item container md={12} justify={"center"}>
+
+
+                                            <Grid item container justify={"center"} ms={12} sm={12} xs={12}>
+                                                <Typography variant={"caption"}><b>+62341 464318 ext;112</b></Typography>
+                                            </Grid>
+
+                                            <Grid item container justify={"center"} ms={12} sm={12} xs={12}>
+                                                <Typography variant={"caption"} align={"center"}>Yas Ahmad<br/><b>08559918983</b></Typography>
+
+                                            </Grid>
+                                            <Grid item container justify={"center"} ms={12} sm={12} xs={12}>
+                                                <Typography variant={"caption"} align={"center"}>Sudarwati<br/><b>08128328041</b></Typography>
+
+                                            </Grid>
+
+
                                         </Grid>
                                     </Grid>
                                 </Grid>

@@ -57,8 +57,7 @@ const About = props => {
                             <Typography variant={"h4"}>Apa Itu</Typography>
                             <Typography className={classes.mainText} variant={"h2"}><b>KKCTBN</b></Typography>
                             <Typography variant={"body1"} align={isMobile ? "justify" : "left"}>
-                                Penyelenggaraan Kontes Kapal Cepat Tak Berawak Nasional (KKCTBN) 2019 merupakan salah satu upaya meningkatkan kualitas SDM yang mumpuni di bidang rancang bangun kapal melalui jalur akademis. Daya kreasi mahasiswa dalam kontes tersebut tidak hanya mencakup desain badan kapal yang baik dari segi performance dan manuver, tetapi juga mencakup perencanaan sistem penggerak, sistem navigasi yang handal, dengan memperhatikan keselarasan faktor teknis lainnya (engine matching). Dengan demikian kreatifitas dalam kontes yang dimaksud akan melibatkan beberapa disiplin ilmu teknik yang terkait.
-
+                                Pelaksanaan Kontes Kapal Cepat Tak Berawak (KKCTBN) merupakan salah satu agenda penting bidang kemahasiswaan pada Pusat Prestasi Nasional, Kementerian Pendidikan dan Kebudayaan di Indonesia, dalam hal pengembangan inovasi teknologi kemaritiman guna ikut andil dalam ide untuk mengatasi pendemi Covid 19 yang sekarang ini sedang melanda dunia, kegiatan ini akan melibatkan mahasiswa dan dosen dari bidang-bidang ilmu terkait guna memberikan subangsih pemikiranya dibidang penanganan pendemi dilihat dari prespektif teknologi kemaritiman dan perkapalan. Pada tahun 2020 event ini dilaksanakan secara daring dan luring dengan yang menempatkan Universitas Muhammadiyah Malang sebagai Host. Terdapat 3 kategori yang akan diperlombakan yaitu Lomba Desain dan Re-Desain Layout Akomodasi Penumpang Kapal, Lomba Kontes Model Kapal ASV, ERC, FERC dan Poster, sesuai dengan tema yang telah ditetapkan.
                             </Typography>
                         </OverlapTypography>
                     </Grid>

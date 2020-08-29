@@ -6,6 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import {makeStyles} from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
+import PropTypes from "prop-types"
 import Timeline from "@material-ui/lab/Timeline";
 import TimelineItem from "@material-ui/lab/TimelineItem";
 import TimelineSeparator from "@material-ui/lab/TimelineSeparator";
@@ -26,6 +27,8 @@ const TimelineCard = props => {
     //Variable
     const classes = useStyles()
 
+    const {data = [], title} = props
+
     return (
         <Fragment>
             <Card className={classes.card}>
@@ -33,7 +36,7 @@ const TimelineCard = props => {
                 <CardActionArea>
                     <CardContent className={classes.media}>
                         <Typography gutterBottom variant="h5" component="h2" style={{color: "#FFFFFF"}}>
-                            Babak Penyisihan
+                            {title}
                         </Typography>
                     </CardContent>
                 </CardActionArea>
@@ -41,46 +44,57 @@ const TimelineCard = props => {
 
                 <CardContent>
                     <Grid container spacing={2} direction={"column"}>
-                        <Grid item md={12}>
-                            <Typography variant="subtitle2" color="textSecondary" component="p">
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-                                unknown printer
-                            </Typography>
-                        </Grid>
+                        {/*<Grid item md={12}>*/}
+                        {/*    <Typography variant="subtitle2" color="textSecondary" component="p">*/}
+                        {/*        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem*/}
+                        {/*        Ipsum has been the industry's standard dummy text ever since the 1500s, when an*/}
+                        {/*        unknown printer*/}
+                        {/*    </Typography>*/}
+                        {/*</Grid>*/}
 
-                        <Grid item md={12}>
-                            <Typography variant="h5" component="h2" style={{fontWeight: 700}}>
-                                1-2 Agustus
-                            </Typography>
-                            <Typography variant="subtitle2" component="p">
-                                Pembukaan Pendaftaran
-                            </Typography>
-                        </Grid>
+                        {data.map((v,i) => {
+                            return (
+                                <Grid item md={12}>
+                                    <Typography variant="body1" style={{fontWeight: 700}}>
+                                        {v.Date}
+                                    </Typography>
+                                    <Typography variant="subtitle2" component="p">
+                                        {v.Title}
+                                    </Typography>
+                                </Grid>
+                            )
+                        })}
 
-                        <Grid item md={12}>
-                            <Typography variant="h5" component="h2" style={{fontWeight: 700}}>
-                                1-2 Agustus
-                            </Typography>
-                            <Typography variant="subtitle2" component="p">
-                                Pembukaan Pendaftaran
-                            </Typography>
-                        </Grid>
 
-                        <Grid item md={12}>
-                            <Typography variant="h5" component="h2" style={{fontWeight: 700}}>
-                                1-2 Agustus
-                            </Typography>
-                            <Typography variant="subtitle2" component="p">
-                                Pembukaan Pendaftaran
-                            </Typography>
-                        </Grid>
+
+                        {/*<Grid item md={12}>*/}
+                        {/*    <Typography variant="h5" component="h2" style={{fontWeight: 700}}>*/}
+                        {/*        1-2 Agustus*/}
+                        {/*    </Typography>*/}
+                        {/*    <Typography variant="subtitle2" component="p">*/}
+                        {/*        Pembukaan Pendaftaran*/}
+                        {/*    </Typography>*/}
+                        {/*</Grid>*/}
+
+                        {/*<Grid item md={12}>*/}
+                        {/*    <Typography variant="h5" component="h2" style={{fontWeight: 700}}>*/}
+                        {/*        1-2 Agustus*/}
+                        {/*    </Typography>*/}
+                        {/*    <Typography variant="subtitle2" component="p">*/}
+                        {/*        Pembukaan Pendaftaran*/}
+                        {/*    </Typography>*/}
+                        {/*</Grid>*/}
 
                     </Grid>
                 </CardContent>
             </Card>
         </Fragment>
     )
+}
+
+TimelineCard.propTypes = {
+    data : PropTypes.array,
+    title : PropTypes.string
 }
 
 export default TimelineCard;

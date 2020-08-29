@@ -159,7 +159,7 @@ const MobileAppBar = props => {
                     <Typography  style={{cursor: "pointer", color: "#000000"}}
                                 variant="body2"
                                 color="primary">
-                        Masuk
+                        Login
                     </Typography>
                 </ListItem>
 

@@ -8,6 +8,8 @@ import mainImage from "assets/images/main-image.jpg"
 import mainLogoWhite from "assets/images/logo-wh.png"
 import {useMediaQuery} from "@material-ui/core";
 import {Link} from "react-router-dom";
+import logo_ristekbrin from "../../../../../assets/images/kemendikbud-logo-color.png";
+import logo_umm from "../../../../../assets/images/umm-logo-color.png";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -31,21 +33,21 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: 9999999999,
         color: "#FFFFFF",
         marginTop: theme.spacing(2),
-        "&:hover" : {
+        "&:hover": {
             background: "rgba(215, 44, 44, 1)",
         },
-        [theme.breakpoints.down('sm')] : {
+        [theme.breakpoints.down('sm')]: {
             height: 40
         }
     },
-    escapeTop : {
-        marginTop : 60 + theme.spacing(3)
+    escapeTop: {
+        marginTop: 60 + theme.spacing(3)
     },
-    counter : {
-        fontSize : "8rem",
-        color:"rgba(255,255,255,0.4) !important",
-        [theme.breakpoints.down('sm')] : {
-            fontSize : "5rem",
+    counter: {
+        fontSize: "8rem",
+        color: "rgba(255,255,255,0.4) !important",
+        [theme.breakpoints.down('sm')]: {
+            fontSize: "5rem",
         }
     }
 }))
@@ -54,7 +56,7 @@ const Landing = props => {
 
     //Function
     const calculateTimeLeft = () => {
-        let difference = +new Date(2020, 7, 31, 23,59,58) - +new Date();
+        let difference = +new Date(2020, 9, 29, 23, 59, 58) - +new Date();
         let timeLeft = {};
 
         if (difference > 0) {
@@ -85,44 +87,51 @@ const Landing = props => {
     }, [timeLeft])
 
 
-
     return (
         <Fragment>
             <Grid container className={clsx(classes.root)} justify={"center"}>
-                <Grid item container md={11} sm={11} xs={11} justify={"center"} className={isMobile ? null : classes.escapeTop}>
+                <Grid item container md={11} sm={11} xs={11} justify={"center"}
+                      className={isMobile ? null : classes.escapeTop}>
 
-                    <Typography variant={"h1"} className={classes.counter} align={"right"} style={{position: "absolute", bottom: 10, right: 15}}>
+                    <Typography variant={"h1"} className={classes.counter} align={"right"}
+                                style={{position: "absolute", bottom: 10, right: 15}}>
                         <b>
-                            {timeLeft.days|0}D {isMobile? <br/> : ""} {timeLeft.hours|0}H
+                            {timeLeft.days | 0}D {isMobile ? <br/> : ""} {timeLeft.hours | 0}H
                             <br/>
-                            {timeLeft.minutes|0}M {isMobile? <br/> : ""} {timeLeft.seconds|0}S
+                            {timeLeft.minutes | 0}M {isMobile ? <br/> : ""} {timeLeft.seconds | 0}S
                         </b>
                     </Typography>
 
                     {
                         isMobile ?
-                        <img height={"100px"} src={mainLogoWhite} alt={"Logo KKCTBN"} />
-                        : null
+                            <img height={"100px"} src={mainLogoWhite} alt={"Logo KKCTBN"}/>
+                            : null
                     }
                     <Grid item container direction={"row"} md={12} sm={12} xs={12} alignItems={"flex-start"}>
 
-                        <Grid item container md={12} sm={10} justify={"flex-start"} style={isMobile ? {marginBottom : 20} : null}>
+                        <Grid item container md={12} sm={10} justify={"flex-start"}
+                              style={isMobile ? {marginBottom: 20} : null}>
                             <Grid item md={12}>
                                 <Typography variant={isMobile ? "h3" : "h1"}>
-                                    <b>Selamat Datang</b>
+                                    <b>KKCTBN 2020</b>
                                 </Typography>
                             </Grid>
-                            <Grid item md={12}>
-                                <Typography variant={isMobile ? "h4" : "h2"} style={{fontWeight: "400"}}>
-                                    KKCTBN 2020
-                                </Typography>
+                            <Grid item md={12} sm={12} xs={12} container justify={isMobile ? "center" : "flex-start"}>
+                                {/*<Grid item md={6} sm={6} xs={6} container justify={"flex-end"}>*/}
+                                <img src={logo_umm} height={isMobile ? "50px" : '100px'} alt={"UMM Logo"}/>
+                                <img src={logo_ristekbrin} width={'auto'} height={isMobile ? "50px" : '100px'}
+                                         alt={"Ristekbrin Logo"}/>
+                                {/*</Grid>*/}
+                                {/*<Grid item md={6} sm={6} xs={6} container justify={"flex-start"}>*/}
+                                {/*</Grid>*/}
                             </Grid>
                         </Grid>
 
-                        <Grid item md={12} style={isMobile ? {marginBottom : 20} : null}>
+                        <Grid item md={12} style={isMobile ? {marginBottom: 20} : null}>
                             <Grid item md={6} sm={12}>
                                 <Typography variant="caption" align={isMobile ? "center" : "left"}>
-                                    Kontes Kapal Cepat Tak Berawak Nasional 2020 akan mengangkat tema yaitu “Teknologi Kapal Cepat untuk Menjaga Kedaulatan NKRI di Era Revolusi Industri 4.0”
+                                    Kontes Kapal Cepat Tak Berawak Nasional 2020 akan mengangkat tema yaitu “Teknologi
+                                    Kapal Cepat untuk Menjaga Kedaulatan NKRI di Era Revolusi Industri 4.0”
                                 </Typography>
                             </Grid>
                         </Grid>

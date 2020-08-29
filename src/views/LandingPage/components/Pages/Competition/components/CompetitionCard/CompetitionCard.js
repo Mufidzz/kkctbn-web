@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
     cardContent: {
         padding: theme.spacing(2),
         backgroundColor: "#FF6C6C",
-
+        color: "#FFF"
     }
 }))
 
