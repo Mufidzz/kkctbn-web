@@ -194,6 +194,9 @@ const DashboardUser = props => {
                             }
                         })
                         .then(resJSON => {
+
+                            console.log(resJSON)
+
                             setState({
                                 ...state,
                                 isUserFileChanged: false

@@ -1,4 +1,5 @@
-const URL = "http://localhost:4444"
+// const URL = "http://localhost:4444"
+const URL = "https://api.kkctbn2020.online"
 // const URL = "https://api.ofcode.dev/kkctbn"
 // const URL = "https://34.101.102.234:2004"
 export const ENDPOINT = {

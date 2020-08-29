@@ -116,7 +116,7 @@ const Register = props => {
                     }
                 })
                 .then(resJSON => {
-                    setModalBody(`Register Status : ${resJSON['message']||"Success"}`)
+                    setModalBody(`Register Status : ${resJSON['message']||"Success"}\nCheck your Email for Verification`)
                     setModalOpen(true)
                     setSuccess(true)
                 })
