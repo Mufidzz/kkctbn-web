@@ -79,7 +79,7 @@ const MobileAppBar = props => {
                             style={{cursor: "pointer", color: "#000000"}}
                             variant="body2"
                             color="primary">
-                            Home
+                            Beranda
                         </Typography>
                     </Scroll>
                 </ListItem>
