@@ -1,4 +1,4 @@
-import React, {Fragment, useMemo, useState} from 'react'
+import React, {Fragment, useEffect, useMemo, useState} from 'react'
 import {CardContent, Typography} from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
@@ -12,7 +12,8 @@ import {ENDPOINT} from "../../configs/api";
 import {STORAGE_KEY} from "../../configs/local_storage";
 import {ConfirmationModal, PrivatePage} from "../../components";
 import CircularProgress from "@material-ui/core/CircularProgress";
-
+import {useHistory} from "react-router-dom"
+import {FirstCategory, SecondCategory, ThirdCategory} from "./components";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -65,19 +66,22 @@ const useStyles = makeStyles((theme) => ({
 
 const SubmissionTeamDashboardPage = props => {
     const classes = useStyles();
-    const {cid} = props.match.params
-
+    let {cid} = props.match.params
+    cid = parseInt(Buffer.from(cid, 'base64').toString())
+    const history = useHistory();
 
     const [formState, setFormState] = useState({
         Title: "",
         MediaURL: "",
         TeamID: 0,
+        Description: "",
         CompetitionID: parseInt(cid),
         Assignment: {
             ID: 0,
             OriginFileName: "",
             Base: ""
-        }
+        },
+        CompetitionGroupID: 0
     })
     const [modalOpen, setModalOpen] = useState(false)
     const [modalAction, setModalAction] = useState(true)
@@ -90,8 +94,11 @@ const SubmissionTeamDashboardPage = props => {
         })
     }
 
-    useMemo(() => {
+    useEffect(() => {
+        console.log("TID", formState.TeamID)
+    }, [formState.TeamID])
 
+    useMemo(() => {
         fetch(ENDPOINT.TEAM + "check",
             {
                 method: "GET",
@@ -106,34 +113,49 @@ const SubmissionTeamDashboardPage = props => {
             })
             .then(resJSON => {
                 const {Competitions} = resJSON['data']
-
-                console.log(resJSON['data']['Competitions'])
                 let cData;
-
+                let isCDataFound = false;
                 for (let i = 0; i < Competitions.length; i++) {
                     if (Competitions[i]['ID'] === parseInt(cid)) {
                         cData = Competitions[i];
+                        isCDataFound = true;
                         break;
                     }
+                }
+
+                if (!isCDataFound) {
+                    history.replace("/dashboard/team")
+                    return
                 }
 
                 if (resJSON['data'] !== null) {
                     setFormState({
                         ...formState,
-                        TeamID: cData['ID'],
+                        TeamID: resJSON['data']['ID'],
                         Title: cData['Submission']['Title'],
                         MediaURL: cData['Submission']['MediaURL'],
+                        Description: cData['Submission']['Description'],
                         Assignment: {
                             ...formState.Assignment,
                             ID: cData['Submission']['AssignmentSubmissionID'],
                             OriginFileName: cData['Submission']['Assignment']["OriginFileName"]
-                        }
+                        },
+                        CompetitionGroupID: cData['CompetitionDetail']['CompetitionGroupID']
+                    })
+                } else {
+                    setFormState({
+                        ...formState,
+                        CompetitionGroupID: cData['CompetitionDetail']['CompetitionGroupID']
                     })
                 }
+
+                console.log("CDATA:", cData)
+
             })
     }, [])
 
     const submit = () => {
+
         setModalBody(
             <Fragment>
                 <Grid container justify={"center"}>
@@ -150,16 +172,21 @@ const SubmissionTeamDashboardPage = props => {
         setModalAction(false)
         setModalOpen(true)
 
+        console.log(JSON.stringify({...formState, Base : ""}))
+
         fetch(ENDPOINT.TEAM_SUBMISSION, {
             method: "POST",
             body: JSON.stringify(formState)
         })
             .then(res => {
+                console.log(res.status)
                 if (res.status === 200) {
                     return res.json()
                 }
             })
+            // .then(res => res.json())
             .then(resJSON => {
+                console.log(resJSON);
                 setModalAction(true)
                 setModalBody(`Submission ${resJSON['message']}`)
             })
@@ -167,112 +194,26 @@ const SubmissionTeamDashboardPage = props => {
 
     return (
         <PrivatePage whitelistKey={["ROLE_USER"]}>
-            <Grid container>
-                <Card style={{width: '100%'}}>
-                    <CardHeader
-                        title={'Submission'}
-                        className={classes.cardHeader}
-                    />
-                    <CardContent style={{marginTop: 25}}>
-                        <Grid container spacing={2}>
-                            <Grid item md={12} sm={12} xs={12}>
-                                <TextField
-                                    onChange={handleFormChange}
-                                    value={formState.Title}
-                                    name="Title"
-                                    className={classes.margin}
-                                    label="Title of Innovation"
-                                    required
-                                    variant="filled"
-                                    placeholder={"Entry your title of innovation."} fullWidth
-                                />
-                            </Grid>
-                            <Grid item md={12} sm={12} xs={12}>
-                                <hr width={"100%"}/>
-                            </Grid>
-                            <Grid item md={12} sm={12} xs={12}>
-                                <Typography variant={'body2'}><b>Submission</b></Typography>
-                            </Grid>
-                            <Grid item md={8} sm={12} xs={12}>
-                                <TextField
-                                    onChange={handleFormChange}
-                                    value={formState.MediaURL}
-                                    name="MediaURL"
-                                    className={classes.margin}
-                                    label="Youtube URL"
-                                    required
-                                    variant="filled"
-                                    placeholder={"Entry your youtube url."} fullWidth
-                                />
-                            </Grid>
 
-                            <Grid item md={12} sm={12} xs={12}>
-                                <Typography variant={'body2'} style={{marginTop: 10}}>Proposal File* (pdf) 10MB
-                                    Max</Typography>
-                            </Grid>
+            {
+                formState.CompetitionGroupID === 1 ? <FirstCategory handleFormChange={handleFormChange} formState={formState} setFormState={setFormState}
+                                                                   setModalBody={setModalBody} setModalAction={setModalAction} setModalOpen={setModalOpen}
+                                                                   submit={submit} useStyles={useStyles}/> : null
 
-                            <Grid item md={2} sm={6} xs={6}>
-                                <FileInputComponent
-                                    parentStyle={{margin: "0 !important"}}
-                                    labelText={"Current : -"}
-                                    labelStyle={{display: "none"}}
-                                    buttonComponent={
-                                        <Button fullWidth variant="contained" component="span"
-                                                className={classes.containedOrange}>
-                                            {formState.Assignment.OriginFileName !== "" ? "Reupload" : "Upload"}
-                                        </Button>
-                                    }
-                                    multiple={false}
-                                    imagePreview={false}
-                                    callbackFunction={(fileMeta) => {
-                                        if (fileMeta['size'] > 10240) {
-                                            setModalBody(`Ukuran File Terlalu Besar`)
-                                            setModalAction(true)
-                                            setModalOpen(true)
-                                        } else {
-                                            setFormState({
-                                                ...formState,
-                                                Assignment: {
-                                                    ...formState.Assignment,
-                                                    OriginFileName: fileMeta['name'],
-                                                    Base: fileMeta['base64']
-                                                }
-                                            })
-                                        }
-                                    }}
-                                    accept="application/pdf"
-                                />
-                            </Grid>
+            }
 
-                            <Grid item md={2} sm={6} xs={6}>
-                                <Button fullWidth variant="contained" component="span" className={classes.containedTeal}
-                                        onClick={() => {
-                                            window.open(ENDPOINT.SUBMISSION + formState.Assignment.ID + "/download", '_blank')
-                                        }}>
-                                    Download
-                                </Button>
-                            </Grid>
+            {
+                formState.CompetitionGroupID === 2 ? <SecondCategory handleFormChange={handleFormChange} formState={formState} setFormState={setFormState}
+                                                                     setModalBody={setModalBody} setModalAction={setModalAction} setModalOpen={setModalOpen}
+                                                                     submit={submit} useStyles={useStyles}/> : null
+            }
 
-                            <Grid item md={12} sm={12} xs={12} style={{marginTop: 10}}>
-                                <Typography variant={'caption'} style={{marginBottom: 10}}>
-                                    Current
-                                    : {formState.Assignment.OriginFileName !== "" ? formState.Assignment.OriginFileName : '-'}
-                                </Typography>
-                            </Grid>
+            {
+                formState.CompetitionGroupID === 3 ? <ThirdCategory handleFormChange={handleFormChange} formState={formState} setFormState={setFormState}
+                                                                    setModalBody={setModalBody} setModalAction={setModalAction} setModalOpen={setModalOpen}
+                                                                    submit={submit} useStyles={useStyles}/> : null
+            }
 
-                            <Grid item container md={12} sm={12} xs={12} justify={"flex-end"} style={{marginTop: 10}}>
-                                <Grid item md={6} sm={12} xs={12}>
-                                    <Button onClick={submit} fullWidth variant={"contained"} size={"large"}
-                                            color={'primary'} endIcon={<SendIcon/>}>
-                                        Submit
-                                    </Button>
-                                </Grid>
-                            </Grid>
-                        </Grid>
-
-                    </CardContent>
-                </Card>
-            </Grid>
             <ConfirmationModal displayAction={modalAction} textBody={modalBody} open={modalOpen}
                                setOpen={setModalOpen}/>
         </PrivatePage>

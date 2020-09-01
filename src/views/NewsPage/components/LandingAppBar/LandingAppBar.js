@@ -51,7 +51,7 @@ const LandingAppBar = props => {
                                         style={{cursor: "pointer", color: "#FFFFFF"}}
                                         variant="h6"
                                         color="primary">
-                                        Home
+                                        Beranda
                                     </Typography>
                                 </Grid>
                                 <Grid item>

@@ -22,7 +22,9 @@ const GuideBook = props => {
     return (
         <Grid className={classes.root} container>
             <Grid item container md={12} xs={12} lg={12} justify={"center"}>
-                <Button variant='contained' className={classes.btn} color={"primary"} size={"large"}>Download Guide
+                <Button
+                    href={"https://api.kkctbn2020.online/submission/23/download"}
+                    variant='contained' className={classes.btn} color={"primary"} size={"large"}>Download Guide
                     Book</Button>
             </Grid>
         </Grid>

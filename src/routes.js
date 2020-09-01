@@ -1,5 +1,6 @@
-import {lazy} from "react"
+import React, {lazy} from "react"
 import DashboardLayout from "./layouts/DashboardLayout";
+import AuthorizationPage from "./views/AuthorizationPage";
 
 const routes = [
     {
@@ -16,6 +17,11 @@ const routes = [
         path: "/auth",
         exact: true,
         component : lazy(() => import("./views/AuthorizationPage"))
+    },
+    {
+        path: "/auth/register",
+        exact: true,
+        component : () => <AuthorizationPage aR={"register"}/>
     },
     {
         path: "/news/:nid",
@@ -68,6 +74,11 @@ const routes = [
             },
             {
                 path: "/dashboard/manage/news",
+                exact: true,
+                component : lazy(() => import("./views/DashboardAdminNewsList"))
+            },
+            {
+                path: "/dashboard/manage/news/:nid",
                 exact: true,
                 component : lazy(() => import("./views/DashboardAdminManageNews"))
             },

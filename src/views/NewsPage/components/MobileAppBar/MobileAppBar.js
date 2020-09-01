@@ -79,81 +79,10 @@ const MobileAppBar = props => {
                             style={{cursor: "pointer", color: "#000000"}}
                             variant="body2"
                             color="primary">
-                            Home
+                            Beranda
                         </Typography>
                     </Scroll>
                 </ListItem>
-
-                <ListItem button>
-                    <Scroll
-                        activeClass={classes.activeItem}
-                        className={classes.inactiveItem}
-                        to="about"
-                        spy={true}
-                        smooth={true}
-                        offset={-95}
-                        duration={500}
-                    >
-                        <Typography
-                            style={{cursor: "pointer", color: "#000000"}}
-                            variant="body2"
-                            color="primary">
-                            About
-                        </Typography>
-                    </Scroll>
-                </ListItem>
-
-                <ListItem button>
-                    <Scroll
-                        activeClass={classes.activeItem}
-                        className={classes.inactiveItem}
-                        to="competition"
-                        spy={true}
-                        smooth={true}
-                        offset={-95}
-                        duration={500}
-                    >
-                        <Typography style={{cursor: "pointer", color: "#000000"}} variant="body2"
-                                    color="primary">
-                            Competition
-                        </Typography>
-                    </Scroll>
-                </ListItem>
-
-                <ListItem button>
-                    <Scroll
-                        activeClass={classes.activeItem}
-                        className={classes.inactiveItem}
-                        to="timeline"
-                        spy={true}
-                        smooth={true}
-                        offset={-95}
-                        duration={500}
-                    >
-                        <Typography style={{cursor: "pointer", color: "#000000"}} variant="body2"
-                                    color="primary">
-                            Timeline
-                        </Typography>
-                    </Scroll>
-                </ListItem>
-
-                <ListItem button>
-                    <Scroll
-                        activeClass={classes.activeItem}
-                        className={classes.inactiveItem}
-                        to="faq"
-                        spy={true}
-                        smooth={true}
-                        offset={-95}
-                        duration={500}
-                    >
-                        <Typography style={{cursor: "pointer", color: "#000000"}} variant="body2"
-                                    color="primary">
-                            FAQ
-                        </Typography>
-                    </Scroll>
-                </ListItem>
-
                 <Divider/>
 
                 <ListItem component={Link} to={"/auth"}>

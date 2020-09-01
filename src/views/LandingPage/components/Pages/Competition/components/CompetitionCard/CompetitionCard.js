@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
 
 const CompetitionCard = props => {
     //Variable
-    const {image, children, title, explain} = props;
+    const {image, children, title, explain, logo} = props;
     const classes = useStyles();
 
     const [isFlipped, setIsFlipped] = useState(false);
@@ -34,7 +34,7 @@ const CompetitionCard = props => {
             <Card className={classes.card}>
                 <CardActionArea onClick={handleClick}>
                     <CardContent>
-                        <img width={"100%"} src={image} alt={"Card Image"}/>
+                        <img width={"100%"} src={logo} alt={"Card Image"}/>
                     </CardContent>
                     <CardContent className={classes.cardContent}>
                         {children}
@@ -60,6 +60,7 @@ const CompetitionCard = props => {
 CompetitionCard.propTypes = {
     children: PropTypes.node.isRequired,
     image: PropTypes.string.isRequired,
+    logo: PropTypes.object.isRequired,
 }
 
 export default CompetitionCard;

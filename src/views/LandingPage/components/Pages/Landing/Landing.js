@@ -130,14 +130,13 @@ const Landing = props => {
                         <Grid item md={12} style={isMobile ? {marginBottom: 20} : null}>
                             <Grid item md={6} sm={12}>
                                 <Typography variant="caption" align={isMobile ? "center" : "left"}>
-                                    Kontes Kapal Cepat Tak Berawak Nasional 2020 akan mengangkat tema yaitu “Teknologi
-                                    Kapal Cepat untuk Menjaga Kedaulatan NKRI di Era Revolusi Industri 4.0”
+                                    Kontes Kapal Cepat Tak Berawak Nasional 2020 akan mengangkat tema yaitu <br/> “INOVASI TEKNOLOGI KEMARITIMAN DALAM PENANGANAN COVID 19”
                                 </Typography>
                             </Grid>
                         </Grid>
                         <Grid item container md={12}>
                             <Grid item md={3} sm={12} xs={12}>
-                                <Button fullWidth variant="contained" className={classes.roundedButton}>
+                                <Button component={Link} to={'/auth/register'} fullWidth variant="contained" className={classes.roundedButton}>
                                     <Typography variant={"button"}> Daftar </Typography>
                                 </Button>
                             </Grid>

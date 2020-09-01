@@ -72,7 +72,7 @@ const NewsPage = props => {
                     <Grid ref={getFooterHeight} item container md={12} sm={12} xs={12}
                           justify={"center"} alignContent={"center"} alignItems={"center"}
                           className={classes.footer}>
-                        <Typography variant={"subtitle2"}> Ini Footer </Typography>
+                        <Typography variant={"subtitle2"}> Copyright © 2020 All rights reserved </Typography>
                     </Grid>
                 </Grid>
             </Grid>

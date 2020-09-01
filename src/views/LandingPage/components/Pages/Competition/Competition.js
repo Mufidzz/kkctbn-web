@@ -2,10 +2,11 @@ import React, {Fragment, useState } from 'react'
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import {makeStyles} from "@material-ui/core/styles";
-import competitionCardImage from "assets/images/ship-red.png"
 import {CompetitionCard} from "./components";
 import {useMediaQuery} from "@material-ui/core";
-// import ReactCardFlip from "react-card-flip";
+import logoLdikk from "assets/images/logo-ldikk.png"
+import logoLpitk from "assets/images/logo-lpitk.png"
+import logoLppp from "assets/images/logo-lppp.png"
 
 const catCompetition = [
     "Lomba Desain Inovasi Kapal Kesehatan",
@@ -27,6 +28,12 @@ const expCompetitionFlipped = [
     "layout ruang akomodasi untuk mendukung penanganan covid 19 yang sekarang ini sedang berlangsung. ",
     "Setiap tim lomba desain inovasi dan pembuatan prototipe kapal untuk penanganan covid 19 wajib membuat poster yang nanti akan dilombakan pada lomba poster. Poster berisi inovasi teknologi kemaritiman dengan: tampilan 3D, inovasi, keunggulan dan prosedur penanganan covid-19.\n",
     "Pada katagori ini dikompetisikan 3 (tiga) lomba pembuatan dan performa prototipe antara lain: Kapal Kendali Otomatis (Autonomous Surface Vehicle/ASV), Kapal Cepat Listrik dengan Sistem Kendali Jauh (Electric Remote Control/ERC) dan Kapal Cepat Berbahan Bakar dengan Sistem Kendali Jauh (Fuel Engine Remote Control / FERC)",
+]
+
+const expCompetitionLogo = [
+    logoLdikk,
+    logoLpitk,
+    logoLppp
 ]
 
 const useStyles = makeStyles((theme) => ({
@@ -69,8 +76,8 @@ const Competition = props => {
                         		const itemExpCompetitionFlipped = expCompetitionFlipped[i];
                             return (
                                 <Grid item md={4} style={isMobile ? {marginBottom : "12px"} : null} >
-                                   
-                                    <CompetitionCard image={competitionCardImage} title={v} explain={
+
+                                    <CompetitionCard title={v} logo={expCompetitionLogo[i]} explain={
                                         <Typography variant={"body2"} display={"block"} align={"left"} style={{whiteSpace : 'pre-line'}}>
                                             {itemExpCompetitionFlipped}
                                         </Typography>

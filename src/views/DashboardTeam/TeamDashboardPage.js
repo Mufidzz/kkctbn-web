@@ -102,7 +102,7 @@ const TeamDashboardPage = props => {
                                     competition["Submission"]['ID'] === 0 ?
                                         <Button variant={'outlined'} style={{color: 'red'}}>Not Uploaded Yet</Button> :
                                         <Button variant={"outlined"} style={{color: 'green'}}>Already uploaded</Button>,
-                                    <Button component={Link} to={'/dashboard/team/submission/' + competition["ID"]}
+                                    <Button component={Link} to={'/dashboard/team/submission/' + Buffer.from(competition["ID"].toString()).toString('base64')}
                                             variant={'contained'} color={'secondary'}>Submission</Button>
                                 )
                             )
@@ -127,7 +127,7 @@ const TeamDashboardPage = props => {
                     <Card style={{width: '100%'}}>
                         <CardContent>
                             <Grid item md={12} sm={12} xs={12}>
-                                <Typography variant={"h5"}>Managemen Tim</Typography>
+                                <Typography variant={"h5"}>Manajemen Tim</Typography>
                             </Grid>
                             <Grid item md={4} sm={12} xs={12} style={{marginTop: 20}}>
                                 <Link to={'/dashboard/team/edit'} style={{textDecoration: 'none'}}>

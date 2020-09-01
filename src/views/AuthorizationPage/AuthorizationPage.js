@@ -2,14 +2,19 @@ import React, {useEffect, useState} from 'react';
 import Register from "./components/Register";
 import Login from "./components/Login";
 import Page from "../../components/Page";
-import {makeStyles} from "@material-ui/core/styles";
 
 
 
-const AuthorizationPage = () => {
-
+const AuthorizationPage = props => {
+    const {aR} = props
     const [activeRefs, setActiveRefs] = useState("login")
     const [activeView, setActiveView] = useState(<Login mover={setActiveRefs}/>)
+
+    useEffect(()=> {
+        if (aR !== "" || aR !== undefined || aR !== null) {
+            setActiveRefs(aR)
+        }
+    }, [aR])
 
     useEffect(() => {
             switch (activeRefs) {

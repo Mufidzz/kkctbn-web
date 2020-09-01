@@ -151,7 +151,7 @@ const Register = props => {
 
 
                                 <Grid item md={12} sm={12} xs={12}>
-                                    <Typography variant={"h4"} align={"center"}><b>Buat sebuah Akun</b></Typography>
+                                    <Typography variant={"h4"} align={"center"}><b>Buat Akun Baru</b></Typography>
                                     {isMobile ? <Typography variant={"h6"} align={"center"}>or</Typography> :
                                         <Typography variant={"h6"} align={"center"}>Untuk bergabung dengan kami dan
                                             mendapatkan dashboard Anda,

@@ -168,8 +168,9 @@ const EditTeamDashboardPage = props => {
     const [formState, setFormState] = useState({
         Name: "",
         LecturerName: "",
-        LecturerNIDN : ""
+        LecturerNIDN: ""
     })
+    const [teamLeaderData, setTeamLeaderData] = useState({})
     const [memberData, setMemberData] = useState([
         memberStruct
     ]);
@@ -177,12 +178,12 @@ const EditTeamDashboardPage = props => {
         memberFileDataStruct
     ])
     const [teamAdministrationData, setTeamAdministrationData] = useState({
-        isChanged : false,
-        TeamID : 0,
-        StudentMandateLetter : {
+        isChanged: false,
+        TeamID: 0,
+        StudentMandateLetter: {
             ...teamFileDataStruct
         },
-        LecturerMandateLetter : {
+        LecturerMandateLetter: {
             ...teamFileDataStruct
         }
     })
@@ -210,7 +211,11 @@ const EditTeamDashboardPage = props => {
             })
             .then(resJSON => {
                 if (resJSON["data"] !== null) {
-                    const {LecturerName,LecturerNIDN, Name, Competitions, Members} = resJSON["data"]
+
+                    const {LecturerName, LecturerNIDN, Name, Competitions, Members, LeaderDetail} = resJSON["data"]
+
+                    setTeamLeaderData(LeaderDetail)
+                    console.log(LeaderDetail)
 
                     setFormState({
                         ...formState,
@@ -308,16 +313,46 @@ const EditTeamDashboardPage = props => {
 
     const handleMemberFormChange = (i, e) => {
         let mD = memberData;
-        mD[i] = {
-            ...mD[i],
-            UserDetail: {
-                ...mD[i].UserDetail,
-                [e.target.name]: e.target.value
+
+        if (e.target.name === "Email") {
+            if (e.target.value === teamLeaderData.Email) {
+                setModalBody("Email Member dan Ketua tidak boleh sama");
+                setModalAction(true)
+                setModalOpen(true)
+
+                mD[i] = {
+                    ...mD[i],
+                    UserDetail: {
+                        ...mD[i].UserDetail,
+                        [e.target.name]: ""
+                    }
+                }
+                setMemberData([
+                    ...mD
+                ])
+            } else {
+                mD[i] = {
+                    ...mD[i],
+                    UserDetail: {
+                        ...mD[i].UserDetail,
+                        [e.target.name]: e.target.value
+                    }
+                }
+
+            }
+        } else {
+            mD[i] = {
+                ...mD[i],
+                UserDetail: {
+                    ...mD[i].UserDetail,
+                    [e.target.name]: e.target.value
+                }
             }
         }
         setMemberData([
             ...mD
         ])
+
     }
 
     const handleSetCompetition = (e, v, i) => {
@@ -334,7 +369,7 @@ const EditTeamDashboardPage = props => {
 
     //Function
     const addMember = () => {
-        if (memberData.length < 2  ) {
+        if (memberData.length < 2) {
             setMemberData([
                 ...memberData,
                 memberStruct
@@ -378,6 +413,8 @@ const EditTeamDashboardPage = props => {
         setModalAction(false)
         setModalOpen(true)
 
+
+
         const json = {
             ...formState,
             Competitions: [
@@ -387,6 +424,9 @@ const EditTeamDashboardPage = props => {
                 ...memberData
             ]
         };
+
+
+
 
         fetch(ENDPOINT.TEAM, {
             method: state.flag === 1 ? "PUT" : "POST",
@@ -416,7 +456,21 @@ const EditTeamDashboardPage = props => {
                 )
 
                 memberFileData.map((v, i) => {
+                    console.log("JSON",
+                        JSON.stringify({
+                            UserID: resJSON['data']['Members'][i]["UserID"],
+                            ...v
+                        })
+                    )
+
                     if (v.isUserFileChanged) {
+                        console.log("JSON",
+                            JSON.stringify({
+                                UserID: resJSON['data']['Members'][i]["UserID"],
+                                ...v
+                            })
+                        )
+
                         fetch(ENDPOINT.USER_SUBMISSION, {
                             method: "POST",
                             body: JSON.stringify({
@@ -430,24 +484,27 @@ const EditTeamDashboardPage = props => {
                                 }
                             })
                             .then(resJSON => {
-                                setModalBody(
-                                    <Fragment>
-                                        <Grid container justify={"center"}>
-                                            <Grid item container justify={"center"} md={12} sm={12} xs={12}
-                                                  style={{paddingTop: 10, paddingBottom: 10}}>
-                                                <CircularProgress color="primary"/>
-                                            </Grid>
-                                            <Grid item container justify={"center"} md={12} sm={12} xs={12}>
-                                                <Typography>Updating Team Administration Data</Typography>
-                                            </Grid>
-                                        </Grid>
-                                    </Fragment>
-                                )
+
                             })
                     }
                 })
 
                 if (teamAdministrationData.isChanged) {
+                    setModalBody(
+                        <Fragment>
+                            <Grid container justify={"center"}>
+                                <Grid item container justify={"center"} md={12} sm={12} xs={12}
+                                      style={{paddingTop: 10, paddingBottom: 10}}>
+                                    <CircularProgress color="primary"/>
+                                </Grid>
+                                <Grid item container justify={"center"} md={12} sm={12} xs={12}>
+                                    <Typography>Updating Team Administration Data</Typography>
+                                </Grid>
+                            </Grid>
+                        </Fragment>
+                    )
+                    setModalAction(false)
+
                     fetch(ENDPOINT.TEAM_ADMINISTRATION_SUBMISSION, {
                         method: "POST",
                         body: JSON.stringify({
@@ -464,8 +521,10 @@ const EditTeamDashboardPage = props => {
 
                         })
                 }
+            })
+            .then(() => {
                 setModalAction(true)
-                setModalBody(`Update Status ${resJSON['message']}`)
+                setModalBody(`Update Status Success`)
             })
 
     }
@@ -486,7 +545,7 @@ const EditTeamDashboardPage = props => {
         // state.loading ? <CircularProgress/> :
         <PrivatePage whitelistKey={["ROLE_USER"]}>
 
-        <Grid container>
+            <Grid container>
                 <Grid item md={12}>
 
                     <Card style={{width: '100%'}}>
@@ -499,8 +558,7 @@ const EditTeamDashboardPage = props => {
                         <CardContent style={{marginTop: 25}}>
                             <Grid container spacing={2}>
                                 <Grid item md={12} sm={12} xs={12}>
-                                    <Typography variant={"body2"} className={classes.label}>Team
-                                        Information</Typography>
+                                    <Typography variant={"body2"} className={classes.label}>Informasi Tim</Typography>
                                 </Grid>
                                 <Grid item md={12}>
                                     <TextField
@@ -508,10 +566,10 @@ const EditTeamDashboardPage = props => {
                                         onChange={handleTeamFormChange}
                                         name="Name"
                                         className={classes.margin}
-                                        label="Team name"
+                                        label="Nama Tim"
                                         required
                                         variant="filled"
-                                        placeholder={"Entry your team name."}
+                                        placeholder={"Masukkan nama tim."}
                                         fullWidth
                                         helperText="ex : Panda Terbang"
                                     />
@@ -524,10 +582,10 @@ const EditTeamDashboardPage = props => {
                                         onChange={handleTeamFormChange}
                                         name="LecturerNIDN"
                                         className={classes.margin}
-                                        label="Supervisory Lecturer NIDN"
+                                        label="NIDN Dosen Pembimbing"
                                         required
                                         variant="filled"
-                                        placeholder={"Entry your supervisory lecturer nidn."} fullWidth
+                                        placeholder={"Masukkan NIDN Dosen Pembimbing."} fullWidth
                                         helperText="ex : 2222...."
                                     />
                                 </Grid>
@@ -539,10 +597,10 @@ const EditTeamDashboardPage = props => {
                                         onChange={handleTeamFormChange}
                                         name="LecturerName"
                                         className={classes.margin}
-                                        label="Supervisory Lecturer Name"
+                                        label="Nama Dosen Pembimbing"
                                         required
                                         variant="filled"
-                                        placeholder={"Entry your supervisory lecturer name."} fullWidth
+                                        placeholder={"Masukkan Nama Dosen Pembimbing."} fullWidth
                                         helperText="ex : Joni Irawan, S.Kom"
                                     />
                                 </Grid>
@@ -551,8 +609,8 @@ const EditTeamDashboardPage = props => {
                                 <Grid item container md={12} sm={12} xs={12}>
 
                                     <Grid item md={12} sm={12} xs={12}>
-                                        <Typography variant={"body2"} className={classes.label}>Selected
-                                            competition</Typography>
+                                        <Typography variant={"body2"} className={classes.label}>Pilihan
+                                            Kompetisi</Typography>
                                     </Grid>
 
 
@@ -583,7 +641,7 @@ const EditTeamDashboardPage = props => {
                                                             onChange={(e, v) => handleSetCompetition(e, v, i)}
                                                             renderInput={(params) =>
                                                                 <TextField {...params} fullWidth
-                                                                           label="Sub-Competition"
+                                                                           label="Sub Kategori"
                                                                            variant="filled"/>
                                                             }
                                                         />
@@ -591,7 +649,7 @@ const EditTeamDashboardPage = props => {
                                                     <Grid item container md={12} justify={"flex-end"}>
                                                         <Grid item md={6}>
                                                             <Typography variant={"caption"}>
-                                                                Current
+                                                                Saat ini
                                                                 : <br/>{competition["Competitions"].find(e => e.ID === teamCompetition[i].CompetitionID) !== undefined ? competition["Competitions"].find(e => e.ID === teamCompetition[i].CompetitionID)["Name"] : "-"}
                                                             </Typography>
                                                         </Grid>
@@ -612,7 +670,7 @@ const EditTeamDashboardPage = props => {
 
                                 <Grid item md={12}>
                                     <Typography variant={'body2'} style={{marginBottom: 10}}>
-                                        Members Management
+                                        Pengaturan Anggota
                                     </Typography>
                                 </Grid>
 
@@ -655,11 +713,11 @@ const EditTeamDashboardPage = props => {
                                         onChange={e => handleMemberFormChange(selectedMemberIndex, e)}
                                         value={memberData[selectedMemberIndex].UserDetail.FullName}
                                         className={classes.margin}
-                                        label="Full Name According to ID Card"
+                                        label="Nama Lengkap"
                                         required
                                         variant="filled"
-                                        placeholder={"Entry your full name."} fullWidth
-                                        helperText="ex : Joni Irawan"
+                                        placeholder={"Masukkan Nama Lengkap Anggota."} fullWidth
+                                        helperText="Nama Lengkap Harus Sesuai KTP"
                                     />
                                 </Grid>
 
@@ -669,10 +727,10 @@ const EditTeamDashboardPage = props => {
                                         onChange={e => handleMemberFormChange(selectedMemberIndex, e)}
                                         value={memberData[selectedMemberIndex].UserDetail.Email}
                                         className={classes.margin}
-                                        label="Email Address"
+                                        label="Email"
                                         required
                                         variant="filled"
-                                        placeholder={"Entry your email Address."} fullWidth
+                                        placeholder={"Masukkan Email."} fullWidth
                                         helperText="ex : kkctbn@gmail.com"
                                     />
                                 </Grid>
@@ -683,11 +741,11 @@ const EditTeamDashboardPage = props => {
                                         onChange={e => handleMemberFormChange(selectedMemberIndex, e)}
                                         value={memberData[selectedMemberIndex].UserDetail.StudentID}
                                         className={classes.margin}
-                                        label="Student ID Number"
+                                        label="NIM"
                                         required
                                         variant="filled"
-                                        placeholder={"Entry your student id number"} fullWidth
-                                        helperText="The student ID number of each campus has its own characteristics"
+                                        placeholder={"Masukkan NIM"} fullWidth
+                                        helperText="NIM harus sesuai Kartu Tanda Mahasiswa"
 
                                     />
                                 </Grid>
@@ -698,10 +756,10 @@ const EditTeamDashboardPage = props => {
                                         onChange={e => handleMemberFormChange(selectedMemberIndex, e)}
                                         value={memberData[selectedMemberIndex].UserDetail.Phone}
                                         className={classes.margin}
-                                        label="Phone Number"
+                                        label="Nomor HP"
                                         required
                                         variant="filled"
-                                        placeholder={"Entry your phone number"} fullWidth
+                                        placeholder={"Masukkan Nomor HP"} fullWidth
                                         helperText="ex : 628123456..."
                                     />
                                 </Grid>
@@ -711,8 +769,8 @@ const EditTeamDashboardPage = props => {
                                         name="Address"
                                         onChange={e => handleMemberFormChange(selectedMemberIndex, e)}
                                         value={memberData[selectedMemberIndex].UserDetail.Address}
-                                        label="Address"
-                                        placeholder="Entry complete Address"
+                                        label="Alamat"
+                                        placeholder="Masukkan Alamat Lengkap"
                                         multiline
                                         fullWidth
                                         helperText="ex : Jalan Raya Tlogomas No. 246 Tlogomas, Babatan, Tegalgondo, Kec. Lowokwaru, Kota Malang, Jawa Timur 65144"
@@ -722,7 +780,7 @@ const EditTeamDashboardPage = props => {
 
                                 <Grid item md={12} style={{marginTop: 10}}>
                                     <Typography variant={'body2'} style={{marginBottom: 10}}>
-                                        Student ID Card* (image, pdf file) [2MB Max]
+                                        Kartu Tanda Mahasiswa* (image, pdf file) [1MB Max]
                                     </Typography>
 
                                 </Grid>
@@ -730,7 +788,7 @@ const EditTeamDashboardPage = props => {
                                 <Grid item md={2}>
                                     <FileInputComponent
                                         parentStyle={{margin: "0 !important"}}
-                                        labelText={"Current : -"}
+                                        labelText={"Saat ini : -"}
                                         labelStyle={{display: "none"}}
                                         buttonComponent={
                                             <Button fullWidth variant="contained" component="span"
@@ -741,7 +799,7 @@ const EditTeamDashboardPage = props => {
                                         multiple={false}
                                         imagePreview={false}
                                         callbackFunction={(fileMeta) => {
-                                            if (fileMeta['size'] > 2048) {
+                                            if (fileMeta['size'] > 1024) {
                                                 setModalBody("Ukuran File Terlalu Besar")
                                                 setModalAction(true)
                                                 setModalOpen(true)
@@ -775,14 +833,14 @@ const EditTeamDashboardPage = props => {
                                 </Grid>
                                 <Grid item md={12} sm={12} xs={12}>
                                     <Typography variant={'caption'}>
-                                        Current
+                                        Saat ini
                                         : {memberFileData[selectedMemberIndex].StudentIdentityCardSubmission.OriginFileName !== "" ? memberFileData[selectedMemberIndex].StudentIdentityCardSubmission.OriginFileName : '-'}
                                     </Typography>
                                 </Grid>
 
                                 <Grid item md={12} style={{marginTop: 10}}>
                                     <Typography variant={'body2'} style={{marginBottom: 10}}>
-                                        Identity Card* (pdf file) [2MB Max]
+                                        Kartu Tanda Penduduk* (pdf file) [1MB Max]
                                     </Typography>
 
                                 </Grid>
@@ -790,7 +848,7 @@ const EditTeamDashboardPage = props => {
                                 <Grid item md={2}>
                                     <FileInputComponent
                                         parentStyle={{margin: "0 !important"}}
-                                        labelText={"Current : -"}
+                                        labelText={"Saat ini : -"}
                                         labelStyle={{display: "none"}}
                                         buttonComponent={
                                             <Button fullWidth variant="contained" component="span"
@@ -801,7 +859,7 @@ const EditTeamDashboardPage = props => {
                                         multiple={false}
                                         imagePreview={false}
                                         callbackFunction={(fileMeta) => {
-                                            if (fileMeta['size'] > 2048) {
+                                            if (fileMeta['size'] > 1024) {
                                                 setModalBody("Ukuran File Terlalu Besar")
                                                 setModalAction(true)
                                                 setModalOpen(true)
@@ -836,7 +894,7 @@ const EditTeamDashboardPage = props => {
 
                                 <Grid item md={12} sm={12} xs={12}>
                                     <Typography variant={'caption'}>
-                                        Current
+                                        Saat ini
                                         : {memberFileData[selectedMemberIndex].IdentityCardSubmission.OriginFileName !== "" ? memberFileData[selectedMemberIndex].IdentityCardSubmission.OriginFileName : '-'}
                                     </Typography>
                                 </Grid>
@@ -852,7 +910,7 @@ const EditTeamDashboardPage = props => {
 
                                 <Grid item md={12} style={{marginTop: 10}}>
                                     <Typography variant={'body2'} style={{marginBottom: 10}}>
-                                        Student Mandate Letter* (pdf file) [2MB Max]
+                                        Surat Mandat Mahasiswa* (pdf file) [1MB Max]
                                     </Typography>
 
                                 </Grid>
@@ -860,7 +918,7 @@ const EditTeamDashboardPage = props => {
                                 <Grid item md={2}>
                                     <FileInputComponent
                                         parentStyle={{margin: "0 !important"}}
-                                        labelText={"Current : -"}
+                                        labelText={"Saat ini : -"}
                                         labelStyle={{display: "none"}}
                                         buttonComponent={
                                             <Button fullWidth variant="contained" component="span"
@@ -871,7 +929,7 @@ const EditTeamDashboardPage = props => {
                                         multiple={false}
                                         imagePreview={false}
                                         callbackFunction={(fileMeta) => {
-                                            if (fileMeta['size'] > 2048) {
+                                            if (fileMeta['size'] > 1024) {
                                                 setModalBody("Ukuran File Terlalu Besar")
                                                 setModalAction(true)
                                                 setModalOpen(true)
@@ -904,7 +962,7 @@ const EditTeamDashboardPage = props => {
 
                                 <Grid item md={12} sm={12} xs={12}>
                                     <Typography variant={'caption'}>
-                                        Current
+                                        Saat ini
                                         : {teamAdministrationData.StudentMandateLetter.OriginFileName !== "" ? teamAdministrationData.StudentMandateLetter.OriginFileName : '-'}
                                     </Typography>
                                 </Grid>
@@ -912,14 +970,14 @@ const EditTeamDashboardPage = props => {
 
                                 <Grid item md={12} style={{marginTop: 10}}>
                                     <Typography variant={'body2'} style={{marginBottom: 10}}>
-                                        Lecturer Mandate Letter* (pdf file) [2MB Max]
+                                        Surat Mandat Dosen* (pdf file) [1MB Max]
                                     </Typography>
                                 </Grid>
 
                                 <Grid item md={2}>
                                     <FileInputComponent
                                         parentStyle={{margin: "0 !important"}}
-                                        labelText={"Current : -"}
+                                        labelText={"Saat ini : -"}
                                         labelStyle={{display: "none"}}
                                         buttonComponent={
                                             <Button fullWidth variant="contained" component="span"
@@ -930,7 +988,7 @@ const EditTeamDashboardPage = props => {
                                         multiple={false}
                                         imagePreview={false}
                                         callbackFunction={(fileMeta) => {
-                                            if (fileMeta['size'] > 2048) {
+                                            if (fileMeta['size'] > 1024) {
                                                 setModalBody("Ukuran File Terlalu Besar")
                                                 setModalAction(true)
                                                 setModalOpen(true)
@@ -972,7 +1030,7 @@ const EditTeamDashboardPage = props => {
 
                                 <Grid item md={12} sm={12} xs={12}>
                                     <Typography variant={'caption'}>
-                                        Current
+                                        Saat ini
                                         : {teamAdministrationData.LecturerMandateLetter.OriginFileName !== "" ? teamAdministrationData.LecturerMandateLetter.OriginFileName : '-'}
                                     </Typography>
                                 </Grid>

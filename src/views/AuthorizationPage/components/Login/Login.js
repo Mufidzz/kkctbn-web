@@ -188,6 +188,9 @@ const Login = props => {
                                     type="password"
                                 />
                             </Grid>
+                            <Grid item md={12} sm={10} xs={10} container justify={"flex-end"}>
+                                <Typography variant={'caption'}> Untuk Lupa Password Silahkan Hubungi Admin </Typography>
+                            </Grid>
                             <Grid item md={8} sm={10} xs={10}>
                                 <Button
                                     onClick={login}

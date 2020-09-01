@@ -212,6 +212,8 @@ const DashboardUser = props => {
                                     Base: ""
                                 }
                             })
+
+
                             setModalAction(true)
                             setModalBody(`Update User ${resJSON["message"]}`)
                         })
@@ -319,7 +321,7 @@ const DashboardUser = props => {
 
                             <Grid item md={12} sm={12} xs={12} style={{marginTop: 10}}>
                                 <Typography variant={'body2'} style={{marginBottom: 10}}>
-                                    Kartu Tanda Mahasiswa* (gambar, pdf file) [2MB Max]
+                                    Kartu Tanda Mahasiswa* (gambar, pdf file) [1MB Max]
                                 </Typography>
                             </Grid>
 
@@ -338,7 +340,7 @@ const DashboardUser = props => {
                                     imagePreview={false}
                                     callbackFunction={(fileMeta) => {
 
-                                        if (fileMeta['size'] > 2048) {
+                                        if (fileMeta['size'] > 1024) {
                                             setModalBody("Ukuran File Terlalu Besar")
                                             setModalAction(true)
                                             setModalOpen(true)
@@ -380,7 +382,7 @@ const DashboardUser = props => {
 
                             <Grid item md={12} sm={12} xs={12}>
                                 <Typography variant={'body2'}>
-                                    Kartu Tanda Penduduk* (gamber, pdf file) [2MB Max]
+                                    Kartu Tanda Penduduk* (gambar, pdf file) [1MB Max]
                                 </Typography>
                             </Grid>
 
@@ -400,7 +402,7 @@ const DashboardUser = props => {
                                     multiple={false}
                                     imagePreview={false}
                                     callbackFunction={(fileMeta) => {
-                                        if (fileMeta['size'] > 2048) {
+                                        if (fileMeta['size'] > 1024) {
                                             setModalBody("Ukuran File Terlalu Besar")
                                             setModalAction(true)
                                             setModalOpen(true)

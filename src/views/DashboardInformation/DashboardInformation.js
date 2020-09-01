@@ -133,9 +133,11 @@ const InformationDashboardPage = props => {
                 <Grid item md={12} container spacing={2}>
 
                     <Grid item md={3}>
-                        <Button fullWidth style={{minHeight: 60, marginBottom: 20}} variant={'contained'}
-                                color={'primary'}
-                                size={'large'} startIcon={<CloudDownloadIcon/>}>
+                        <Button
+                            href={"https://api.kkctbn2020.online/submission/23/download"}
+                            fullWidth style={{minHeight: 60, marginBottom: 20}} variant={'contained'}
+                            color={'primary'}
+                            size={'large'} startIcon={<CloudDownloadIcon/>}>
                             Download Buku Panduan
                         </Button>
                     </Grid>
@@ -175,29 +177,42 @@ const InformationDashboardPage = props => {
 
                 </Grid>
                 <Grid item md={12} container>
+
+
                     <Card style={{width: "100%"}}>
                         <CardContent>
                             <Grid item md={12}>
                                 <Typography variant={"h5"}>Informasi</Typography>
                             </Grid>
+
+
                             <Grid item md={12} style={{marginTop: 25}}>
                                 <TableContainer component={Paper}>
                                     <Table className={classes.table} aria-label="customized table">
                                         <TableHead>
                                             <TableRow>
-                                                <StyledTableCell>Judul Utama Informasi</StyledTableCell>
-                                                <StyledTableCell align="right">Isi</StyledTableCell>
+                                                <StyledTableCell>Judul</StyledTableCell>
+                                                <StyledTableCell align="right">Aksi</StyledTableCell>
                                             </TableRow>
                                         </TableHead>
                                         <TableBody>
-                                            {informationData.map((row) => (
-                                                <StyledTableRow key={row.title}>
-                                                    <StyledTableCell component="th" scope="row">
-                                                        {row.title}
-                                                    </StyledTableCell>
-                                                    <StyledTableCell align="right">{row.action}</StyledTableCell>
-                                                </StyledTableRow>
-                                            ))}
+                                            {
+                                                informationData.length <= 0 ?
+                                                    <StyledTableRow>
+                                                        <StyledTableCell component="th" scope="row">
+                                                            Belum ada Informasi
+                                                        </StyledTableCell>
+                                                        <StyledTableCell align="right">-</StyledTableCell>
+                                                    </StyledTableRow>
+                                                    : informationData.map((row) => (
+                                                        <StyledTableRow key={row.title}>
+                                                            <StyledTableCell component="th" scope="row">
+                                                                {row.title}
+                                                            </StyledTableCell>
+                                                            <StyledTableCell align="right">{row.action}</StyledTableCell>
+                                                        </StyledTableRow>
+                                                    ))
+                                            }
                                         </TableBody>
                                     </Table>
                                 </TableContainer>
