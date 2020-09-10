@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import {CardContent, Typography} from "@material-ui/core";
@@ -12,8 +12,34 @@ import PropTypes from "prop-types"
 
 const FirstCategory = props => {
     const {useStyles, handleFormChange, formState, setFormState, setModalBody, setModalAction, setModalOpen, submit} = props
-
     const classes = useStyles()
+
+    const [wordCount, setWordCount] = useState(0);
+
+    const usePrevious = (value) => {
+        const ref = useRef();
+        useEffect(() => {
+            ref.current = value;
+        });
+        return ref.current;
+    }
+
+    const prev = usePrevious(formState.Description)
+
+    useEffect(() => {
+        const wordCount = formState.Description.split(" ").length;
+        if (wordCount > 300) {
+            setModalBody("Abstrak Maximum 300 Kata")
+            setModalAction(true)
+            setModalOpen(true)
+
+            setFormState({
+                ...formState,
+                Description: prev
+            })
+        }
+        setWordCount(wordCount)
+    }, [formState.Description])
 
     return (
         <Grid container>
@@ -45,13 +71,16 @@ const FirstCategory = props => {
                                 value={formState.Description}
                                 name="Description"
                                 className={classes.margin}
-                                label="Deskripsi Inovasi"
+                                label="Konsep Desain (Abstrak)"
                                 required
                                 multiline
                                 rows={6}
                                 variant="filled"
                                 placeholder={"Masukkan Deskripsi Inovasi."} fullWidth
                             />
+                        </Grid>
+                        <Grid item md={12} sm={12} xs={12} container>
+                            <Typography variant={"caption"}> {wordCount}/300 Kata </Typography>
                         </Grid>
 
 

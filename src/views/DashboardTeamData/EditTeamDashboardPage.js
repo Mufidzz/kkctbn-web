@@ -199,10 +199,20 @@ const EditTeamDashboardPage = props => {
     const [modalOpen, setModalOpen] = useState(false)
     const [modalAction, setModalAction] = useState(true)
     const [modalBody, setModalBody] = useState("")
+    const [userEmailList, setUserEmailList] = useState([])
 
     //Use
     useMemo(() => {
         let mFA = []
+        fetch(ENDPOINT.USER+`-/email`, {method: "GET"})
+            .then(res => {
+                if (res.status === 200) {
+                    return res.json()
+                }
+            })
+            .then(resJSON => {
+                setUserEmailList(resJSON["data"]);
+            })
         fetch(ENDPOINT.TEAM + "check", {method: "GET", headers: {"Token": localStorage.getItem(STORAGE_KEY.JWT)}})
             .then(res => {
                 if (res.status === 200) {
@@ -211,7 +221,6 @@ const EditTeamDashboardPage = props => {
             })
             .then(resJSON => {
                 if (resJSON["data"] !== null) {
-
                     const {LecturerName, LecturerNIDN, Name, Competitions, Members, LeaderDetail} = resJSON["data"]
 
                     setTeamLeaderData(LeaderDetail)
@@ -314,9 +323,13 @@ const EditTeamDashboardPage = props => {
     const handleMemberFormChange = (i, e) => {
         let mD = memberData;
 
+        console.log(e.target.value)
+        console.log(userEmailList.find((email) => email === e.target.value))
+
         if (e.target.name === "Email") {
-            if (e.target.value === teamLeaderData.Email) {
-                setModalBody("Email Member dan Ketua tidak boleh sama");
+            // if (e.target.value === teamLeaderData.Email) {
+            if (userEmailList.find((email) => email === e.target.value) !== undefined) {
+                setModalBody("Email Terdaftar tidak dapat digunakan kembali");
                 setModalAction(true)
                 setModalOpen(true)
 

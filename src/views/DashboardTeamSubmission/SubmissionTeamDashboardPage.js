@@ -155,7 +155,6 @@ const SubmissionTeamDashboardPage = props => {
     }, [])
 
     const submit = () => {
-
         setModalBody(
             <Fragment>
                 <Grid container justify={"center"}>
@@ -171,8 +170,6 @@ const SubmissionTeamDashboardPage = props => {
         )
         setModalAction(false)
         setModalOpen(true)
-
-        console.log(JSON.stringify({...formState, Base : ""}))
 
         fetch(ENDPOINT.TEAM_SUBMISSION, {
             method: "POST",
@@ -194,7 +191,6 @@ const SubmissionTeamDashboardPage = props => {
 
     return (
         <PrivatePage whitelistKey={["ROLE_USER"]}>
-
             {
                 formState.CompetitionGroupID === 1 ? <FirstCategory handleFormChange={handleFormChange} formState={formState} setFormState={setFormState}
                                                                    setModalBody={setModalBody} setModalAction={setModalAction} setModalOpen={setModalOpen}
