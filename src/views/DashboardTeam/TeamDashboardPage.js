@@ -19,6 +19,7 @@ import Scrollable from "../../components/Scrollable";
 import {ENDPOINT} from "../../configs/api";
 import {STORAGE_KEY} from "../../configs/local_storage";
 import {PrivatePage} from "../../components";
+import Alert from "@material-ui/lab/Alert";
 
 
 const StyledTableCell = withStyles((theme) => ({
@@ -39,10 +40,9 @@ const StyledTableRow = withStyles((theme) => ({
     },
 }))(TableRow);
 
-const createData = (competitionType, status, submission) => {
-    return {competitionType, status, submission};
+const createData = (competitionType, status, submission, submission2) => {
+    return {competitionType, status, submission, submission2};
 }
-
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -82,8 +82,20 @@ const TeamDashboardPage = props => {
     })
 
 
-    useMemo(() => {
+    const findStatus = id => {
+        switch (id) {
+            case 1:
+                return <Button variant={'outlined'} style={{color: "#CC7722"}}>Proses Penjurian</Button>
+            case 2:
+                return <Button variant={'outlined'} style={{color: "#8F0409"}}>Tidak Lolos Tahap 1</Button>
+            case 3:
+                return <Button variant={'outlined'} style={{color: "#006A4E"}}>Lolos ke Tahap 2</Button>
+            default :
+                return <Button variant={'outlined'} style={{color: "#1034A6"}}>Tahap 1 Berlangsung</Button>
+        }
+    }
 
+    useMemo(() => {
         console.log(localStorage.getItem(STORAGE_KEY.JWT))
         fetch(ENDPOINT.TEAM + "check", {method: "GET", headers: {"Token": localStorage.getItem(STORAGE_KEY.JWT)}})
             .then(res => {
@@ -101,11 +113,16 @@ const TeamDashboardPage = props => {
                             cRA.push(
                                 createData(
                                     competition["CompetitionDetail"]["Name"],
-                                    competition["Submission"]['ID'] === 0 ?
-                                        <Button variant={'outlined'} style={{color: 'red'}}>Not Uploaded Yet</Button> :
-                                        <Button variant={"outlined"} style={{color: 'green'}}>Already uploaded</Button>,
-                                    <Button component={Link} to={'/dashboard/team/submission/' + Buffer.from(competition["ID"].toString()).toString('base64')}
+                                    findStatus(competition["Submission"]['PassingStatus']),
+                                    <Button component={Link}
+                                            to={'/dashboard/team/submission/' + Buffer.from(competition["ID"].toString()).toString('base64')}
+                                            variant={'contained'} color={'primary'}>Submission</Button>,
+                                    competition["CompetitionDetail"]["CompetitionGroupID"] === 2 ?
+                                    <Button component={Link}
+                                            disabled={competition["Submission"]['PassingStatus'] !== 3}
+                                            to={'/dashboard/team/second-submission/' + Buffer.from(competition["ID"].toString()).toString('base64')}
                                             variant={'contained'} color={'secondary'}>Submission</Button>
+                                        : "-"
                                 )
                             )
                         }
@@ -131,11 +148,8 @@ const TeamDashboardPage = props => {
                             <Grid item md={12} sm={12} xs={12}>
                                 <Typography variant={"h5"}>Manajemen Tim</Typography>
                             </Grid>
-                            <Grid item md={4} sm={12} xs={12} style={{marginTop: 20}}>
-                                <Link to={'/dashboard/team/edit'} style={{textDecoration: 'none'}}>
-                                    <Button fullWidth variant={'contained'}
-                                            color={'primary'}>{state.TeamFound ? "Edit Team" : "Buat Tim Baru"}  </Button>
-                                </Link>
+                            <Grid item md={12} sm={12} xs={12} style={{marginTop: 20}}>
+
                             </Grid>
                             <Grid item md={12} sm={12} xs={12} style={{marginTop: 25}}>
                                 <TableContainer component={Paper}>
@@ -144,7 +158,8 @@ const TeamDashboardPage = props => {
                                             <TableRow>
                                                 <StyledTableCell align="left">Tipe Kompetisi</StyledTableCell>
                                                 <StyledTableCell align="right">Status</StyledTableCell>
-                                                <StyledTableCell align="right">Aksi</StyledTableCell>
+                                                <StyledTableCell align="right">Tahap 1</StyledTableCell>
+                                                <StyledTableCell align="right">Tahap 2</StyledTableCell>
                                             </TableRow>
                                         </TableHead>
                                         <TableBody>
@@ -154,6 +169,7 @@ const TeamDashboardPage = props => {
                                                         align="left">{row.competitionType}</StyledTableCell>
                                                     <StyledTableCell align="right">{row.status}</StyledTableCell>
                                                     <StyledTableCell align="right">{row.submission}</StyledTableCell>
+                                                    <StyledTableCell align="right">{row.submission2}</StyledTableCell>
                                                 </StyledTableRow>
                                             ))}
                                         </TableBody>

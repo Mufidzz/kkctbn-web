@@ -178,10 +178,11 @@ const Register = props => {
                                 <OverlapTypography
                                     overlay={<Typography className={classes.overlayText} variant={"h2"}><b>Daftar,
                                         <br/>KKCTBN 2020</b></Typography>}>
-                                    <Typography className={classes.mainText} variant={"h2"}><b>Buat Akun</b></Typography>
+                                    <Typography className={classes.mainText} variant={"h2"}><b>Waktu Registrasi Telah Berakhir</b></Typography>
                                 </OverlapTypography>
                                 <TextField
-                                    onChange={handleFormChange}
+                                    disabled
+                                    // onChange={handleFormChange}
                                     value={formState.Email}
                                     variant="filled"
                                     required
@@ -194,7 +195,8 @@ const Register = props => {
                                 />
 
                                 <TextField
-                                    onChange={handleFormChange}
+                                    disabled
+                                    // onChange={handleFormChange}
                                     value={formState.Password}
                                     variant="filled"
                                     required
@@ -206,7 +208,8 @@ const Register = props => {
                                     className={classes.textField}
                                 />
                                 <TextField
-                                    onChange={handleFormChange}
+                                    disabled
+                                    // onChange={handleFormChange}
                                     value={formState.RetypePassword}
                                     variant="filled"
                                     name="RetypePassword"
@@ -219,6 +222,7 @@ const Register = props => {
                             </Grid>
                             <Grid item md={8} sm={11} xs={11} style={isMobile ? {paddingBottom: "30px"} : null}>
                                 <Button
+                                    disabled
                                     onClick={register}
                                     fullWidth
                                     variant="contained"

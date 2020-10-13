@@ -11,6 +11,7 @@ import {ENDPOINT} from "../../configs/api";
 import TextField from "@material-ui/core/TextField";
 import PrivatePage from "../../components/PrivatePage";
 import {STORAGE_KEY} from "../../configs/local_storage";
+import {FirstCategory, SecondCategory, ThirdCategory} from "./components"
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -46,11 +47,13 @@ const useStyles = makeStyles((theme) => ({
 const ManageJudgeViewDashboardPage = props => {
     const {tid} = props.match.params;
     const classes = useStyles();
+
     const [value, setValue] = React.useState('Controlled');
 
     const handleChange = (event) => {
         setChecked(event.target.checked);
     };
+
     const [checked, setChecked] = React.useState(true);
     const [apiData, setApiData] = useState({
         Competitions: []
@@ -67,6 +70,8 @@ const ManageJudgeViewDashboardPage = props => {
             })
             .then(resJSON => {
                 setApiData(resJSON.data)
+                console.log(resJSON.data.Competitions)
+
             })
 
         return () => {
@@ -74,25 +79,25 @@ const ManageJudgeViewDashboardPage = props => {
     }, [])
 
     const saveGrade = (id, i) => {
-        fetch(ENDPOINT.TEAM_SUBMISSION + id, {
-                method: "PUT",
-                headers: {
-                    "Token" : localStorage.getItem(STORAGE_KEY.JWT)
-                },
-                body: JSON.stringify({
-                    Grade : parseInt(apiData.Competitions[i].Submission.Grade)
-                })
-            })
-                .then(res => {
-                    if (res.status === 200) {
-                        return res.json()
-                    }
-                })
-                .then(resJSON => {
-                    console.log(resJSON)
-                    setModalBody(`Change Grade Status : ${resJSON['message']||"Unknown"}`)
-                    setModalOpen(true)
-                })
+        // fetch(ENDPOINT.TEAM_SUBMISSION + id, {
+        //         method: "PUT",
+        //         headers: {
+        //             "Token" : localStorage.getItem(STORAGE_KEY.JWT)
+        //         },
+        //         body: JSON.stringify({
+        //             Grade : parseInt(apiData.Competitions[i].Submission.Grade)
+        //         })
+        //     })
+        //         .then(res => {
+        //             if (res.status === 200) {
+        //                 return res.json()
+        //             }
+        //         })
+        //         .then(resJSON => {
+        //             console.log(resJSON)
+        //             setModalBody(`Change Grade Status : ${resJSON['message']||"Unknown"}`)
+        //             setModalOpen(true)
+        //         })
     }
 
     return (
@@ -107,112 +112,122 @@ const ManageJudgeViewDashboardPage = props => {
 
 
                         {apiData.Competitions.map((v, i) => {
-                            return (
-                                v.Status ?
-                                    <CardContent>
-                                        <Grid container spacing={2}>
-                                            <Grid item md={12} xs={12}>
-                                                <Typography variant={"body2"}
-                                                            className={classes.label}>Competition</Typography>
-                                                <Typography
-                                                    variant={"h6"}>{`${v.CompetitionDetail.CompetitionGroup.Name}`}</Typography>
-                                                <Typography variant={"h6"}>{`${v.CompetitionDetail.Name}`}</Typography>
-                                            </Grid>
-                                            <Grid item md={12} xs={12}>
-                                                <Typography variant={"body2"} className={classes.label}>Title of
-                                                    Innovation</Typography>
-                                                <Typography
-                                                    variant={"h6"}>{v.Submission.Title || "Not Available"}</Typography>
-                                            </Grid>
-
-                                            <Grid item md={12} xs={12}>
-                                                <Typography variant={"body2"} className={classes.label}>URL Link of
-                                                    Innovation</Typography>
-                                                <Typography
-                                                    variant={"h6"}>{v.Submission.MediaURL || "Not Available"}</Typography>
-                                            </Grid>
-
-                                            {v.Submission.ID !== 0 ?
-                                                <Grid item container md={12} xs={12} sm={12} justify={"center"}>
-                                                    <Grid item md={12} xs={12}>
-                                                        <Typography gutterBottom={true} variant={'body2'}
-                                                                    style={{marginTop: 10}}>Submission File</Typography>
-                                                    </Grid>
-
-                                                    <Grid item md={11} xs={12} sm={12} style={{padding: 32}}>
-                                                        <iframe className={classes.iFrame}
-                                                                src={ENDPOINT.SUBMISSION + v.Submission.AssignmentSubmissionID + "/stream"}/>
-                                                    </Grid>
-
-                                                    <Grid item container spacing={2} md={12} sm={12} xs={12}
-                                                          justify={"center"} alignItems={"center"}
-                                                          style={{width: "99%"}}>
-                                                        <Grid item md={3} sm={12} xs={12}>
-                                                            <Button fullWidth variant="contained"
-                                                                    style={{height: 56}}
-                                                                    color={"secondary"}>
-                                                                Download
-                                                            </Button>
-                                                        </Grid>
-                                                        <Grid item md={3} sm={12} xs={12}>
-                                                            <TextField
-                                                                onChange={(e) => {
-                                                                    let tC = apiData.Competitions
-                                                                    tC[i] = {
-                                                                        ...tC[i],
-                                                                        Submission : {
-                                                                            ...tC[i].Submission,
-                                                                            Grade : e.target.value
-                                                                        }
-                                                                    }
-
-                                                                    setApiData({
-                                                                        ...apiData,
-                                                                        Competitions: [...tC]
-                                                                    })
-                                                                }}
-                                                                value={v.Submission.Grade}
-                                                                label="Nilai"
-                                                                placeholder="Masukkan Nilai"
-                                                                fullWidth
-                                                                variant="filled"
-                                                                name="Grade"
-                                                            />
-                                                        </Grid>
-                                                        <Grid item md={3} sm={12} xs={12}>
-                                                            <Button fullWidth variant="contained"
-                                                                    onClick={() => saveGrade(v.Submission.ID, i)}
-                                                                    style={{height: 56}}
-                                                                    color={"Primary"}>
-                                                                Simpan Nilai
-                                                            </Button>
-                                                        </Grid>
-                                                    </Grid>
-
-                                                </Grid>
-
-
-                                                :
-                                                <Grid item md={12} xs={12}>
-                                                    <Typography variant={'h6'} style={{marginTop: 10}}>Not yet
-                                                        Uploaded</Typography>
-                                                </Grid>
-                                            }
-
-
-                                            <Grid item md={12} xs={12} style={{marginTop: theme.spacing(3)}}>
-                                                <hr/>
-                                            </Grid>
-                                        </Grid>
-                                    </CardContent>
-                                    : null
-                            )
+                                switch(v.CompetitionDetail.CompetitionGroupID){
+                                    case 1:
+                                        return <FirstCategory competition={v} setModalBody={setModalBody} setModalOpen={setModalOpen}/>
+                                    case 2:
+                                        return <SecondCategory competition={v} setModalBody={setModalBody} setModalOpen={setModalOpen}/>
+                                    case 3:
+                                        return <ThirdCategory competition={v} setModalBody={setModalBody} setModalOpen={setModalOpen}/>;
+                                }
                         })}
+
+                        {/*{apiData.Competitions.map((v, i) => {*/}
+                        {/*    return (*/}
+                        {/*        v.Status ?*/}
+                        {/*            <CardContent>*/}
+                        {/*                <Grid container spacing={2}>*/}
+                        {/*                    <Grid item md={12} xs={12}>*/}
+                        {/*                        <Typography variant={"body2"}*/}
+                        {/*                                    className={classes.label}>Competition</Typography>*/}
+                        {/*                        <Typography*/}
+                        {/*                            variant={"h6"}>{`${v.CompetitionDetail.CompetitionGroup.Name}`}</Typography>*/}
+                        {/*                        <Typography variant={"h6"}>{`${v.CompetitionDetail.Name}`}</Typography>*/}
+                        {/*                    </Grid>*/}
+                        {/*                    <Grid item md={12} xs={12}>*/}
+                        {/*                        <Typography variant={"body2"} className={classes.label}>Title of*/}
+                        {/*                            Innovation</Typography>*/}
+                        {/*                        <Typography*/}
+                        {/*                            variant={"h6"}>{v.Submission.Title || "Not Available"}</Typography>*/}
+                        {/*                    </Grid>*/}
+
+                        {/*                    <Grid item md={12} xs={12}>*/}
+                        {/*                        <Typography variant={"body2"} className={classes.label}>URL Link of*/}
+                        {/*                            Innovation</Typography>*/}
+                        {/*                        <Typography*/}
+                        {/*                            variant={"h6"}>{v.Submission.MediaURL || "Not Available"}</Typography>*/}
+                        {/*                    </Grid>*/}
+
+                        {/*                    {v.Submission.ID !== 0 ?*/}
+                        {/*                        <Grid item container md={12} xs={12} sm={12} justify={"center"}>*/}
+                        {/*                            <Grid item md={12} xs={12}>*/}
+                        {/*                                <Typography gutterBottom={true} variant={'body2'}*/}
+                        {/*                                            style={{marginTop: 10}}>Submission File</Typography>*/}
+                        {/*                            </Grid>*/}
+
+                        {/*                            <Grid item md={11} xs={12} sm={12} style={{padding: 32}}>*/}
+                        {/*                                <iframe className={classes.iFrame}*/}
+                        {/*                                        src={ENDPOINT.SUBMISSION + v.Submission.AssignmentSubmissionID + "/stream"}/>*/}
+                        {/*                            </Grid>*/}
+
+                        {/*                            <Grid item container spacing={2} md={12} sm={12} xs={12}*/}
+                        {/*                                  justify={"center"} alignItems={"center"}*/}
+                        {/*                                  style={{width: "99%"}}>*/}
+                        {/*                                <Grid item md={3} sm={12} xs={12}>*/}
+                        {/*                                    <Button fullWidth variant="contained"*/}
+                        {/*                                            style={{height: 56}}*/}
+                        {/*                                            color={"secondary"}>*/}
+                        {/*                                        Download*/}
+                        {/*                                    </Button>*/}
+                        {/*                                </Grid>*/}
+                        {/*                                <Grid item md={3} sm={12} xs={12}>*/}
+                        {/*                                    <TextField*/}
+                        {/*                                        onChange={(e) => {*/}
+                        {/*                                            let tC = apiData.Competitions*/}
+                        {/*                                            tC[i] = {*/}
+                        {/*                                                ...tC[i],*/}
+                        {/*                                                Submission : {*/}
+                        {/*                                                    ...tC[i].Submission,*/}
+                        {/*                                                    Grade : e.target.value*/}
+                        {/*                                                }*/}
+                        {/*                                            }*/}
+
+                        {/*                                            setApiData({*/}
+                        {/*                                                ...apiData,*/}
+                        {/*                                                Competitions: [...tC]*/}
+                        {/*                                            })*/}
+                        {/*                                        }}*/}
+                        {/*                                        value={v.Submission.Grade}*/}
+                        {/*                                        label="Nilai"*/}
+                        {/*                                        placeholder="Masukkan Nilai"*/}
+                        {/*                                        fullWidth*/}
+                        {/*                                        variant="filled"*/}
+                        {/*                                        name="Grade"*/}
+                        {/*                                    />*/}
+                        {/*                                </Grid>*/}
+                        {/*                                <Grid item md={3} sm={12} xs={12}>*/}
+                        {/*                                    <Button fullWidth variant="contained"*/}
+                        {/*                                            onClick={() => saveGrade(v.Submission.ID, i)}*/}
+                        {/*                                            style={{height: 56}}*/}
+                        {/*                                            color={"Primary"}>*/}
+                        {/*                                        Simpan Nilai*/}
+                        {/*                                    </Button>*/}
+                        {/*                                </Grid>*/}
+                        {/*                            </Grid>*/}
+
+                        {/*                        </Grid>*/}
+
+
+                        {/*                        :*/}
+                        {/*                        <Grid item md={12} xs={12}>*/}
+                        {/*                            <Typography variant={'h6'} style={{marginTop: 10}}>Not yet*/}
+                        {/*                                Uploaded</Typography>*/}
+                        {/*                        </Grid>*/}
+                        {/*                    }*/}
+
+
+                        {/*                    <Grid item md={12} xs={12} style={{marginTop: theme.spacing(3)}}>*/}
+                        {/*                        <hr/>*/}
+                        {/*                    </Grid>*/}
+                        {/*                </Grid>*/}
+                        {/*            </CardContent>*/}
+                        {/*            : null*/}
+                        {/*    )*/}
+                        {/*})}*/}
                     </Card>
                 </Scrollable>
             </Grid>
             <ConfirmationModal textBody={modalBody} open={modalOpen} setOpen={setModalOpen}/>
-
         </PrivatePage>
     )
 }

@@ -25,7 +25,7 @@ const SecondCategory = props => {
                 <CardContent style={{marginTop: 25}}>
                     <Grid container spacing={2}>
                         <Grid item md={12} sm={12} xs={12}>
-                            <Typography variant={'body2'}><b>Proposal Tahap 1</b></Typography>
+                            <Typography variant={'body2'}><b>Proposal Tahap 1 - Waktu Upload Proposal Telah Berakhir</b></Typography>
                         </Grid>
 
                         <Grid item md={12} sm={12} xs={12}>
@@ -34,12 +34,14 @@ const SecondCategory = props => {
                         </Grid>
 
                         <Grid item md={2} sm={6} xs={6}>
+
                             <FileInputComponent
                                 parentStyle={{margin: "0 !important"}}
                                 labelText={"Current : -"}
                                 labelStyle={{display: "none"}}
                                 buttonComponent={
                                     <Button fullWidth variant="contained" component="span"
+                                            disabled
                                             className={classes.containedOrange}>
                                         {formState.Assignment.OriginFileName !== "" ? "Reupload" : "Upload"}
                                     </Button>
@@ -82,14 +84,14 @@ const SecondCategory = props => {
                             </Typography>
                         </Grid>
 
-                        <Grid item container md={12} sm={12} xs={12} justify={"flex-end"} style={{marginTop: 10}}>
-                            <Grid item md={6} sm={12} xs={12}>
-                                <Button onClick={submit} fullWidth variant={"contained"} size={"large"}
-                                        color={'primary'} endIcon={<SendIcon/>}>
-                                    Submit
-                                </Button>
-                            </Grid>
-                        </Grid>
+                        {/*<Grid item container md={12} sm={12} xs={12} justify={"flex-end"} style={{marginTop: 10}}>*/}
+                        {/*    <Grid item md={6} sm={12} xs={12}>*/}
+                        {/*        <Button onClick={submit} fullWidth variant={"contained"} size={"large"}*/}
+                        {/*                color={'primary'} endIcon={<SendIcon/>}>*/}
+                        {/*            Submit*/}
+                        {/*        </Button>*/}
+                        {/*    </Grid>*/}
+                        {/*</Grid>*/}
                     </Grid>
 
                 </CardContent>

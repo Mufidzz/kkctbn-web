@@ -62,24 +62,7 @@ const ManageRegistrationsDashboardPage = props => {
             {title: 'Status', field: 'statusSubmission'},
             {title: 'Pengajuan', field: 'submission'},
         ],
-        data: [
-            {
-                teamName: 'GaranganAI',
-                campusName: 'Universitas Muhammadiyah Malang',
-                typeCompetition: 'Desain Kapal',
-                statusSubmission: <Button variant={'outlined'} style={{color: 'red'}}>Belum Diupload</Button>,
-            },
-            {
-                teamName: 'GaranganAI',
-                campusName: 'Universitas Muhammadiyah Malang',
-                typeCompetition: 'Desain Kapal',
-                statusSubmission: <Button variant={'outlined'} style={{color: 'green'}}>Sudah Diupload</Button>,
-                submission:
-                    <Link to={'/dashboard/manage/judge/view'} style={{textDecoration: 'none'}}>
-                        <Button variant={'contained'} color={'secondary'}>Lihat Pengajuan</Button>
-                    </Link>
-            },
-        ],
+        data: [],
     });
 
 

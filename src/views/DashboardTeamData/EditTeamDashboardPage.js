@@ -329,7 +329,7 @@ const EditTeamDashboardPage = props => {
         if (e.target.name === "Email") {
             // if (e.target.value === teamLeaderData.Email) {
             if (userEmailList.find((email) => email === e.target.value) !== undefined) {
-                setModalBody("Email Terdaftar tidak dapat digunakan kembali");
+                setModalBody("Email Terdaftar tidak tidak dapat digunakan kembali");
                 setModalAction(true)
                 setModalOpen(true)
 
@@ -437,8 +437,6 @@ const EditTeamDashboardPage = props => {
                 ...memberData
             ]
         };
-
-
 
 
         fetch(ENDPOINT.TEAM, {
@@ -628,48 +626,48 @@ const EditTeamDashboardPage = props => {
 
 
                                     <Grid item container md={12} sm={12} xs={12} justify={"center"}>
-                                        {competitionList != null ? competitionList.map((competition, i) => {
-                                            return (
-                                                <Grid item container md={11} sm={12} xs={12} justify={"center"}
-                                                      alignItems={"center"} className={classes.bottomSpacing}>
-                                                    <Grid item md={6} sm={12} xs={12}>
-                                                        <FormControlLabel
-                                                            control={<Switch key={competition["Name"]}
-                                                                             checked={teamCompetition[i].Status}
-                                                                             onChange={() => competition["Competitions"].length <= 1 ? null : toggleCompetition(i)}
-                                                                             color={"primary"}/>}
-
-                                                            label={competition["Name"]}
-                                                        />
-                                                    </Grid>
-                                                    <Grid item md={6} sm={12} xs={12}>
-                                                        <Autocomplete
-                                                            disableClearable
-                                                            fullWidth
-                                                            disabled={competition["Competitions"].length <= 1 || !teamCompetition[i].Status}
-                                                            options={competition["Competitions"]}
-                                                            getOptionLabel={(option) => option.Name}
-                                                            value={competition["Competitions"].find(e => e.ID === teamCompetition[i].CompetitionID)}
-                                                            defaultValue={competition["Competitions"].find(e => e.ID === teamCompetition[i].CompetitionID)}
-                                                            onChange={(e, v) => handleSetCompetition(e, v, i)}
-                                                            renderInput={(params) =>
-                                                                <TextField {...params} fullWidth
-                                                                           label="Sub Kategori"
-                                                                           variant="filled"/>
-                                                            }
-                                                        />
-                                                    </Grid>
-                                                    <Grid item container md={12} justify={"flex-end"}>
-                                                        <Grid item md={6}>
-                                                            <Typography variant={"caption"}>
-                                                                Saat ini
-                                                                : <br/>{competition["Competitions"].find(e => e.ID === teamCompetition[i].CompetitionID) !== undefined ? competition["Competitions"].find(e => e.ID === teamCompetition[i].CompetitionID)["Name"] : "-"}
-                                                            </Typography>
-                                                        </Grid>
-                                                    </Grid>
-                                                </Grid>
-                                            )
-                                        }) : <CircularProgress/>}
+                                        {/*{competitionList != null ? competitionList.map((competition, i) => {*/}
+                                        {/*    return (*/}
+                                        {/*        <Grid item container md={11} sm={12} xs={12} justify={"center"}*/}
+                                        {/*              alignItems={"center"} className={classes.bottomSpacing}>*/}
+                                        {/*            <Grid item md={6} sm={12} xs={12}>*/}
+                                        {/*                <FormControlLabel*/}
+                                        {/*                    control={<Switch key={competition["Name"]}*/}
+                                        {/*                                     checked={teamCompetition[i].Status}*/}
+                                        {/*                                     onChange={() => competition["Competitions"].length <= 1 ? null : toggleCompetition(i)}*/}
+                                        {/*                                     color={"primary"}/>}*/}
+                                        
+                                        {/*                    label={competition["Name"]}*/}
+                                        {/*                />*/}
+                                        {/*            </Grid>*/}
+                                        {/*            <Grid item md={6} sm={12} xs={12}>*/}
+                                        {/*                <Autocomplete*/}
+                                        {/*                    disableClearable*/}
+                                        {/*                    fullWidth*/}
+                                        {/*                    disabled={competition["Competitions"].length <= 1 || !teamCompetition[i].Status}*/}
+                                        {/*                    options={competition["Competitions"]}*/}
+                                        {/*                    getOptionLabel={(option) => option.Name}*/}
+                                        {/*                    value={competition["Competitions"].find(e => e.ID === teamCompetition[i].CompetitionID)}*/}
+                                        {/*                    defaultValue={competition["Competitions"].find(e => e.ID === teamCompetition[i].CompetitionID)}*/}
+                                        {/*                    onChange={(e, v) => handleSetCompetition(e, v, i)}*/}
+                                        {/*                    renderInput={(params) =>*/}
+                                        {/*                        <TextField {...params} fullWidth*/}
+                                        {/*                                   label="Sub Kategori"*/}
+                                        {/*                                   variant="filled"/>*/}
+                                        {/*                    }*/}
+                                        {/*                />*/}
+                                        {/*            </Grid>*/}
+                                        {/*            <Grid item container md={12} justify={"flex-end"}>*/}
+                                        {/*                <Grid item md={6}>*/}
+                                        {/*                    <Typography variant={"caption"}>*/}
+                                        {/*                        Saat ini*/}
+                                        {/*                        : <br/>{competition["Competitions"].find(e => e.ID === teamCompetition[i].CompetitionID) !== undefined ? competition["Competitions"].find(e => e.ID === teamCompetition[i].CompetitionID)["Name"] : "-"}*/}
+                                        {/*                    </Typography>*/}
+                                        {/*                </Grid>*/}
+                                        {/*            </Grid>*/}
+                                        {/*        </Grid>*/}
+                                        {/*    )*/}
+                                        {/*}) : <CircularProgress/>}*/}
 
                                     </Grid>
                                 </Grid>

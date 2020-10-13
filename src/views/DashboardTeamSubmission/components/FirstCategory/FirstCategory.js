@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react'
+import React, {Fragment, useEffect, useRef, useState} from 'react'
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import {CardContent, Typography} from "@material-ui/core";
@@ -9,9 +9,10 @@ import Button from "@material-ui/core/Button";
 import {ENDPOINT} from "../../../../configs/api";
 import SendIcon from "@material-ui/icons/Send";
 import PropTypes from "prop-types"
+import DashboardTeamSecondSubmission from "../../../DashboardTeamSecondSubmission";
 
 const FirstCategory = props => {
-    const {useStyles, handleFormChange, formState, setFormState, setModalBody, setModalAction, setModalOpen, submit} = props
+    const {useStyles, handleFormChange, formState, setFormState, setModalBody, setModalAction, setModalOpen, submit, cid} = props
     const classes = useStyles()
 
     const [wordCount, setWordCount] = useState(0);
@@ -52,6 +53,7 @@ const FirstCategory = props => {
                     <Grid container spacing={2}>
                         <Grid item md={12} sm={12} xs={12}>
                             <TextField
+                                disabled
                                 onChange={handleFormChange}
                                 value={formState.Title}
                                 name="Title"
@@ -67,6 +69,7 @@ const FirstCategory = props => {
                         </Grid>
                         <Grid item md={12} sm={12} xs={12}>
                             <TextField
+                                disabled
                                 onChange={handleFormChange}
                                 value={formState.Description}
                                 name="Description"
@@ -84,17 +87,19 @@ const FirstCategory = props => {
                         </Grid>
 
 
-                        <Grid item container md={12} sm={12} xs={12} justify={"flex-end"} style={{marginTop: 10}}>
-                            <Grid item md={6} sm={12} xs={12}>
-                                <Button onClick={submit} fullWidth variant={"contained"} size={"large"}
-                                        color={'primary'} endIcon={<SendIcon/>}>
-                                    Submit
-                                </Button>
-                            </Grid>
-                        </Grid>
+                        {/*<Grid item container md={12} sm={12} xs={12} justify={"flex-end"} style={{marginTop: 10}}>*/}
+                        {/*    <Grid item md={6} sm={12} xs={12}>*/}
+                        {/*        <Button onClick={submit} fullWidth variant={"contained"} size={"large"}*/}
+                        {/*                color={'primary'} endIcon={<SendIcon/>}>*/}
+                        {/*            Submit*/}
+                        {/*        </Button>*/}
+                        {/*    </Grid>*/}
+                        {/*</Grid>*/}
                     </Grid>
 
                 </CardContent>
+                <DashboardTeamSecondSubmission cid={cid}/>
+
             </Card>
         </Grid>
     )

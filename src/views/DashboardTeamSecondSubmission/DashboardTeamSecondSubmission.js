@@ -1,20 +1,19 @@
 import React, {Fragment, useEffect, useMemo, useState} from 'react'
-import {CardContent, Typography} from "@material-ui/core";
-import Grid from "@material-ui/core/Grid";
-import Card from "@material-ui/core/Card";
 import {makeStyles} from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import SendIcon from '@material-ui/icons/Send';
-import CardHeader from "@material-ui/core/CardHeader";
-import FileInputComponent from "react-file-input-previews-base64";
+import {useHistory} from "react-router-dom";
 import {ENDPOINT} from "../../configs/api";
 import {STORAGE_KEY} from "../../configs/local_storage";
-import {ConfirmationModal, PrivatePage} from "../../components";
+import Grid from "@material-ui/core/Grid";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import {useHistory} from "react-router-dom"
-import {FirstCategory, SecondCategory, ThirdCategory} from "./components";
-import DashboardTeamSecondSubmission from "../DashboardTeamSecondSubmission";
+import {Typography} from "@material-ui/core";
+import {ConfirmationModal, PrivatePage} from "../../components";
+import {LDIKAA} from "./components";
+import {FirstCategory} from "../DashboardTeamSubmission/components";
+import LDKRSA from "./components/LDKRSA";
+import LRLRAKRE from "./components/LRLRAKRE";
+import UnderMaintenance from "./components/UnderMaintenance";
+import SecondCategory from "./components/SecondCategory";
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -64,40 +63,42 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
+const DashboardTeamSecondSubmission = props => {
+    let {cid} = props
 
-const SubmissionTeamDashboardPage = props => {
-    const classes = useStyles();
-    let {cid} = props.match.params
-    cid = parseInt(Buffer.from(cid, 'base64').toString())
+    if (cid === undefined) {
+        cid = props.match.params.cid
+        cid = parseInt(Buffer.from(cid, 'base64').toString())
+    }
+
+    // let {cid} =  props
     const history = useHistory();
 
     const [formState, setFormState] = useState({
-        Title: "",
-        MediaURL: "",
         TeamID: 0,
-        Description: "",
-        CompetitionID: parseInt(cid),
-        Assignment: {
-            ID: 0,
-            OriginFileName: "",
-            Base: ""
-        },
-        CompetitionGroupID: 0
+        CompetitionID: 0,
+        SubmissionID: 0,
+        CompetitionGroupID: 0,
+        SecondSubmission : []
     })
+
     const [modalOpen, setModalOpen] = useState(false)
     const [modalAction, setModalAction] = useState(true)
     const [modalBody, setModalBody] = useState("")
 
-    const handleFormChange = e => {
+    const handleFormChange = (e, i) => {
+        let sS = [...formState.SecondSubmission]
+
+        sS[i] = {
+            Name : e.target.name,
+            URL : e.target.value
+        }
+
         setFormState({
             ...formState,
-            [e.target.name]: e.target.value
+            SecondSubmission: sS
         })
     }
-
-    useEffect(() => {
-        console.log("TID", formState.TeamID)
-    }, [formState.TeamID])
 
     useMemo(() => {
         fetch(ENDPOINT.TEAM + "check",
@@ -134,6 +135,7 @@ const SubmissionTeamDashboardPage = props => {
                         ...formState,
                         TeamID: resJSON['data']['ID'],
                         Title: cData['Submission']['Title'],
+                        SubmissionID: cData['Submission']['ID'],
                         MediaURL: cData['Submission']['MediaURL'],
                         Description: cData['Submission']['Description'],
                         Assignment: {
@@ -141,21 +143,24 @@ const SubmissionTeamDashboardPage = props => {
                             ID: cData['Submission']['AssignmentSubmissionID'],
                             OriginFileName: cData['Submission']['Assignment']["OriginFileName"]
                         },
-                        CompetitionGroupID: cData['CompetitionDetail']['CompetitionGroupID']
+                        CompetitionID: cData['CompetitionDetail']['ID'],
+                        CompetitionGroupID: cData['CompetitionDetail']['CompetitionGroupID'],
+                        SecondSubmission: cData["Submission"]["SecondSubmission"]
                     })
                 } else {
                     setFormState({
                         ...formState,
+                        CompetitionID: cData['CompetitionDetail']['ID'],
                         CompetitionGroupID: cData['CompetitionDetail']['CompetitionGroupID']
                     })
                 }
 
-                console.log("CDATA:", cData)
-
+                console.log("XDATA", cData)
             })
     }, [])
 
     const submit = () => {
+        console.log(formState)
         setModalBody(
             <Fragment>
                 <Grid container justify={"center"}>
@@ -172,9 +177,15 @@ const SubmissionTeamDashboardPage = props => {
         setModalAction(false)
         setModalOpen(true)
 
-        fetch(ENDPOINT.TEAM_SUBMISSION, {
-            method: "POST",
-            body: JSON.stringify(formState)
+
+
+        const body = {
+            SecondSubmission : formState.SecondSubmission
+        }
+
+        fetch(ENDPOINT.TEAM_SUBMISSION + formState.SubmissionID, {
+            method: "PUT",
+            body: JSON.stringify(body)
         })
             .then(res => {
                 console.log(res.status)
@@ -182,47 +193,46 @@ const SubmissionTeamDashboardPage = props => {
                     return res.json()
                 }
             })
-            // .then(res => res.json())
             .then(resJSON => {
                 console.log(resJSON);
                 setModalAction(true)
-                setModalBody(`Submission ${resJSON['message']}`)
+                setModalBody(`Submission Success`)
             })
     }
 
     return (
         <PrivatePage whitelistKey={["ROLE_USER"]}>
-            {
-                formState.CompetitionGroupID === 1 ?
-                    <FirstCategory handleFormChange={handleFormChange} formState={formState}
-                                       setFormState={setFormState}
-                                       setModalBody={setModalBody} setModalAction={setModalAction}
-                                       setModalOpen={setModalOpen}
-                                       submit={submit} useStyles={useStyles} cid={cid}/>
-                    : null
-            }
+            {formState.CompetitionID === 1 ?
+                <LDKRSA handleFormChange={handleFormChange} formState={formState} setFormState={setFormState}
+                        setModalBody={setModalBody} setModalAction={setModalAction} setModalOpen={setModalOpen}
+                        submit={submit} useStyles={useStyles}/>
+                : null}
 
-            {
-                formState.CompetitionGroupID === 2 ?
-                    <SecondCategory handleFormChange={handleFormChange} formState={formState}
-                                    setFormState={setFormState}
-                                    setModalBody={setModalBody} setModalAction={setModalAction}
-                                    setModalOpen={setModalOpen}
-                                    submit={submit} useStyles={useStyles}/> : null
-            }
+            {formState.CompetitionID === 2 ?
+                <LDIKAA handleFormChange={handleFormChange} formState={formState} setFormState={setFormState}
+                        setModalBody={setModalBody} setModalAction={setModalAction} setModalOpen={setModalOpen}
+                        submit={submit} useStyles={useStyles}/>
+                : null}
 
-            {
-                formState.CompetitionGroupID === 3 ?
-                    <ThirdCategory handleFormChange={handleFormChange} formState={formState} setFormState={setFormState}
-                                   setModalBody={setModalBody} setModalAction={setModalAction}
-                                   setModalOpen={setModalOpen}
-                                   submit={submit} useStyles={useStyles}/> : null
-            }
+            {formState.CompetitionID === 3 ?
+                <LRLRAKRE handleFormChange={handleFormChange} formState={formState} setFormState={setFormState}
+                        setModalBody={setModalBody} setModalAction={setModalAction} setModalOpen={setModalOpen}
+                        submit={submit} useStyles={useStyles}/>
+                : null}
+
+
+            {formState.CompetitionGroupID === 2 ?
+                <SecondCategory handleFormChange={handleFormChange} formState={formState} setFormState={setFormState}
+                                setModalBody={setModalBody} setModalAction={setModalAction} setModalOpen={setModalOpen}
+                                submit={submit} useStyles={useStyles}/>
+                : null}
+
 
             <ConfirmationModal displayAction={modalAction} textBody={modalBody} open={modalOpen}
                                setOpen={setModalOpen}/>
         </PrivatePage>
     )
+
 }
 
-export default SubmissionTeamDashboardPage;
+export default DashboardTeamSecondSubmission;

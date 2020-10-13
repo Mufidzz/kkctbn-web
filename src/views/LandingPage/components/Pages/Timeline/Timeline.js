@@ -82,22 +82,22 @@ const timelineLperf = [
     },
     {
         Date : "11-12 September 2020",
-        Title : "Seleksi 10 Besar Kontes FERC, ERC, ASV ",
+        Title : "Seleksi 15 Besar Kontes FERC, ERC, ASV ",
     },
     {
         Date : "14 September 2020",
-        Title : "Pengumuman Seleksi 10 Besar Kontes FERC, ERC, ASV",
+        Title : "Pengumuman Seleksi 15 Besar Kontes FERC, ERC, ASV",
     },
     {
-        Date : "15 September – 14 Oktober 2020",
+        Date : "15 September – 17 Oktober 2020",
         Title : "Pembuatan Kapal dan video Kontes FERC, ERC, ASV",
     },
     {
-        Date : "14-16 Oktober 2020",
+        Date : "18-20 Oktober 2020",
         Title : "Seleksi Finalis 5 Besar Kontes FERC, ERC, ASV",
     },
     {
-        Date : "19 Oktober 2020",
+        Date : "22 Oktober 2020",
         Title : "Pengumuman Finalis 5 Besar Kontes FERC, ERC, ASV",
     },
     {

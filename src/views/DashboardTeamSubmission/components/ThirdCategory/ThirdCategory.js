@@ -36,8 +36,27 @@ const ThirdCategory = props => {
                                 placeholder={"Masukkan Judul Inovasi"} fullWidth
                             />
                         </Grid>
+
+                        <Grid item md={10} sm={12} xs={12}>
+                            <TextField
+                                onChange={handleFormChange}
+                                value={formState.MediaURL}
+                                name="MediaURL"
+                                className={classes.margin}
+                                label="URL Google Drive"
+                                required
+                                variant="filled"
+                                placeholder={"Masukkan URL Google Drive."}
+                                fullWidth
+                            />
+                        </Grid>
+
                         <Grid item md={12} sm={12} xs={12}>
                             <hr width={"100%"}/>
+                        </Grid>
+
+                        <Grid item md={12} sm={12} xs={12}>
+                            <Typography variant={"caption"}> Pastikan URL Google Drive dapat didownload tanpa meminta izin </Typography>
                         </Grid>
 
                         {/*{*/}
@@ -58,59 +77,59 @@ const ThirdCategory = props => {
                         {/*}*/}
 
 
-                        <Grid item md={12} sm={12} xs={12}>
-                            <Typography variant={'body2'} style={{marginTop: 10}}>File Poster* (pdf) 10MB
-                                Max</Typography>
-                        </Grid>
+                        {/*<Grid item md={12} sm={12} xs={12}>*/}
+                        {/*    <Typography variant={'body2'} style={{marginTop: 10}}>File Poster* (pdf) 10MB*/}
+                        {/*        Max</Typography>*/}
+                        {/*</Grid>*/}
 
-                        <Grid item md={2} sm={6} xs={6}>
-                            <FileInputComponent
-                                parentStyle={{margin: "0 !important"}}
-                                labelText={"Current : -"}
-                                labelStyle={{display: "none"}}
-                                buttonComponent={
-                                    <Button fullWidth variant="contained" component="span"
-                                            className={classes.containedOrange}>
-                                        {formState.Assignment.OriginFileName !== "" ? "Reupload" : "Upload"}
-                                    </Button>
-                                }
-                                multiple={false}
-                                imagePreview={false}
-                                callbackFunction={(fileMeta) => {
-                                    if (fileMeta['size'] > 10240) {
-                                        setModalBody(`Ukuran File Terlalu Besar`)
-                                        setModalAction(true)
-                                        setModalOpen(true)
-                                    } else {
-                                        setFormState({
-                                            ...formState,
-                                            Assignment: {
-                                                ...formState.Assignment,
-                                                OriginFileName: fileMeta['name'],
-                                                Base: fileMeta['base64']
-                                            }
-                                        })
-                                    }
-                                }}
-                                accept="application/pdf"
-                            />
-                        </Grid>
+                        {/*<Grid item md={2} sm={6} xs={6}>*/}
+                        {/*    <FileInputComponent*/}
+                        {/*        parentStyle={{margin: "0 !important"}}*/}
+                        {/*        labelText={"Current : -"}*/}
+                        {/*        labelStyle={{display: "none"}}*/}
+                        {/*        buttonComponent={*/}
+                        {/*            <Button fullWidth variant="contained" component="span"*/}
+                        {/*                    className={classes.containedOrange}>*/}
+                        {/*                {formState.Assignment.OriginFileName !== "" ? "Reupload" : "Upload"}*/}
+                        {/*            </Button>*/}
+                        {/*        }*/}
+                        {/*        multiple={false}*/}
+                        {/*        imagePreview={false}*/}
+                        {/*        callbackFunction={(fileMeta) => {*/}
+                        {/*            if (fileMeta['size'] > 10240) {*/}
+                        {/*                setModalBody(`Ukuran File Terlalu Besar`)*/}
+                        {/*                setModalAction(true)*/}
+                        {/*                setModalOpen(true)*/}
+                        {/*            } else {*/}
+                        {/*                setFormState({*/}
+                        {/*                    ...formState,*/}
+                        {/*                    Assignment: {*/}
+                        {/*                        ...formState.Assignment,*/}
+                        {/*                        OriginFileName: fileMeta['name'],*/}
+                        {/*                        Base: fileMeta['base64']*/}
+                        {/*                    }*/}
+                        {/*                })*/}
+                        {/*            }*/}
+                        {/*        }}*/}
+                        {/*        accept="application/pdf"*/}
+                        {/*    />*/}
+                        {/*</Grid>*/}
 
-                        <Grid item md={2} sm={6} xs={6}>
-                            <Button fullWidth variant="contained" component="span" className={classes.containedTeal}
-                                    onClick={() => {
-                                        window.open(ENDPOINT.SUBMISSION + formState.Assignment.ID + "/download", '_blank')
-                                    }}>
-                                Download
-                            </Button>
-                        </Grid>
+                        {/*<Grid item md={2} sm={6} xs={6}>*/}
+                        {/*    <Button fullWidth variant="contained" component="span" className={classes.containedTeal}*/}
+                        {/*            onClick={() => {*/}
+                        {/*                window.open(ENDPOINT.SUBMISSION + formState.Assignment.ID + "/download", '_blank')*/}
+                        {/*            }}>*/}
+                        {/*        Download*/}
+                        {/*    </Button>*/}
+                        {/*</Grid>*/}
 
-                        <Grid item md={12} sm={12} xs={12} style={{marginTop: 10}}>
-                            <Typography variant={'caption'} style={{marginBottom: 10}}>
-                                Current
-                                : {formState.Assignment.OriginFileName !== "" ? formState.Assignment.OriginFileName : '-'}
-                            </Typography>
-                        </Grid>
+                        {/*<Grid item md={12} sm={12} xs={12} style={{marginTop: 10}}>*/}
+                        {/*    <Typography variant={'caption'} style={{marginBottom: 10}}>*/}
+                        {/*        Current*/}
+                        {/*        : {formState.Assignment.OriginFileName !== "" ? formState.Assignment.OriginFileName : '-'}*/}
+                        {/*    </Typography>*/}
+                        {/*</Grid>*/}
 
                         <Grid item container md={12} sm={12} xs={12} justify={"flex-end"} style={{marginTop: 10}}>
                             <Grid item md={6} sm={12} xs={12}>

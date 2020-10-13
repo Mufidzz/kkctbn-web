@@ -134,13 +134,13 @@ const Landing = props => {
                                 </Typography>
                             </Grid>
                         </Grid>
-                        <Grid item container md={12}>
-                            <Grid item md={3} sm={12} xs={12}>
-                                <Button component={Link} to={'/auth/register'} fullWidth variant="contained" className={classes.roundedButton}>
-                                    <Typography variant={"button"}> Daftar </Typography>
-                                </Button>
-                            </Grid>
-                        </Grid>
+                        {/*<Grid item container md={12}>*/}
+                        {/*    <Grid item md={3} sm={12} xs={12}>*/}
+                        {/*        <Button component={Link} to={'/auth/register'} fullWidth variant="contained" className={classes.roundedButton}>*/}
+                        {/*            <Typography variant={"button"}> Daftar </Typography>*/}
+                        {/*        </Button>*/}
+                        {/*    </Grid>*/}
+                        {/*</Grid>*/}
                     </Grid>
                 </Grid>
             </Grid>

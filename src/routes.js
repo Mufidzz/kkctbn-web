@@ -1,6 +1,7 @@
 import React, {lazy} from "react"
 import DashboardLayout from "./layouts/DashboardLayout";
 import AuthorizationPage from "./views/AuthorizationPage";
+import SecondGuidePage from "./views/SecondGuidePage/SecondGuidePage";
 
 const routes = [
     {
@@ -22,6 +23,11 @@ const routes = [
         path: "/auth/register",
         exact: true,
         component : () => <AuthorizationPage aR={"register"}/>
+    },
+    {
+        path: "/download-tahap-2",
+        exact: true,
+        component : lazy(() => import("./views/SecondGuidePage"))
     },
     {
         path: "/news/:nid",
@@ -61,6 +67,11 @@ const routes = [
                 path: "/dashboard/team/submission/:cid",
                 exact: true,
                 component: lazy(() => import("./views/DashboardTeamSubmission"))
+            },
+            {
+                path: "/dashboard/team/second-submission/:cid",
+                exact: true,
+                component: lazy(() => import("./views/DashboardTeamSecondSubmission"))
             },
             {
                 path: "/dashboard/information",
