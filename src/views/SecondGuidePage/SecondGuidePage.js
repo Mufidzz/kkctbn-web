@@ -14,6 +14,7 @@ import {ENDPOINT} from "../../configs/api";
 
 import Panduan from "./Panduan.pdf"
 import Pengumuman from "./Pengumuman.pdf"
+import PengumumanPeserta from "./Pengumuman Peserta.pdf"
 
 const useStyles = makeStyles((theme) => ({
     footer: {
@@ -65,6 +66,14 @@ const SecondGuidePage = props => {
             <Grid container justify={"center"}>
                 <Grid item container justify={"center"} md={12} xs={12} sm={12}>
                     {isMobile ? <MobileAppBar/> : <LandingAppBar/>}
+
+                    <Grid item md={10} sm={11} xs={11} style={{minHeight: `calc(100vh - 110px - ${height.footer}px)`, paddingBottom: 5,marginTop: 110, "wordWrap": "break-word"}}>
+                        <Typography variant={"h4"} > <b> Download Pengumuman Peserta </b> </Typography>
+                        <Typography variant={"h6"}> Pengumuman Peserta KKCTBN 2020 </Typography>
+                        <hr width="100%" color="#CF2424" style={{margin: "5px 0px 25px 0px"}}/>
+
+                        <iframe width='100%' src={PengumumanPeserta} style={{height: "100vh"}}/>
+                    </Grid>
 
                     <Grid item md={10} sm={11} xs={11} style={{minHeight: `calc(100vh - 110px - ${height.footer}px)`, paddingBottom: 5,marginTop: 110, "wordWrap": "break-word"}}>
                         <Typography variant={"h4"} > <b> Download Panduan Tahap 2 </b> </Typography>

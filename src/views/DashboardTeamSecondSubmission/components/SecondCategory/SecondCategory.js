@@ -85,7 +85,7 @@ const SecondCategory = props => {
 
                             <Grid item container md={12} sm={12} xs={12} justify={"flex-end"} style={{marginTop: 10}}>
                                 <Grid item md={6} sm={12} xs={12}>
-                                    <Button onClick={submit} fullWidth variant={"contained"} size={"large"}
+                                    <Button disabled fullWidth variant={"contained"} size={"large"}
                                             color={'primary'} endIcon={<SendIcon/>}>
                                         Submit
                                     </Button>
