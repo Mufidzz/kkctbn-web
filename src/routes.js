@@ -15,6 +15,11 @@ const routes = [
         component : lazy(() => import("./views/NewsPage"))
     },
     {
+        path: "/live-rank",
+        exact: true,
+        component : lazy(() => import("./views/RankPage"))
+    },
+    {
         path: "/auth",
         exact: true,
         component : lazy(() => import("./views/AuthorizationPage"))
